@@ -5,6 +5,7 @@ import expressLayout from "express-ejs-layouts";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import flush from 'connect-flash';
 config();
 
 import mainRouter  from './server/routes/main.routes.js'
@@ -18,12 +19,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(methodOverride("_method"));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB
+  }),
+  cookie: { maxAge: 24 * 60 * 60 * 1000 } 
+}));
 
 app.use(express.static("public"));
 app.use(expressLayout);
 app.set("layout", "./layouts/main");
 app.set("view engine", "ejs");
 
+app.use(flush());
 app.use(morgan("dev"));
 app.use('',mainRouter);
 app.use('*',errorRouter);
