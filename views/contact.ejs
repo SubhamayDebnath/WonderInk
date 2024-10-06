@@ -1,0 +1,26 @@
+    <section class="py-5">
+        <div class="m-2 p-4 flex items-center justify-center rounded bg-red-600/20 border border-red-500">
+            <p>Currently, Form is not working💀. I will fix it soon.😇</p>
+        </div>
+        <form action="" class="max-w-md w-full mx-auto p-2">
+            <div class="flex flex-col gap-0.5 mb-3">
+                <label for="fullname" class="text-sm font-medium text-white">Full Name <span class="text-red-500">*</span></label>
+                <input type="text" name="fullname" id="fullname" placeholder="Enter your full name" class="w-full md:h-10 h-12 border-none outline-none bg-neutral-700 rounded px-2 text-white placeholder:text-sm" required>
+            </div>
+            <div class="flex flex-col gap-0.5 mb-3">
+                <label for="email" class="text-sm font-medium text-white">Email <span class="text-red-500">*</span></label>
+                <input type="email" name="email" id="email" placeholder="Enter your full email" class="w-full md:h-10 h-12 border-none outline-none bg-neutral-700 rounded px-2 text-white placeholder:text-sm" required>
+            </div>
+            <div class="flex flex-col gap-0.5 mb-3">
+                <label for="website" class="text-sm font-medium text-white">Website</label>
+                <input type="url" name="website" id="website" placeholder="Enter your website url" class="w-full md:h-10 h-12 border-none outline-none bg-neutral-700 rounded px-2 text-white placeholder:text-sm">
+            </div>
+            <div class="flex flex-col gap-0.5 mb-3">
+                <label for="message" class="text-sm font-medium text-white">Message <span class="text-red-500">*</span></label>
+                <textarea name="message" id="message"  rows="6" placeholder="Type your message" required class="w-full border-none outline-none bg-neutral-700 rounded p-2 text-white placeholder:text-sm"></textarea>
+            </div>
+            <div class="w-full">
+                <button type="submit" class="w-full md:h-10 h-12 rounded border-none font-medium tracking-wider text-white  bg-indigo-600 transition-colors duration-200 ease-in-out hover:bg-indigo-500">Submit</button>
+            </div>
+        </form>
+    </section>
