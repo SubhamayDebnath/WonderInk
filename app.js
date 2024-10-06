@@ -1,17 +1,34 @@
 import express from "express";
 import morgan from "morgan";
 import { config } from "dotenv";
+import expressLayout from "express-ejs-layouts";
+import methodOverride from "method-override";
+import cookieParser from "cookie-parser";
+import session from "express-session";
 config();
 
-const app=express();
-const PORT=process.env.PORT;
+import mainRouter  from './server/routes/main.routes.js'
+import errorRouter from './server/routes/error.routes.js'
+import errorMiddleware from "./server/middlewares/error.middleware.js";
 
+const app = express();
+const PORT = process.env.PORT;
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
+app.use(methodOverride("_method"));
+
+app.use(express.static("public"));
+app.use(expressLayout);
+app.set("layout", "./layouts/main");
+app.set("view engine", "ejs");
 
 app.use(morgan("dev"));
-app.use("*", (req, res) => {
-    res.status(404).send("OOPS ! 404 page not found :(");
-});
+app.use('',mainRouter);
+app.use('*',errorRouter);
+
+app.use(errorMiddleware);
 app.listen(PORT, async () => {
-    console.log(`server is running on port http://localhost:${PORT}`);
+  console.log(`server is running on port http://localhost:${PORT}`);
 });
-  

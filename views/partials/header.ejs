@@ -1,0 +1,86 @@
+    <header class="flex items-center justify-center h-16">
+        <nav class="max-w-3xl w-full px-4 flex items-center justify-between gap-5">
+            <a href="search.html" class="text-3xl font-bold text-white">WanderInk</a>
+            <button
+            class="menu-icon relative h-8 w-8 border border-neutral-700 rounded md:hidden flex items-center justify-center"
+            title="Menu Icon"
+            data-nav-toggler
+            >
+            <div
+                class="line absolute w-6 h-[2px] rounded duration-200 transition-transform ease-in-out bg-white"
+            ></div>
+            <div
+                class="line absolute w-6 h-[2px] rounded duration-200 transition-transform ease-in-out bg-white"
+            ></div>
+            <div
+                class="line absolute w-6 h-[2px] rounded duration-200 transition-transform ease-in-out bg-white"
+            ></div>
+            </button>
+            <div
+            class="menu absolute md:relative md:top-0 top-16 right-0 left-0 flex md:flex-row flex-col items-center justify-between w-full md:duration-0 md:transition-none duration-200 transition-opacity ease-in-out"
+            >
+            <div
+                class="flex md:flex-row flex-col justify-between w-full md:px-0 px-4 md:pb-0 pb-8 md:bg-transparent bg-neutral-950"
+            >
+                <div
+                class="flex md:items-center md:flex-row flex-col md:mb-0 mb-3 gap-1"
+                >
+                <a
+                    href="index.html"
+                    class="nav-link text-xl md:text-base font-medium px-1.5 py-1 rounded hover:text-white hover:bg-neutral-700 transition-colors duration-200 ease-in-out active"
+                    >Home</a
+                >
+                <a
+                    href="categories.html"
+                    class="nav-link text-xl md:text-base font-medium px-1.5 py-1 rounded hover:text-white hover:bg-neutral-700 transition-colors duration-200 ease-in-out"
+                    >Categories</a
+                >
+                <a
+                    href="about.html"
+                    class="nav-link text-xl md:text-base font-medium px-1.5 py-1 rounded hover:text-white hover:bg-neutral-700 transition-colors duration-200 ease-in-out"
+                    >About</a
+                >
+                <a
+                    href="contact.html"
+                    class="nav-link text-xl md:text-base font-medium px-1.5 py-1 rounded hover:text-white hover:bg-neutral-700 transition-colors duration-200 ease-in-out"
+                    >Contact</a
+                >
+                </div>
+                <div>
+                <form
+                    action=""
+                    class="h-11 md:h-8 w-full flex items-center rounded overflow-hidden bg-neutral-700"
+                >
+                    <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    class="outline-none border-none bg-transparent h-full w-full ps-2 text-white placeholder:text-sm"
+                    placeholder="Start typing...."
+                    />
+                    <button
+                    class="h-11 w-11 md:h-8 md:w-8 flex items-center justify-center outline-none border-none"
+                    title="Search"
+                    >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="md:size-5 size-6"
+                    >
+                        <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                        />
+                    </svg>
+                    </button>
+                </form>
+                </div>
+            </div>
+            <div class="overlay h-full bg-black/50 w-full" data-nav-toggler></div>
+            </div>
+        </nav>
+    </header>
