@@ -48,3 +48,19 @@ This project requires the following Node.js packages:
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/yourusername/wonderink.git
+2. **Navigate to the project directory**:
+   ```bash
+   cd wonderink
+3. **Install the dependencies**:
+   ```bash
+   npm install
+5. **Run the application**:
+   ```bash
+   npm start
+6. **Open your browser and go to**:
+   ```arduino
+   http://localhost:3000
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
