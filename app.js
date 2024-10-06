@@ -6,11 +6,13 @@ import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import flush from 'connect-flash';
+import MongoStore from "connect-mongo";
 config();
 
 import mainRouter  from './server/routes/main.routes.js'
 import errorRouter from './server/routes/error.routes.js'
-import errorMiddleware from "./server/middlewares/error.middleware.js";
+import authRouter from './server/routes/auth.routes.js'
+
 
 const app = express();
 const PORT = process.env.PORT;
@@ -37,9 +39,9 @@ app.set("view engine", "ejs");
 app.use(flush());
 app.use(morgan("dev"));
 app.use('',mainRouter);
+app.use('',authRouter);
 app.use('*',errorRouter);
 
-app.use(errorMiddleware);
 app.listen(PORT, async () => {
   console.log(`server is running on port http://localhost:${PORT}`);
 });
