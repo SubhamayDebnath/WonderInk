@@ -43,7 +43,7 @@ const register = async (req, res, next) => {
       username,
       fullName,
       email,
-      hashPassword,
+      password:hashPassword,
       avatar: {
         public_id: email,
         secure_url:
