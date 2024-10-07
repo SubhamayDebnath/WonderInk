@@ -11,7 +11,7 @@ const homePage = async (req, res, next) => {
     };
     res.render("index", { metaData });
   } catch (error) {
-    console.error("Error handling 404:", error);
+    console.error("Homepage: ", error);
     res.status(500).json({
       message: "An unexpected error occurred. Please try again later.",
     });
@@ -32,7 +32,7 @@ const categoryPage = async (req, res, next) => {
     };
     res.render("categories", { metaData });
   } catch (error) {
-    console.error("Error handling 404:", error);
+    console.error("Category Page: ", error);
     res.status(500).json({
       message: "An unexpected error occurred. Please try again later.",
     });
@@ -53,7 +53,7 @@ const aboutPage = async (req, res, next) => {
     };
     res.render("about", { metaData });
   } catch (error) {
-    console.error("Error handling 404:", error);
+    console.error("About page: ", error);
     res.status(500).json({
       message: "An unexpected error occurred. Please try again later.",
     });
@@ -74,7 +74,7 @@ const contactPage = async (req, res, next) => {
     };
     res.render("contact", { metaData });
   } catch (error) {
-    console.error("Error handling 404:", error);
+    console.error("Contact page: ", error);
     res.status(500).json({
       message: "An unexpected error occurred. Please try again later.",
     });

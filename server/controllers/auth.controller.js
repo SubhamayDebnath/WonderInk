@@ -22,7 +22,7 @@ const registerPage = async (req, res) => {
     };
     res.render("auth/register", { metaData, layout: authenticationLayout });
   } catch (error) {
-    console.error("Error handling 404:", error);
+    console.error("Register Page: ", error);
     res.status(500).json({
       message: "An unexpected error occurred. Please try again later.",
     });
@@ -56,7 +56,7 @@ const register = async (req, res, next) => {
     await user.save();
     res.redirect("/activation");
   } catch (error) {
-    console.error("Error handling 404:", error);
+    console.error("Register Logic: ", error);
     res.status(500).json({
       message: "An unexpected error occurred. Please try again later.",
     });
@@ -74,10 +74,25 @@ const loginPage = async (req, res) => {
     };
     res.render("auth/login", { metaData, layout: authenticationLayout });
   } catch (error) {
-    console.error("Error handling 404:", error);
+    console.error("Login Page: ", error);
     res.status(500).json({
       message: "An unexpected error occurred. Please try again later.",
     });
   }
 };
+
+const login=async (req,res,next) => {
+  try {
+    const metaData = {
+      title: "Login account - WonderInk",
+      description: "Welcome to Login - WonderInk",
+    };
+    res.render("auth/login", { metaData, layout: authenticationLayout });
+  } catch (error) {
+    console.error("Login Logic: ", error);
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
+  }
+}
 export { registerPage, loginPage, register };

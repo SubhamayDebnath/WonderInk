@@ -32,7 +32,7 @@ const accountActivation = (req, res) => {
     };
     res.status(401).render("utils/activation", { metaData, layout: utilsLayout });
   } catch (error) {
-    console.error("Error handling 404:", error);
+    console.error("Account Activation: ", error);
     res.status(500).json({
       message: "An unexpected error occurred. Please try again later.",
     });
