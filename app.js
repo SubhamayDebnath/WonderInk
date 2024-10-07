@@ -41,7 +41,7 @@ app.use(flush());
 app.use(morgan("dev"));
 app.use('',mainRouter);
 app.use('',authRouter);
-app.use('*',errorRouter);
+app.use('',errorRouter);
 
 app.listen(PORT, async () => {
   DBConnection();

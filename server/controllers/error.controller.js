@@ -1,5 +1,4 @@
 const utilsLayout = "../views/layouts/utils";
-
 /* 
 
  Error Page

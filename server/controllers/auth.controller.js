@@ -54,7 +54,7 @@ const register = async (req, res, next) => {
       return res.status(400).json({ message: "Failed to create user" });
     }
     await user.save();
-    res.redirect("/account/activation");
+    res.redirect("/activation");
   } catch (error) {
     console.error("Error handling 404:", error);
     res.status(500).json({
