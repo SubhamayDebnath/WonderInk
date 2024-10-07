@@ -1,17 +1,27 @@
+const utilsLayout = "../views/layouts/utils";
 const fourZeroFour = (req, res) => {
   try {
-    res.status(404).send(`
-            <h1>404 - Page Not Found</h1>
-            <p>The page you are looking for does not exist.</p>
-            <br>
-            <a href="/">Back to Home</a>
-        `);
+    const metaData = {
+      title: "ERROR 404 - WonderInk",
+      description: "ERROR 404 - WonderInk",
+    };
+    res.render("utils/FourZeroFour", { metaData, layout: utilsLayout });
   } catch (error) {
     console.error("Error handling 404:", error);
-    res
-      .status(500)
-      .send("An unexpected error occurred. Please try again later.");
+    res.status(500).json({message:"An unexpected error occurred. Please try again later."});
   }
 };
+const accountActivation=(req,res)=>{
+  try {
+    const metaData = {
+      title: "Account Activation Required - WonderInk",
+      description: "Account Activation Required - WonderInk",
+    };
+    res.render("utils/activation", { metaData, layout: utilsLayout });
+  } catch (error) {
+    console.error("Error handling 404:", error);
+    res.status(500).json({message:"An unexpected error occurred. Please try again later."});
+  }
+}
 
-export default fourZeroFour;
+export {fourZeroFour,accountActivation};

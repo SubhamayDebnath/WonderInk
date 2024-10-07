@@ -1,4 +1,14 @@
+import User from "../models/user.model.js";
+import { config } from "dotenv";
+config();
 const authenticationLayout = "../views/layouts/authentication";
+const jwtSecret = process.env.JWT_SECRET;
+console.log(jwtSecret);
+const cookieOption = {
+  maxAge: 24 * 60 * 60 * 1000,
+  httpOnly: true,
+  secure: true,
+};
 //register
 const registerPage = async (req, res) => {
   try {
@@ -11,18 +21,46 @@ const registerPage = async (req, res) => {
     console.error("Error handling 404:", error);
     res
       .status(500)
-      .send("An unexpected error occurred. Please try again later.");
+      .json({
+        message: "An unexpected error occurred. Please try again later.",
+      });
   }
 };
-const register=async(req,res,next)=>{
-    try {
-        console.log(req.body);
-        
-    } catch (error) {
-        console.error("Error handling 404:", error);
-        res.status(500).send("An unexpected error occurred. Please try again later.");
+const register = async (req, res, next) => {
+  try {
+    const { username, fullName, email, password } = req.body;
+    if (!username || !fullName || !email || !password) {
+      return res.status(400).json({ message: "Please fill in all fields" });
     }
-}
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already in use" });
+    }
+    const hashPassword = await bcrypt.hash(password, 10);
+    const user=await User.create({
+      username,
+      fullName,
+      email,
+      hashPassword,
+      avatar:{
+        public_id:email,
+        secure_url:'https://res.cloudinary.com/ds7sd75xu/image/upload/v1728318598/user-image_dskmhx.avif'
+      }
+    });
+    if(!user){
+      return res.status(400).json({ message: "Failed to create user" });
+    }
+    await user.save();
+    res.redirect("/auth/login");
+  } catch (error) {
+    console.error("Error handling 404:", error);
+    res
+      .status(500)
+      .json({
+        message: "An unexpected error occurred. Please try again later.",
+      });
+  }
+};
 // login
 const loginPage = async (req, res) => {
   try {
@@ -35,7 +73,9 @@ const loginPage = async (req, res) => {
     console.error("Error handling 404:", error);
     res
       .status(500)
-      .send("An unexpected error occurred. Please try again later.");
+      .json({
+        message: "An unexpected error occurred. Please try again later.",
+      });
   }
 };
-export { registerPage, loginPage ,register};
+export { registerPage, loginPage, register };
