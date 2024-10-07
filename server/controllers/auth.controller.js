@@ -9,7 +9,11 @@ const cookieOption = {
   httpOnly: true,
   secure: true,
 };
-//register
+
+/* 
+  Register
+
+*/
 const registerPage = async (req, res) => {
   try {
     const metaData = {
@@ -19,11 +23,9 @@ const registerPage = async (req, res) => {
     res.render("auth/register", { metaData, layout: authenticationLayout });
   } catch (error) {
     console.error("Error handling 404:", error);
-    res
-      .status(500)
-      .json({
-        message: "An unexpected error occurred. Please try again later.",
-      });
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
 };
 const register = async (req, res, next) => {
@@ -37,31 +39,33 @@ const register = async (req, res, next) => {
       return res.status(400).json({ message: "Email already in use" });
     }
     const hashPassword = await bcrypt.hash(password, 10);
-    const user=await User.create({
+    const user = await User.create({
       username,
       fullName,
       email,
       hashPassword,
-      avatar:{
-        public_id:email,
-        secure_url:'https://res.cloudinary.com/ds7sd75xu/image/upload/v1728318598/user-image_dskmhx.avif'
-      }
+      avatar: {
+        public_id: email,
+        secure_url:
+          "https://res.cloudinary.com/ds7sd75xu/image/upload/v1728318598/user-image_dskmhx.avif",
+      },
     });
-    if(!user){
+    if (!user) {
       return res.status(400).json({ message: "Failed to create user" });
     }
     await user.save();
     res.redirect("/auth/login");
   } catch (error) {
     console.error("Error handling 404:", error);
-    res
-      .status(500)
-      .json({
-        message: "An unexpected error occurred. Please try again later.",
-      });
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
 };
-// login
+/* 
+  Login
+
+*/
 const loginPage = async (req, res) => {
   try {
     const metaData = {
@@ -71,11 +75,9 @@ const loginPage = async (req, res) => {
     res.render("auth/login", { metaData, layout: authenticationLayout });
   } catch (error) {
     console.error("Error handling 404:", error);
-    res
-      .status(500)
-      .json({
-        message: "An unexpected error occurred. Please try again later.",
-      });
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
 };
 export { registerPage, loginPage, register };

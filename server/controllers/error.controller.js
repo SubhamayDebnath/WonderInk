@@ -1,4 +1,10 @@
 const utilsLayout = "../views/layouts/utils";
+
+/* 
+
+ Error Page
+
+*/
 const fourZeroFour = (req, res) => {
   try {
     const metaData = {
@@ -8,10 +14,18 @@ const fourZeroFour = (req, res) => {
     res.render("utils/FourZeroFour", { metaData, layout: utilsLayout });
   } catch (error) {
     console.error("Error handling 404:", error);
-    res.status(500).json({message:"An unexpected error occurred. Please try again later."});
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
 };
-const accountActivation=(req,res)=>{
+
+/* 
+
+ Activation Page
+
+*/
+const accountActivation = (req, res) => {
   try {
     const metaData = {
       title: "Account Activation Required - WonderInk",
@@ -20,8 +34,10 @@ const accountActivation=(req,res)=>{
     res.render("utils/activation", { metaData, layout: utilsLayout });
   } catch (error) {
     console.error("Error handling 404:", error);
-    res.status(500).json({message:"An unexpected error occurred. Please try again later."});
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
-}
+};
 
-export {fourZeroFour,accountActivation};
+export { fourZeroFour, accountActivation };

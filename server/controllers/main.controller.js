@@ -1,4 +1,8 @@
-// render homepage
+/* 
+
+ Homepage
+
+*/
 const homePage = async (req, res, next) => {
   try {
     const metaData = {
@@ -8,12 +12,17 @@ const homePage = async (req, res, next) => {
     res.render("index", { metaData });
   } catch (error) {
     console.error("Error handling 404:", error);
-    res
-      .status(500)
-      .send("An unexpected error occurred. Please try again later.");
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
 };
-// render About Page
+
+/* 
+
+ Category Page
+
+*/
 
 const categoryPage = async (req, res, next) => {
   try {
@@ -24,11 +33,18 @@ const categoryPage = async (req, res, next) => {
     res.render("categories", { metaData });
   } catch (error) {
     console.error("Error handling 404:", error);
-    res
-      .status(500)
-      .send("An unexpected error occurred. Please try again later.");
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
 };
+
+/* 
+
+ About Page
+
+*/
+
 const aboutPage = async (req, res, next) => {
   try {
     const metaData = {
@@ -38,11 +54,18 @@ const aboutPage = async (req, res, next) => {
     res.render("about", { metaData });
   } catch (error) {
     console.error("Error handling 404:", error);
-    res
-      .status(500)
-      .send("An unexpected error occurred. Please try again later.");
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
 };
+
+/* 
+
+ Contact Page
+
+*/
+
 const contactPage = async (req, res, next) => {
   try {
     const metaData = {
@@ -52,9 +75,9 @@ const contactPage = async (req, res, next) => {
     res.render("contact", { metaData });
   } catch (error) {
     console.error("Error handling 404:", error);
-    res
-      .status(500)
-      .send("An unexpected error occurred. Please try again later.");
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
 };
 export { homePage, categoryPage, aboutPage, contactPage };
