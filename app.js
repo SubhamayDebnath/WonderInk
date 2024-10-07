@@ -12,6 +12,7 @@ config();
 import mainRouter  from './server/routes/main.routes.js'
 import errorRouter from './server/routes/error.routes.js'
 import authRouter from './server/routes/auth.routes.js'
+import DBConnection from "./server/config/DBConnection.js";
 
 
 const app = express();
@@ -43,5 +44,6 @@ app.use('',authRouter);
 app.use('*',errorRouter);
 
 app.listen(PORT, async () => {
+  DBConnection();
   console.log(`server is running on port http://localhost:${PORT}`);
 });
