@@ -11,7 +11,7 @@ const fourZeroFour = (req, res) => {
       title: "ERROR 404 - WonderInk",
       description: "ERROR 404 - WonderInk",
     };
-    res.render("utils/FourZeroFour", { metaData, layout: utilsLayout });
+    res.status(404).render("utils/FourZeroFour", { metaData, layout: utilsLayout });
   } catch (error) {
     console.error("Error handling 404:", error);
     res.status(500).json({
@@ -31,7 +31,7 @@ const accountActivation = (req, res) => {
       title: "Account Activation Required - WonderInk",
       description: "Account Activation Required - WonderInk",
     };
-    res.render("utils/activation", { metaData, layout: utilsLayout });
+    res.status(401).render("utils/activation", { metaData, layout: utilsLayout });
   } catch (error) {
     console.error("Error handling 404:", error);
     res.status(500).json({

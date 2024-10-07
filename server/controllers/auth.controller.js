@@ -1,9 +1,9 @@
 import User from "../models/user.model.js";
+import bcrypt from "bcrypt";
 import { config } from "dotenv";
 config();
 const authenticationLayout = "../views/layouts/authentication";
 const jwtSecret = process.env.JWT_SECRET;
-console.log(jwtSecret);
 const cookieOption = {
   maxAge: 24 * 60 * 60 * 1000,
   httpOnly: true,
@@ -54,7 +54,7 @@ const register = async (req, res, next) => {
       return res.status(400).json({ message: "Failed to create user" });
     }
     await user.save();
-    res.redirect("/auth/login");
+    res.redirect("/account/activation");
   } catch (error) {
     console.error("Error handling 404:", error);
     res.status(500).json({
