@@ -83,11 +83,17 @@ const loginPage = async (req, res) => {
 
 const login=async (req,res,next) => {
   try {
-    const metaData = {
-      title: "Login account - WonderInk",
-      description: "Welcome to Login - WonderInk",
-    };
-    res.render("auth/login", { metaData, layout: authenticationLayout });
+    const {email,password}=req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "Please fill in all fields" });
+    }
+    const user = await User.findOne({ email }).select("+password");
+    const  isValidPassword = await bcrypt.compare(password, user.password);
+
+    if (!user || !isValidPassword){
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+    console.log(user);
   } catch (error) {
     console.error("Login Logic: ", error);
     res.status(500).json({
@@ -95,4 +101,4 @@ const login=async (req,res,next) => {
     });
   }
 }
-export { registerPage, loginPage, register };
+export { registerPage, loginPage, register,login };

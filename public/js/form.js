@@ -21,6 +21,23 @@ function validateUsername(username) {
   const usernameRegex = /^(?=.*[A-Za-z])[A-Za-z0-9]+$/;
   return usernameRegex.test(username);
 }
+function loginValidateForm(){
+  let email = document.getElementById("loginEmail").value;
+  let password = document.getElementById('loginPassword').value;
+  if (!validateEmail(email)) {
+    showAlert("Please enter a valid email address.");
+    return false;
+  }
+
+  if (!validatePassword(password)) {
+    showAlert(
+      "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+    );
+    return false;
+  }
+
+  return true;
+}
 
 function registerValidateForm() {
   const username = document.getElementById("username").value;
