@@ -8,8 +8,8 @@ function validateEmail(email) {
 }
 
 function validatePassword(password) {
-  const regex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/;
+
   return regex.test(password);
 }
 
@@ -57,7 +57,7 @@ function registerValidateForm() {
 
   if (!validatePassword(password)) {
     showAlert(
-      "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+      "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
     );
     return false;
   }
