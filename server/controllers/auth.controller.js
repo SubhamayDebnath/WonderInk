@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
 import { config } from "dotenv";
 config();
 const authenticationLayout = "../views/layouts/authentication";
@@ -20,7 +21,11 @@ const registerPage = async (req, res) => {
       title: "Create account - WonderInk",
       description: "Welcome to Register - WonderInk",
     };
-    res.render("auth/register", { metaData, layout: authenticationLayout });
+    if(req.cookies.token){
+      res.redirect("/admin/dashboard")
+    }else{
+      res.render("auth/register", { metaData, layout: authenticationLayout });
+    }
   } catch (error) {
     console.error("Register Page: ", error);
     res.status(500).json({
@@ -30,6 +35,7 @@ const registerPage = async (req, res) => {
 };
 const register = async (req, res, next) => {
   try {
+
     const { username, fullName, email, password } = req.body;
     if (!username || !fullName || !email || !password) {
       return res.status(400).json({ message: "Please fill in all fields" });
@@ -72,7 +78,12 @@ const loginPage = async (req, res) => {
       title: "Login account - WonderInk",
       description: "Welcome to Login - WonderInk",
     };
-    res.render("auth/login", { metaData, layout: authenticationLayout });
+    if(req.cookies.token){
+      res.redirect("/admin/dashboard")
+    }else{
+      res.render("auth/login", { metaData, layout: authenticationLayout });
+    }
+    
   } catch (error) {
     console.error("Login Page: ", error);
     res.status(500).json({
@@ -93,7 +104,9 @@ const login=async (req,res,next) => {
     if (!user || !isValidPassword){
       return res.status(401).json({ message: "Invalid email or password" });
     }
-    console.log(user);
+    const token = jwt.sign({ userId: user._id }, jwtSecret);
+    res.cookie("token", token, cookieOption);
+    res.redirect("/admin/dashboard");
   } catch (error) {
     console.error("Login Logic: ", error);
     res.status(500).json({
