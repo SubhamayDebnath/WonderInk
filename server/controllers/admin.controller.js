@@ -1,9 +1,12 @@
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
+import fs from "fs/promises";
+import cloudinary from "../utils/cloudinary.js";
 config();
 
 import User from "../models/user.model.js";
 import Category from "../models/category.model.js";
+import Post from "../models/post.model.js";
 
 const adminLayout = "../views/layouts/admin";
 const jwtSecret = process.env.JWT_SECRET;
@@ -156,11 +159,16 @@ const postPage = async (req, res, next) => {
       title: "All posts - WonderInk",
       description: "Welcome to Dashboard",
     };
+    const { metaDataSession } = req.session;
     const posts = "";
     if (!req.cookies.token) {
       res.redirect("/auth/login");
     } else {
-      res.render("admin/post", { metaData, layout: adminLayout, posts });
+      res.render("admin/post", {
+        metaData: metaDataSession || metaData,
+        layout: adminLayout,
+        posts,
+      });
     }
   } catch (error) {
     console.error("All Posts Page: ", error);
@@ -201,7 +209,63 @@ const addPostPage = async (req, res, next) => {
 
 const addPost = async (req, res, next) => {
   try {
-    console.log(req.body);
+    const { title, content, tags, category, status } = req.body;
+    if (!title || !content || !tags || !category || !status) {
+      return res.status(400).json({ message: "Please fill all fields." });
+    }
+    const parsedTags = JSON.parse(tags);
+    const postTags = parsedTags.map((tag) => tag.value);
+    const decoded = jwt.verify(req.cookies.token, jwtSecret);
+    let image = "";
+    let public_id = "";
+    console.log(postTags);
+    if (!req.file) {
+      return res.status(400).json({ message: "Please upload an image." });
+    }
+    if (req.file) {
+      const transformationOptions = {
+        transformation: [
+          {
+            quality: "auto:low",
+            fetch_format: "avif",
+          },
+        ],
+      };
+
+      const cloudinaryResult = await cloudinary.uploader.upload(
+        req.file.path,
+        transformationOptions
+      );
+      image = cloudinaryResult.secure_url;
+      public_id = cloudinaryResult.public_id;
+      await fs
+        .rm(req.file.path)
+        .then(() =>
+          console.log("File deleted successfully from uploads folder")
+        )
+        .catch((err) => console.error("Error deleting the file:", err));
+    }
+
+    const post = await Post.create({
+      postImage: {
+        public_id: public_id,
+        secure_url: image,
+      },
+      postTitle: title,
+      postContent: content,
+      postTags: postTags,
+      postCategory: category,
+      postStatus: status,
+      author: decoded.userId,
+    });
+    if (!post) {
+      return res.status(400).json({ message: "Failed to add post." });
+    }
+    req.session.metaData = {
+      title: "All posts - WonderInk",
+      description: "Welcome to Dashboard",
+    };
+    res.redirect("/admin/dashboard/add/post");
   } catch (error) {
     console.error("Add Post: ", error);
     res.status(500).json({

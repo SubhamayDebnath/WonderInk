@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
    <section class="py-5 flex justify-center">
         <div class="w-full p-4 border border-neutral-800 bg-neutral-900 rounded">
-            <h1 class="text-2xl font-semibold text-white py-2">Add Category</h1>
-            <form action="/admin/api/v23/add/post" id="postForm" class="flex flex-col gap-5 my-4" method="post">
+            <h1 class="text-2xl font-semibold text-white py-2">Add Post</h1>
+            <form action="/admin/api/v23/add/post" id="postForm" class="flex flex-col gap-5 my-4" method="post" enctype="multipart/form-data">
                 <div class="w-full aspect-video overflow-hidden rounded border border-neutral-700 border-dashed bg-neutral-800 flex items-center justify-center">
                     <img id="formImage" src="" alt="Image Preview" class="hidden w-full h-full object-contain" />
                      <label for="avatar" id="imageLabel" class="h-full w-full flex items-center justify-center">
@@ -26,7 +26,7 @@
                         class="border-none outline-none rounded w-full p-2 bg-transparent text-white placeholder:text-white" required />
                     </div>
                     <div>
-                        <button id="add" class="py-2 px-4 rounded text-white  bg-indigo-600 transition-colors duration-200 ease-in-out hover:bg-indigo-500">Add</button>
+                        <button id="add" class="py-2 px-4 rounded text-white  bg-indigo-600 transition-colors duration-200 ease-in-out hover:bg-indigo-500" type="button">Add</button>
                     </div>
                     </div>
                 <div class="w-fit h-12 flex items-center gap-5 overflow-hidden">
@@ -36,8 +36,8 @@
                         <% }) %>
                     </select>
                     <select name="status" id="status"  class="h-full w-fit bg-neutral-800 text-white border border-neutral-700 rounded overflow-hidden outline-none  px-5">
+                        <option value="DRAFT" selected>Draft</option>
                         <option value="PUBLISH">Publish</option>
-                        <option value="DRAFT">Draft</option>
                     </select>
                 </div>
                 <div>
@@ -79,8 +79,9 @@
             const tags=tagify.value.map(tag=>tag.value);
            
         })
-        document.querySelector("button").addEventListener('click',()=>{
-            console.log("working");
-        })
+        const postForm = document.getElementById('postForm');
+        postForm.addEventListener('submit', (event) => {
+        const submitButton = postForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true;})
     </script>
     <script type="module" src="/js/ckeditor.js"></script>

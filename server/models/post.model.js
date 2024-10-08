@@ -3,8 +3,14 @@ import { Schema, model } from "mongoose";
 const postSchema = new Schema(
   {
     postImage:{
-        type:"String",
-        required: [true, "Post Image is required"],
+        public_id: {
+            type: String,
+            required: true,
+          },
+          secure_url: {
+            type: String,
+            required: true,
+        },
     }
     ,postTitle: {
       type: "String",
