@@ -9,6 +9,7 @@ import {
   addPostPage,
   addPost,
 } from "../controllers/admin.controller.js";
+import upload from "../middlewares/multer.middleware.js";
 const router = express.Router();
 
 router.get("/dashboard", dashboard);
@@ -20,6 +21,6 @@ router.get("/dashboard/add/category", addCategoryPage);
 router.post("/api/v23/add/category", addCategory);
 
 router.get("/dashboard/add/post", addPostPage);
-router.post("/api/v23/add/post", addPost);
+router.post("/api/v23/add/post",upload.single('avatar'), addPost);
 
 export default router;
