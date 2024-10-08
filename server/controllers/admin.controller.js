@@ -210,7 +210,7 @@ const addPostPage = async (req, res, next) => {
 const addPost = async (req, res, next) => {
   try {
     const { title, content, tags, category, status } = req.body;
-    if (!title || !content || !tags || !category || !status) {
+    if (!title || !content || !category || !status) {
       return res.status(400).json({ message: "Please fill all fields." });
     }
     const parsedTags = JSON.parse(tags);
@@ -218,7 +218,6 @@ const addPost = async (req, res, next) => {
     const decoded = jwt.verify(req.cookies.token, jwtSecret);
     let image = "";
     let public_id = "";
-    console.log(postTags);
     if (!req.file) {
       return res.status(400).json({ message: "Please upload an image." });
     }
@@ -253,7 +252,7 @@ const addPost = async (req, res, next) => {
       },
       postTitle: title,
       postContent: content,
-      postTags: postTags,
+      postTags: postTags || [],
       postCategory: category,
       postStatus: status,
       author: decoded.userId,

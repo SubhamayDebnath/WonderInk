@@ -23,14 +23,14 @@
                 <div class="w-full h-full flex items-center gap-3 bg-neutral-800 border border-neutral-700 rounded p-2">
                     <div class="w-full h-full">
                         <input name="tags" placeholder="Add tags" id="tagInput" 
-                        class="border-none outline-none rounded w-full p-2 bg-transparent text-white placeholder:text-white" required />
+                        class="border-none outline-none rounded w-full p-2 bg-transparent text-white placeholder:text-white" />
                     </div>
                     <div>
                         <button id="add" class="py-2 px-4 rounded text-white  bg-indigo-600 transition-colors duration-200 ease-in-out hover:bg-indigo-500" type="button">Add</button>
                     </div>
                     </div>
                 <div class="w-fit h-12 flex items-center gap-5 overflow-hidden">
-                    <select name="category" id="category" class="h-full w-fit capitalize bg-neutral-800 text-white border border-neutral-700 rounded overflow-hidden outline-none  px-5" >
+                    <select name="category" id="category" class="h-full w-fit capitalize bg-neutral-800 text-white border border-neutral-700 rounded overflow-hidden outline-none  px-5" required>
                         <% categories.forEach((data)=>{%>
                             <option value="<%=data.id%>"><%=data.name%></option>
                         <% }) %>

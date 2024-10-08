@@ -31,8 +31,7 @@ const postSchema = new Schema(
     },
     status: {
         type: "String",
-        enum: ['PUBLISH', 'DRAFT'],
-        default: 'DRAFT',
+        enum: ['PUBLISH', 'DRAFT']
     },
     author:{
         type: "String",
