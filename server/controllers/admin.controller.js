@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 config();
 
 import User from "../models/user.model.js";
-import Category from "../models/category.model.js"
+import Category from "../models/category.model.js";
 
 const adminLayout = "../views/layouts/admin";
 const jwtSecret = process.env.JWT_SECRET;
@@ -19,11 +19,17 @@ const dashboard = async (req, res, next) => {
     const numberOfUsers = await User.countDocuments();
     const numberOfCategories = await Category.countDocuments();
     const decoded = jwt.verify(req.cookies.token, jwtSecret);
-    const currentUser=await User.findById(decoded.userId);
+    const currentUser = await User.findById(decoded.userId);
     if (!req.cookies.token) {
       res.redirect("/auth/login");
     } else {
-      res.render("admin/index", { metaData,currentUser, layout: adminLayout ,numberOfUsers,numberOfCategories});
+      res.render("admin/index", {
+        metaData,
+        currentUser,
+        layout: adminLayout,
+        numberOfUsers,
+        numberOfCategories,
+      });
     }
   } catch (error) {
     console.error("Dashboard: ", error);
@@ -42,12 +48,17 @@ const getAllUsers = async (req, res, next) => {
       description: "Welcome to Dashboard",
     };
     const decoded = jwt.verify(req.cookies.token, jwtSecret);
-    const currentUser=await User.findById(decoded.userId);
+    const currentUser = await User.findById(decoded.userId);
     const users = await User.find();
     if (!req.cookies.token) {
       res.redirect("/auth/login");
     } else {
-      res.render("admin/user", { metaData,currentUser, layout: adminLayout, users });
+      res.render("admin/user", {
+        metaData,
+        currentUser,
+        layout: adminLayout,
+        users,
+      });
     }
   } catch (error) {
     console.error("Get all users: ", error);
@@ -59,7 +70,7 @@ const getAllUsers = async (req, res, next) => {
 /* 
     Category Page
 */
-const categoryPage = async(req, res, next) => {
+const categoryPage = async (req, res, next) => {
   try {
     const metaData = {
       title: "Categories - WonderInk",
@@ -71,7 +82,7 @@ const categoryPage = async(req, res, next) => {
       res.redirect("/auth/login");
     } else {
       res.render("admin/category", {
-        metaData:metaDataSession || metaData,
+        metaData: metaDataSession || metaData,
         layout: adminLayout,
         categories,
       });
@@ -111,23 +122,23 @@ const addCategoryPage = async (req, res, next) => {
 
 const addCategory = async (req, res, next) => {
   try {
-    const {name} =req.body;
-    if(!name){
-        return res.status(400).json({message: "Please enter category name."})
+    const { name } = req.body;
+    if (!name) {
+      return res.status(400).json({ message: "Please enter category name." });
     }
     const existingCategory = await Category.findOne({ name });
     if (existingCategory) {
       return res.status(400).json({ message: "Category already exists." });
     }
-    const category = await Category.create({name});
-    if(!category){
-        return res.status(400).json({message: "Failed to add category."})
+    const category = await Category.create({ name });
+    if (!category) {
+      return res.status(400).json({ message: "Failed to add category." });
     }
     req.session.metaData = {
-        title: "Add Categories - WonderInk",
-        description: "Welcome to Dashboard",
+      title: "Add Categories - WonderInk",
+      description: "Welcome to Dashboard",
     };
-    res.redirect('/admin/dashboard/add/category')
+    res.redirect("/admin/dashboard/add/category");
   } catch (error) {
     console.error("Add Category: ", error);
     res.status(500).json({
@@ -137,48 +148,74 @@ const addCategory = async (req, res, next) => {
 };
 
 /* 
-    Category  page
+    Posts  page
 */
-const postPage=async (req,res,next) => {
-    try {
-        const metaData = {
-          title: "All posts - WonderInk",
-          description: "Welcome to Dashboard",
-        };
-        const posts=''
-        if (!req.cookies.token) {
-          res.redirect("/auth/login");
-        } else {
-          res.render("admin/post", { metaData, layout: adminLayout,posts });
-        }
-      } catch (error) {
-        console.error("All Posts Page: ", error);
-        res.status(500).json({
-          message: "An unexpected error occurred. Please try again later.",
-        });
+const postPage = async (req, res, next) => {
+  try {
+    const metaData = {
+      title: "All posts - WonderInk",
+      description: "Welcome to Dashboard",
+    };
+    const posts = "";
+    if (!req.cookies.token) {
+      res.redirect("/auth/login");
+    } else {
+      res.render("admin/post", { metaData, layout: adminLayout, posts });
     }
-}
+  } catch (error) {
+    console.error("All Posts Page: ", error);
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
+  }
+};
 /* 
-   Add Category  Page
+   Add Post  Page
 */
-const addPostPage=async (req,res,next) => {
-    try {
-        const metaData = {
-          title: "All posts - WonderInk",
-          description: "Welcome to Dashboard",
-        };
-        const posts=''
-        if (!req.cookies.token) {
-          res.redirect("/auth/login");
-        } else {
-          res.render("admin/form/add-post", { metaData, layout: adminLayout,posts });
-        }
-      } catch (error) {
-        console.error("Add Post Page: ", error);
-        res.status(500).json({
-          message: "An unexpected error occurred. Please try again later.",
-        });
+const addPostPage = async (req, res, next) => {
+  try {
+    const metaData = {
+      title: "All posts - WonderInk",
+      description: "Welcome to Dashboard",
+    };
+    const categories = await Category.find();
+    if (!req.cookies.token) {
+      res.redirect("/auth/login");
+    } else {
+      res.render("admin/form/add-post", {
+        metaData,
+        layout: adminLayout,
+        categories,
+      });
     }
-}
+  } catch (error) {
+    console.error("Add Post Page: ", error);
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
+  }
+};
+/* 
+   Add  Post
+*/
 
-export { dashboard, getAllUsers, categoryPage, addCategoryPage ,addCategory,postPage,addPostPage};
+const addPost = async (req, res, next) => {
+  try {
+    console.log(req.body);
+  } catch (error) {
+    console.error("Add Post: ", error);
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
+  }
+};
+export {
+  dashboard,
+  getAllUsers,
+  categoryPage,
+  addCategoryPage,
+  addCategory,
+  postPage,
+  addPostPage,
+  addPost,
+};

@@ -160,6 +160,7 @@ import {
           const content=editor.getData();
           const contentInput = document.querySelector("#content");
           contentInput.value=content; 
+          e.target.submit();
       })
      
     })
