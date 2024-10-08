@@ -160,7 +160,10 @@ const postPage = async (req, res, next) => {
       description: "Welcome to Dashboard",
     };
     const { metaDataSession } = req.session;
-    const posts = "";
+    const posts = await Post.find()
+    .populate('postCategory', 'name') 
+    .populate('author', 'username') 
+    .sort({ createdAt: 1 });
     if (!req.cookies.token) {
       res.redirect("/auth/login");
     } else {
@@ -209,12 +212,10 @@ const addPostPage = async (req, res, next) => {
 
 const addPost = async (req, res, next) => {
   try {
-    const { title, content, tagsArray, category, status } = req.body;
+    const { title, content, category, status } = req.body;
     if (!title || !content || !category || !status) {
       return res.status(400).json({ message: "Please fill all fields." });
     }
-    const postTags = tagsArray ? JSON.parse(tagsArray) : [];
- 
     const decoded = jwt.verify(req.cookies.token, jwtSecret);
     let image = "";
     let public_id = "";
@@ -237,12 +238,7 @@ const addPost = async (req, res, next) => {
       );
       image = cloudinaryResult.secure_url;
       public_id = cloudinaryResult.public_id;
-      await fs
-        .rm(req.file.path)
-        .then(() =>
-          console.log("File deleted successfully from uploads folder")
-        )
-        .catch((err) => console.error("Error deleting the file:", err));
+      fs.rm(req.file.path);
     }
 
     const post = await Post.create({
@@ -252,7 +248,6 @@ const addPost = async (req, res, next) => {
       },
       postTitle: title,
       postContent: content,
-      postTags: postTags,
       postCategory: category,
       postStatus: status,
       author: decoded.userId,

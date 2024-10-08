@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
    <section class="py-5 flex justify-center">
         <div class="w-full p-4 border border-neutral-800 bg-neutral-900 rounded">
             <h1 class="text-2xl font-semibold text-white py-2">Add Post</h1>
@@ -20,16 +19,6 @@
                     <div id="editor"></div>
                     <input type="hidden" name="content" id="content">
                 </div>
-                <div class="w-full h-full flex items-center gap-3 bg-neutral-800 border border-neutral-700 rounded p-2">
-                    <div class="w-full h-full">
-                        <input name="tags" placeholder="Add tags" id="tagInput" 
-                        class="border-none outline-none rounded w-full p-2 bg-transparent text-white placeholder:text-white" />
-                        <input type="hidden" name="tagsArray" id="tagsArray">
-                    </div>
-                    <div>
-                        <button id="add" class="py-2 px-4 rounded text-white  bg-indigo-600 transition-colors duration-200 ease-in-out hover:bg-indigo-500" type="button">Add</button>
-                    </div>
-                    </div>
                 <div class="w-fit h-12 flex items-center gap-5 overflow-hidden">
                     <select name="category" id="category" class="h-full w-fit capitalize bg-neutral-800 text-white border border-neutral-700 rounded overflow-hidden outline-none  px-5" required>
                         <% categories.forEach((data)=>{%>
@@ -71,15 +60,7 @@
           }
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
     <script>
-        const addBtn=document.querySelector("#add");
-        const inputTag=document.querySelector("#tagInput");
-        const tagify = new Tagify(inputTag);
-        addBtn.addEventListener('click',()=>{
-            const tags=tagify.value.map(tag=>tag.value);
-            document.querySelector('input[name="tagsArray"]').value = JSON.stringify(tags);
-        })
         const postForm = document.getElementById('postForm');
         postForm.addEventListener('submit', (event) => {
         const submitButton = postForm.querySelector('button[type="submit"]');

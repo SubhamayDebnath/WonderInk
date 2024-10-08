@@ -22,19 +22,19 @@ const postSchema = new Schema(
         required: [true, "Post Content is required"],
     },
     postCategory:{
-        type: "String",
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
         required: [true, "Post Category is required"],
-    },
-    tags: {
-        type: [String],
-        default: [],
     },
     status: {
         type: "String",
-        enum: ['PUBLISH', 'DRAFT']
+        required: [true, "Status is required"],
+        enum: ['PUBLISH', 'DRAFT'],
+        default:'PUBLISH'
     },
     author:{
-        type: "String",
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: [true, "Post Author is required"],
     }
   },
