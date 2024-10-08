@@ -4,5 +4,6 @@ const router = express.Router();
 
 router.get("/dashboard", dashboard);
 router.get("/dashboard/users", getAllUsers);
+router.get("/dashboard/categories", getAllUsers);
 
 export default router;

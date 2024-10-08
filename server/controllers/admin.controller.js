@@ -43,5 +43,18 @@ const getAllUsers = async (req, res, next) => {
     });
   }
 };
+/* 
+    Category Page
+*/
+const categoryPage=(req,res,next)=>{
+    try {
+        
+    } catch (error) {
+        console.error("Category Page: ", error);
+        res.status(500).json({
+          message: "An unexpected error occurred. Please try again later.",
+        });
+    }
+}
 
 export { dashboard, getAllUsers };
