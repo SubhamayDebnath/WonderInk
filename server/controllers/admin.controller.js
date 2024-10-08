@@ -209,12 +209,12 @@ const addPostPage = async (req, res, next) => {
 
 const addPost = async (req, res, next) => {
   try {
-    const { title, content, tags, category, status } = req.body;
+    const { title, content, tagsArray, category, status } = req.body;
     if (!title || !content || !category || !status) {
       return res.status(400).json({ message: "Please fill all fields." });
     }
-    const parsedTags = JSON.parse(tags);
-    const postTags = parsedTags.map((tag) => tag.value);
+    const postTags = tagsArray ? JSON.parse(tagsArray) : [];
+ 
     const decoded = jwt.verify(req.cookies.token, jwtSecret);
     let image = "";
     let public_id = "";
@@ -252,7 +252,7 @@ const addPost = async (req, res, next) => {
       },
       postTitle: title,
       postContent: content,
-      postTags: postTags || [],
+      postTags: postTags,
       postCategory: category,
       postStatus: status,
       author: decoded.userId,
