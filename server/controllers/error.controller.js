@@ -6,11 +6,11 @@ const utilsLayout = "../views/layouts/utils";
 */
 const fourZeroFour = (req, res) => {
   try {
-    const metaData = {
+    const locals = {
       title: "ERROR 404 - WonderInk",
       description: "ERROR 404 - WonderInk",
     };
-    res.status(404).render("utils/FourZeroFour", { metaData, layout: utilsLayout });
+    res.status(404).render("utils/FourZeroFour", { locals, layout: utilsLayout });
   } catch (error) {
     console.error("Error handling 404:", error);
     res.status(500).json({
@@ -26,11 +26,11 @@ const fourZeroFour = (req, res) => {
 */
 const accountActivation = (req, res) => {
   try {
-    const metaData = {
+    const locals = {
       title: "Account Activation Required - WonderInk",
       description: "Account Activation Required - WonderInk",
     };
-    res.status(401).render("utils/activation", { metaData, layout: utilsLayout });
+    res.status(401).render("utils/activation", { locals, layout: utilsLayout });
   } catch (error) {
     console.error("Account Activation: ", error);
     res.status(500).json({

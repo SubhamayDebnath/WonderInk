@@ -17,14 +17,14 @@ const cookieOption = {
 */
 const registerPage = async (req, res) => {
   try {
-    const metaData = {
+    const locals = {
       title: "Create account - WonderInk",
       description: "Welcome to Register - WonderInk",
     };
     if(req.cookies.token){
       res.redirect("/admin/dashboard")
     }else{
-      res.render("auth/register", { metaData, layout: authenticationLayout });
+      res.render("auth/register", { locals, layout: authenticationLayout });
     }
   } catch (error) {
     console.error("Register Page: ", error);
@@ -74,14 +74,14 @@ const register = async (req, res, next) => {
 */
 const loginPage = async (req, res) => {
   try {
-    const metaData = {
+    const locals = {
       title: "Login account - WonderInk",
       description: "Welcome to Login - WonderInk",
     };
     if(req.cookies.token){
       res.redirect("/admin/dashboard")
     }else{
-      res.render("auth/login", { metaData, layout: authenticationLayout });
+      res.render("auth/login", { locals, layout: authenticationLayout });
     }
     
   } catch (error) {

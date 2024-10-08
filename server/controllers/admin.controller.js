@@ -15,7 +15,7 @@ const jwtSecret = process.env.JWT_SECRET;
 */
 const dashboard = async (req, res, next) => {
   try {
-    const metaData = {
+    const locals = {
       title: "Dashboard - WonderInk",
       description: "Welcome to Dashboard",
     };
@@ -27,7 +27,7 @@ const dashboard = async (req, res, next) => {
       res.redirect("/auth/login");
     } else {
       res.render("admin/index", {
-        metaData,
+        locals,
         currentUser,
         layout: adminLayout,
         numberOfUsers,
@@ -46,7 +46,7 @@ const dashboard = async (req, res, next) => {
 */
 const getAllUsers = async (req, res, next) => {
   try {
-    const metaData = {
+    const locals = {
       title: "All users - WonderInk",
       description: "Welcome to Dashboard",
     };
@@ -57,7 +57,7 @@ const getAllUsers = async (req, res, next) => {
       res.redirect("/auth/login");
     } else {
       res.render("admin/user", {
-        metaData,
+        locals,
         currentUser,
         layout: adminLayout,
         users,
@@ -75,17 +75,17 @@ const getAllUsers = async (req, res, next) => {
 */
 const categoryPage = async (req, res, next) => {
   try {
-    const metaData = {
+    const locals = {
       title: "Categories - WonderInk",
       description: "Welcome to Dashboard",
     };
-    const { metaDataSession } = req.session;
+    const { localsSession } = req.session;
     const categories = await Category.find().sort({ createdAt: 1 });
     if (!req.cookies.token) {
       res.redirect("/auth/login");
     } else {
       res.render("admin/category", {
-        metaData: metaDataSession || metaData,
+        locals: localsSession || locals,
         layout: adminLayout,
         categories,
       });
@@ -103,14 +103,14 @@ const categoryPage = async (req, res, next) => {
 
 const addCategoryPage = async (req, res, next) => {
   try {
-    const metaData = {
+    const locals = {
       title: "Add Categories - WonderInk",
       description: "Welcome to Dashboard",
     };
     if (!req.cookies.token) {
       res.redirect("/auth/login");
     } else {
-      res.render("admin/form/add-category", { metaData, layout: adminLayout });
+      res.render("admin/form/add-category", { locals, layout: adminLayout });
     }
   } catch (error) {
     console.error("Add Category Page: ", error);
@@ -137,7 +137,7 @@ const addCategory = async (req, res, next) => {
     if (!category) {
       return res.status(400).json({ message: "Failed to add category." });
     }
-    req.session.metaData = {
+    req.session.locals = {
       title: "Add Categories - WonderInk",
       description: "Welcome to Dashboard",
     };
@@ -155,11 +155,11 @@ const addCategory = async (req, res, next) => {
 */
 const postPage = async (req, res, next) => {
   try {
-    const metaData = {
+    const locals = {
       title: "All posts - WonderInk",
       description: "Welcome to Dashboard",
     };
-    const { metaDataSession } = req.session;
+    const { localsSession } = req.session;
     const posts = await Post.find()
     .populate('postCategory', 'name') 
     .populate('author', 'username') 
@@ -168,7 +168,7 @@ const postPage = async (req, res, next) => {
       res.redirect("/auth/login");
     } else {
       res.render("admin/post", {
-        metaData: metaDataSession || metaData,
+        locals: localsSession || locals,
         layout: adminLayout,
         posts,
       });
@@ -185,7 +185,7 @@ const postPage = async (req, res, next) => {
 */
 const addPostPage = async (req, res, next) => {
   try {
-    const metaData = {
+    const locals = {
       title: "All posts - WonderInk",
       description: "Welcome to Dashboard",
     };
@@ -194,7 +194,7 @@ const addPostPage = async (req, res, next) => {
       res.redirect("/auth/login");
     } else {
       res.render("admin/form/add-post", {
-        metaData,
+        locals,
         layout: adminLayout,
         categories,
       });
@@ -255,7 +255,7 @@ const addPost = async (req, res, next) => {
     if (!post) {
       return res.status(400).json({ message: "Failed to add post." });
     }
-    req.session.metaData = {
+    req.session.locals = {
       title: "All posts - WonderInk",
       description: "Welcome to Dashboard",
     };

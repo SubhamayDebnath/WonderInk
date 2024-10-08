@@ -15,6 +15,7 @@ import authRouter from "./server/routes/auth.routes.js";
 import adminRouter from "./server/routes/admin.routes.js";
 
 import DBConnection from "./server/config/DBConnection.js";
+import isActiveRoute from "./server/helpers/routesHelper.js";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -34,6 +35,8 @@ app.use(
     cookie: { maxAge: 24 * 60 * 60 * 1000 },
   })
 );
+
+app.locals.isActiveRoute = isActiveRoute; 
 
 app.use(express.static("public"));
 app.use(expressLayout);
