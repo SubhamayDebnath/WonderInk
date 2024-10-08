@@ -1,6 +1,12 @@
+import jwt from 'jsonwebtoken';
+import { config } from "dotenv";
+config();
+
 import User from "../models/user.model.js";
 import Category from "../models/category.model.js"
+
 const adminLayout = "../views/layouts/admin";
+const jwtSecret = process.env.JWT_SECRET;
 /* 
     Dashboard
 */
@@ -10,10 +16,14 @@ const dashboard = async (req, res, next) => {
       title: "Dashboard - WonderInk",
       description: "Welcome to Dashboard",
     };
+    const numberOfUsers = await User.countDocuments();
+    const numberOfCategories = await Category.countDocuments();
+    const decoded = jwt.verify(req.cookies.token, jwtSecret);
+    const currentUser=await User.findById(decoded.userId);
     if (!req.cookies.token) {
       res.redirect("/auth/login");
     } else {
-      res.render("admin/index", { metaData, layout: adminLayout });
+      res.render("admin/index", { metaData,currentUser, layout: adminLayout ,numberOfUsers,numberOfCategories});
     }
   } catch (error) {
     console.error("Dashboard: ", error);
@@ -31,11 +41,13 @@ const getAllUsers = async (req, res, next) => {
       title: "All users - WonderInk",
       description: "Welcome to Dashboard",
     };
+    const decoded = jwt.verify(req.cookies.token, jwtSecret);
+    const currentUser=await User.findById(decoded.userId);
     const users = await User.find();
     if (!req.cookies.token) {
       res.redirect("/auth/login");
     } else {
-      res.render("admin/user", { metaData, layout: adminLayout, users });
+      res.render("admin/user", { metaData,currentUser, layout: adminLayout, users });
     }
   } catch (error) {
     console.error("Get all users: ", error);
@@ -47,14 +59,14 @@ const getAllUsers = async (req, res, next) => {
 /* 
     Category Page
 */
-const categoryPage = (req, res, next) => {
+const categoryPage = async(req, res, next) => {
   try {
     const metaData = {
       title: "Categories - WonderInk",
       description: "Welcome to Dashboard",
     };
     const { metaDataSession } = req.session;
-    const categories = "";
+    const categories = await Category.find().sort({ createdAt: 1 });
     if (!req.cookies.token) {
       res.redirect("/auth/login");
     } else {
@@ -124,4 +136,49 @@ const addCategory = async (req, res, next) => {
   }
 };
 
-export { dashboard, getAllUsers, categoryPage, addCategoryPage ,addCategory};
+/* 
+    Category  page
+*/
+const postPage=async (req,res,next) => {
+    try {
+        const metaData = {
+          title: "All posts - WonderInk",
+          description: "Welcome to Dashboard",
+        };
+        const posts=''
+        if (!req.cookies.token) {
+          res.redirect("/auth/login");
+        } else {
+          res.render("admin/post", { metaData, layout: adminLayout,posts });
+        }
+      } catch (error) {
+        console.error("All Posts Page: ", error);
+        res.status(500).json({
+          message: "An unexpected error occurred. Please try again later.",
+        });
+    }
+}
+/* 
+   Add Category  Page
+*/
+const addPostPage=async (req,res,next) => {
+    try {
+        const metaData = {
+          title: "All posts - WonderInk",
+          description: "Welcome to Dashboard",
+        };
+        const posts=''
+        if (!req.cookies.token) {
+          res.redirect("/auth/login");
+        } else {
+          res.render("admin/form/add-post", { metaData, layout: adminLayout,posts });
+        }
+      } catch (error) {
+        console.error("Add Post Page: ", error);
+        res.status(500).json({
+          message: "An unexpected error occurred. Please try again later.",
+        });
+    }
+}
+
+export { dashboard, getAllUsers, categoryPage, addCategoryPage ,addCategory,postPage,addPostPage};

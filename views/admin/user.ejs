@@ -31,20 +31,25 @@
                                 <td class="border border-neutral-700 p-2 text-center capitalize"><%- data.role  %></td>
                                 <td class="border border-neutral-700 p-2 text-center"><%-data.status  %></td>
                                 <td class="border border-neutral-700 p-2 text-center">
-                                    <form action="" class="inline-block">
-                                        <select name="role" id="role" class="border border-neutral-700 bg-neutral-800 p-0.5 overflow-hidden rounded">
-                                            <option value="SUPERUSER" <%= data.role === 'SUPERUSER' ? 'selected' : '' %> >Super Admin</option>
-                                            <option value="ADMIN" <%= data.role === 'ADMIN' ? 'selected' : '' %> >Admin</option>
-                                            <option value="USER" <%= data.role === 'USER' ? 'selected' : '' %> >User</option>
-                                        </select>
-                                    </form>
+                                    <% if(currentUser.role === 'SUPERUSER' ) {%> 
+                                        <form action="" class="inline-block">
+                                            <select name="role" id="role" class="border border-neutral-700 bg-neutral-800 p-0.5 overflow-hidden rounded">
+                                                <option value="SUPERUSER" <%= data.role === 'SUPERUSER' ? 'selected' : '' %> >Super Admin</option>
+                                                <option value="ADMIN" <%= data.role === 'ADMIN' ? 'selected' : '' %> >Admin</option>
+                                                <option value="USER" <%= data.role === 'USER' ? 'selected' : '' %> >User</option>
+                                            </select>
+                                        </form>
+                                    <% } %>                              
                                     <form action="" class="inline-block">
                                         <select name="status" id="status" class="border border-neutral-700 bg-neutral-800 p-0.5 overflow-hidden rounded mx-1">
                                             <option value="ACTIVE" <%= data.status === 'ACTIVE' ? 'selected' : '' %> >Active</option>
                                             <option value="INACTIVE" <%= data.status === 'INACTIVE' ? 'selected' : '' %> >Inactive</option>
                                         </select>
                                     </form>
-                                    <a href="" class="px-2 py-1 rounded text-white bg-red-600">Delete</a>
+                                    <% if(currentUser.role === 'SUPERUSER' ) {%> 
+                                        <a href="" class="px-2 py-1 rounded text-white bg-red-600">Delete</a>
+                                    <% } %>
+                                    
                                 </td>
                             </tr>
                        <% }); %>
@@ -54,7 +59,7 @@
         </div>
         <% }else{ %>
             <div class="flex items-center justify-center h-60"> 
-                <p class="text-white text-lg ">No user Found</p>
+                <p class="text-white text-lg ">No user Found!</p>
             </div>
         <% } %>
     </section>

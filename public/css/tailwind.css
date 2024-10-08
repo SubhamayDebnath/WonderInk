@@ -769,6 +769,10 @@ video {
   height: 15rem;
 }
 
+.h-3 {
+  height: 0.75rem;
+}
+
 .min-h-dvh {
   min-height: 100dvh;
 }
@@ -924,6 +928,10 @@ video {
 
 .border {
   border-width: 1px;
+}
+
+.border-dashed {
+  border-style: dashed;
 }
 
 .border-none {

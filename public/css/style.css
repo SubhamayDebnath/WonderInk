@@ -47,7 +47,8 @@ body.overflowHidden{
     transform: scale(-1, 1);
 }
 .ck-content{
-    min-height: 1000px;
+    min-height: 500px;
+    height: 100%;
     color: black !important;
 }
 @media (max-width: 768px) { 

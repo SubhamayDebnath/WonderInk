@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+   <section class="py-5 flex justify-center">
+        <div class="w-full p-4 border border-neutral-800 bg-neutral-900 rounded">
+            <h1 class="text-2xl font-semibold text-white py-2">Add Category</h1>
+            <form action="" id="postForm" class="flex flex-col gap-5 my-4" method="post" enctype="multipart/form-data">
+                <div class="w-full aspect-video overflow-hidden rounded border border-neutral-700 border-dashed bg-neutral-800 flex items-center justify-center">
+                    <img id="formImage" src="" alt="Image Preview" class="hidden w-full h-full object-contain" />
+                     <label for="avatar" id="imageLabel" class="h-full w-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                          </svg>                              
+                        <input type="file" accept="image/*" name="avatar" id="avatar" class="hidden" required>
+                     </label>
+                </div>
+                <div class="w-full h-12 rounded bg-white border border-neutral-700 overflow-hidden">
+                    <input type="text" name="title" id="title" placeholder="Enter your Title" class="w-full h-full border-none outline-none px-2 bg-transparent text-base text-black placeholder:text-sm" required>
+                </div>
+                <div class="bg-white h-full">
+                    <div id="editor"></div>
+                    <input type="hidden" name="content" id="content">
+                </div>
+                <div class="w-full h-full flex items-center gap-3 bg-neutral-800 border border-neutral-700 rounded p-2">
+                    <div class="w-full h-full">
+                        <input name="tags" placeholder="Add tags" id="tagInput" 
+                        class="border-none outline-none rounded w-full p-2 bg-transparent text-white placeholder:text-white" required />
+                    </div>
+                    <div>
+                        <button id="add" class="py-2 px-4 rounded text-white  bg-indigo-600 transition-colors duration-200 ease-in-out hover:bg-indigo-500">Add</button>
+                    </div>
+                    </div>
+                <div class="w-fit h-12 flex items-center gap-5 overflow-hidden">
+                    <select name="category" id="category" class="h-full w-fit bg-neutral-800 text-white border border-neutral-700 rounded overflow-hidden outline-none  px-5" >
+                        <option value="tech">Technology</option>
+                        <option value="tech">Technology</option>
+                        <option value="tech">Technology</option>
+                    </select>
+                    <select name="status" id="status"  class="h-full w-fit bg-neutral-800 text-white border border-neutral-700 rounded overflow-hidden outline-none  px-5">
+                        <option value="PUBLISH">Publish</option>
+                        <option value="DRAFT">Draft</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit"  class="w-full h-10 rounded border-none font-medium tracking-wider text-white  bg-indigo-600 transition-colors duration-200 ease-in-out hover:bg-indigo-500">Add category</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <script>
+        document.getElementById('avatar').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.getElementById('formImage');
+                    img.src = e.target.result;
+                    img.classList.remove('hidden'); 
+                    document.getElementById('imageLabel').classList.add('hidden')
+                    
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+    <script type="importmap">
+        {
+          "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+          }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+    <script>
+        const addBtn=document.querySelector("#add");
+        const inputTag=document.querySelector("#tagInput");
+        const tagify = new Tagify(inputTag);
+        addBtn.addEventListener('click',()=>{
+            const tags=tagify.value.map(tag=>tag.value);
+            console.log('Submitted tags:', tags);
+        })
+    </script>
+    <script type="module" src="/js/ckeditor.js"></script>
