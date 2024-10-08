@@ -1,16 +1,19 @@
+const adminLayout = "../views/layouts/admin";
 /* 
-  
     Dashboard
-
 */
 const dashboard=async (req,res,next) => {
     try {
-        // const metaData = {
-        //   title: "Home Page",
-        //   description: "Welcome to our home page",
-        // };
+        const metaData = {
+          title: "Dashboard - WonderInk",
+          description: "Welcome to Dashboard",
+        };
+        if(!req.cookies.token){
+            res.redirect("/auth/login")
+          }else{
+            res.render("admin/index", { metaData, layout: adminLayout });
+          }
         // res.render("admin/index", { metaData });
-       res.send("hello")
     } catch (error) {
         console.error("Dashboard: ", error);
         res.status(500).json({
