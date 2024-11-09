@@ -49,7 +49,7 @@
                     <div class="user-comment-container p-3 rounded mb-2" id="<%- data._id  %>">
                         <div class=" d-flex align-items-center gap-2 mb-2">
                             <h6 class="text-white m-0 p-0"><%- data.name %></h6>
-                            <span class="m-0 p-0" style="font-size: 14px;"><%= new Date(data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                            <span class="m-0 p-0" style="font-size: 12px; font-style: italic;"><%= new Date(data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
                         </div>
                         <p class="pb-2 mb-0"><%- data.comment %></p>
                     </div>
@@ -62,7 +62,7 @@
                          <h6 class="text-white m-0 p-0">
                            <%- reply.username  %>
                          </h6>
-                         <span class="m-0 p-0" style="font-size: 14px;"><%= new Date(reply.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+                         <span class="m-0 p-0" style="font-size: 12px; font-style: italic;"><%= new Date(reply.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
                          </span>
                        </div>
                        <p class="pb-2 mb-0"><%-reply.reply %></p>

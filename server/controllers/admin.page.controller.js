@@ -181,9 +181,9 @@ const commentPage=async(req,res,next)=>{
     const userRole=req.user.role
     let post;
     if(userRole=='ADMIN' || userRole=='SUPERUSER'){
-      post= await  Post.find().populate("comments").populate("category", "name").populate("author", "username role").sort({createdAt:1})
+      post= await  Post.find().populate("category", "name").populate("author", "username role").sort({createdAt:1})
     }else{
-      post= await  Post.find({author: req.user._id}).populate("comments").populate("category", "name").sort({createdAt:1})
+      post= await  Post.find({author: req.user._id}).populate("category", "name").populate("author", "username").sort({createdAt:1})
     }
     res.render("admin/comments", {
       locals,

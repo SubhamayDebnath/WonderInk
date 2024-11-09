@@ -219,6 +219,9 @@ main {
   width: 50px;
   overflow: hidden;
 }
+.comment-reply{
+  background-color: #141414;
+}
 @media (max-width: 768px) {
   .user-image-container {
     width: 75%;

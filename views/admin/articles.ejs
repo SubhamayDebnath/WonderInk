@@ -51,7 +51,7 @@
                   <td>
                     <div style="width: 250px;">
                       <p>
-                        <%- data.title %>
+                        <p><%- data.title.slice(0, 40) + '...' %></p>
                       </p>
                     </div>
                   </td>
@@ -76,7 +76,7 @@
                   </td>
                   <td>
                     <form action="/api/v1/status/change/<%-data._id %>" method="post" id="status-form" style="width: 100px;">
-                      <select name="status" id="status" class="form-select form-select-sm" onchange="confirmStatusChange()">
+                      <select name="status" id="status" class="form-select form-select-sm" onchange="return confirmStatusChange()">
                         <option value="true" class="text-capitalize" <%- data.status===true ? 'selected' :'' %>>Publish</option>
                         <option value="false" class="text-capitalize" <%-data.status===false ? 'selected' :'' %>>Draft</option>
                       </select>
@@ -99,7 +99,7 @@
                         </svg>
                         Edit
                       </a>
-                      <form action="/api/v1/post/delete/<%-data._id %>?_method=DELETE" method="post" id="deleteForm" onsubmit="confirmDelete()">
+                      <form action="/api/v1/post/delete/<%-data._id %>?_method=DELETE" method="post" id="deleteForm" onsubmit="return confirmDelete()">
                         <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center gap-1">
                           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash">
                             <polyline points="3 6 5 6 21 6"></polyline>

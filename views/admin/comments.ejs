@@ -1,76 +1,127 @@
 <div class="container px-0">
-<% if(post.length) {%>
-    <div class="accordion" id="accordionExample">
-        <% post.forEach((data,index)=>{ %>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%-index+1%>" aria-expanded="false" aria-controls="collapse<%-index+1%>">
-                    <div class="d-flex align-items-center flex-wrap gap-3">
-                        <span>
-                            <%- index + 1 %>
-                        </span>
-                        <div class="img-thumbnail-container rounded">
-                            <img src="<%- data.image.secure_url  %>" alt="<%- data.title  %>" class="w-100 h-100 object-fit-cover">
-                        </div>
-                        <div style="width: 220px;">
-                            <p><%- data.title.slice(0, 40) + '...' %></p>
-                        </div>/
-                        <span class="text-capitalize"> 
-                            <%- data.category.name  %>
-                        </span>/
-                        <% if ( data.author.username){%>
-                        <span><%- data.author.username  %></span> /
-                        <% } %>
-                        <span>
-                            <%= new Date(data.createdAt).toDateString() %>
-                        </span>/
-                        <span>Comments: <%= data.comments.length  %></span>
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header">
+            <div class="d-flex align-items-center justify-content-between ">
+              <h5 class="mb-0"><span><i class="bi bi-table me-2"></i></span>Comments</h5>
+              <a href="/dashboard/articles/add" class="btn btn-primary btn-sm">Add Articles</a>
+            </div>
+            <% if (error_msg.length> 0) { %>
+            <div class="custom-alert-error alert alert-dismissible  rounded mt-2" role="alert">
+              <%= error_msg %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <% } %>
+            <% if (success_msg.length> 0) { %>
+            <div class="custom-alert-success alert alert-dismissible rounded mt-3" role="alert">
+              <%= success_msg %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="example" class="table table-striped ">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Thumbnail</th>
+                  <th>Title</th>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th>Comments</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if(post.length) {%>
+                <% post.forEach((data,index)=>{ %>
+                <tr>
+                  <td><%= index+1 %></td>
+                  <td>
+                    <div class="img-thumbnail-container rounded">
+                      <img src="<%- data.image.secure_url  %>" alt="<%- data.title  %>" class="w-100 h-100 object-fit-cover">
                     </div>
-                  </button>
-                </h2>
-                <div id="collapse<%-index+1%>" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="d-flex flex-column gap-2">
-                        <% if( data.comments.length){  data.comments=data.comments.reverse() %>
-                            <% data.comments.forEach((com,index)=>{%>
-                                <div>
-                                    <div class="d-flex align-items-center flex-wrap gap-3">
-                                        <span>
-                                            <%- index +1  %>
-                                        </span>
-                                        -
-                                        <span>
-                                            <%-com.name  %>
-                                        </span>
-                                        -
-                                        <span>
-                                            "
-                                            <%- com.comment  %>
+                  </td>
+                  <td style="width: 5rem;">
+                    <p><%- data.title.slice(0, 40) + '...' %></p>
+                  </td>
+                  <td>
+                    <span><%- data.author.username  %></span>
+                  </td>
+                  <td>
+                    <%- data.author.role  %>
+                  </td>
+                  <td style="width: 20rem;">
 
-                                            "
-                                        </span>
-                                        -
-                                        <span>
-                                            <%= new Date(com.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
-                                        </span>
-                                        -
-                                        <a href="/article/<%- data.slug  %>#<%-com._id%>" target="_blank" class="btn btn-primary btn-sm">View </a>
-                                        <a href="/dashboard/comment/<%-data._id%>/reply/<%-com._id  %>" class="btn btn-primary btn-sm">Reply</a>
-                                        <form action="">
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                        
-                                    </div>
-                                </div>
-                            <%}) %>
+                    <button class="btn btn-primary" data-bs-toggle="collapse" href="#comments-<%= index+1  %>" role="button" aria-expanded="false" aria-controls="comments-1">
+                      View Comments
+                      <% if(data.comments.length) { %>
+                      ( <%- data.comments.length  %> )
+                      <% }else{ %>
+                      ( 0 )
+                      <% } %>
+                    </button>
+                    <div class="collapse" id="comments-<%-index+1  %>">
+                      <% if( data.comments.length){  data.comments=data.comments.reverse() %>
+                      <% }else{ %>
+                      <h5>No Comments!</h5>
+                      <% } %>
+                      <% if(data.comments.length) { %>
+                      <% data.comments.forEach((com,index)=>{%>
+
+                      <div class="mt-3 ">
+                        <span style="font-size: 12px; font-style: italic;">Comment</span>
+                        <p><strong><%-com.name  %>:</strong> <%- com.comment  %></p>
+                        <div class="mt-2">
+                          <a href="/dashboard/comment/<%-data._id%>/reply/<%-com._id  %>" class="btn btn-primary btn-sm me-2">Reply</a>
+                          <form action="/api/v1/comment/delete?_method=DELETE" method="post" onsubmit="return confirmDelete()" class="d-inline">
+                            <input type="hidden" name="postID" id="postId" value="<%-data._id  %>">
+                            <input type="hidden" name="commentID" id="commentID" value="<%-com._id  %>">
+                            <button class="btn btn-danger btn-sm " type="submit">Delete</button>
+                          </form>
+                        </div>
+                        <% if (com.replies) {  %>
+                        <% com.replies.forEach((index)=>{  %>
+                        <div class="ms-4 mt-2 comment-reply p-2 rounded">
+                          <span style="font-size: 12px; font-style: italic;">Reply</span>
+                          <p><strong><%- index.username %>:</strong><%-index.reply%></p>
+                          <div class="mt-2">
+                            <a href="" class="btn btn-primary btn-sm me-2">Edit</a>
+                            <form action="/api/v1/reply/delete?_method=DELETE" method="post" onsubmit="return confirmDelete()" class="d-inline">
+                              <input type="hidden" name="postID" id="postId" value="<%-data._id  %>">
+                              <input type="hidden" name="commentID" id="commentID" value="<%-com._id  %>">
+                              <input type="hidden" name="replyID" id="replyId" value="<%-index._id  %>">
+                              <button class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                          </div>
+                        </div>
+                        <% })  %>
                         <% } %>
+                      </div>
+                      <% }) %>
+                      <% } %>
                     </div>
-                  </div>
-                </div>
-              </div>
-        <% }) %>
+                  </td>
+                </tr>
+                <% }) %>
+                <% }else{ %>
+                <tr colspan="5">
+                  <p class="text-center">No Comments Found!</p>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-<% }else{ %>
-    <h5>No Comments!</h5>
-<% } %>
+    </div>
+  </div>
 </div>
+<script>
+  function confirmDelete() {
+    return confirm("Are you sure you want to delete?");
+  }
+</script>

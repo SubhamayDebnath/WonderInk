@@ -51,12 +51,15 @@ const deleteCategory = async (req, res, next) => {
       req.flash("error_msg", "Invalid category ID");
       return res.redirect("/dashboard/categories");
     }
-    let uncategorized = await Category.findOne({ name: 'uncategorized' });
-    if(!uncategorized){
-      uncategorized = await Category.create({ name: 'uncategorized' });
+    let uncategorized = await Category.findOne({ name: "uncategorized" });
+    if (!uncategorized) {
+      uncategorized = await Category.create({ name: "uncategorized" });
       await uncategorized.save();
     }
-    await Post.updateMany({ category: catID }, { $set: { category: uncategorized._id } });
+    await Post.updateMany(
+      { category: catID },
+      { $set: { category: uncategorized._id } }
+    );
     const deletedCategory = await Category.findByIdAndDelete({ _id: catID });
     if (!deletedCategory) {
       req.flash("error_msg", "Failed to delete category");
@@ -170,24 +173,24 @@ const addPost = async (req, res, next) => {
 /*
   Change Post Status Method
 */
-const changePostStatus=async(req,res,next)=>{
+const changePostStatus = async (req, res, next) => {
   try {
-    const postID=req.params.id;
-    const {status}=req.body;
-    const post=await Post.findById({_id:postID});
-    if(!post){
-      req.flash("error_msg","Post not found");
+    const postID = req.params.id;
+    const { status } = req.body;
+    const post = await Post.findById({ _id: postID });
+    if (!post) {
+      req.flash("error_msg", "Post not found");
       return res.redirect("/dashboard/articles");
     }
-    post.status=status==="true";  
+    post.status = status === "true";
     await post.save();
-    req.flash("success_msg","Post status updated");
+    req.flash("success_msg", "Post status updated");
     return res.redirect("/dashboard/articles");
   } catch (error) {
     console.log(`Post Status error : ${error}`);
     res.redirect("/error");
   }
-}
+};
 /*
   Add Comment Method
 */
@@ -200,7 +203,7 @@ const addComment = async (req, res, next) => {
       "email"
     );
     const post = await Post.findByIdAndUpdate(
-      { _id: postID },
+      { _id: new ObjectId(postID) },
       {
         $push: {
           comments: {
@@ -228,6 +231,71 @@ const addComment = async (req, res, next) => {
     return res.redirect(`/article/${postSlug.slug}`);
   } catch (error) {
     console.log(`Add Comment error : ${error}`);
+    res.redirect("/error");
+  }
+};
+/*
+  Delete comment Method
+*/
+
+const deleteComment = async(req,res,next)=>{
+  try {
+    const {postID,commentID}=req.body;
+    if(!postID|| !commentID){
+      req.flash("error_msg","Invalid request");
+      return res.redirect("/dashboard/comments");
+    }
+    const result = await Post.updateOne(
+      { 
+        _id: new ObjectId(postID), 
+        'comments._id': new ObjectId(commentID) 
+      },
+      {
+        $pull: {
+          comments: { _id: new ObjectId(commentID) } 
+        }
+      }
+    );
+    if (result.nModified===0) {
+      req.flash("error_msg","Failed to delete comment");
+      return res.redirect("/dashboard/comments");
+    }
+    req.flash("success_msg","Comment deleted successfully");
+    return res.redirect("/dashboard/comments");
+  } catch (error) {
+    console.log(`Delete Comment error : ${error}`);
+    res.redirect("/error");
+  }
+}
+
+
+/*
+  Delete Reply Method
+*/
+
+const deleteReply = async (req, res, next) => {
+  try {
+    const { postID, commentID, replyID } = req.body;
+    if (!postID || !commentID || !replyID) {
+      req.flash("error_msg", "Invalid request");
+      return res.redirect("/dashboard/comments");
+    }
+    const result = await Post.updateOne(
+      { _id: new ObjectId(postID), "comments._id": new ObjectId(commentID) },
+      {
+        $pull: {
+          "comments.$.replies": { _id: new ObjectId(replyID) },
+        },
+      }
+    );
+    if (result.nModified === 0) {
+      req.flash("error_msg", "Failed to delete reply");
+      return res.redirect("/dashboard/comments");
+    }
+    req.flash("success_msg", "Reply deleted successfully");
+    return res.redirect("/dashboard/comments");
+  } catch (error) {
+    console.log(`Delete Reply error : ${error}`);
     res.redirect("/error");
   }
 };
@@ -282,32 +350,35 @@ const doReplay = async (req, res, next) => {
 /*
   Update Post method
 */
-const updatePost=async (req,res,next) => {
+const updatePost = async (req, res, next) => {
   try {
-    const postId  = req.params.id; 
+    const postId = req.params.id;
     console.log(req.body);
     const { title, postBody, tags, category, status } = req.body;
     if (!title || !postBody || !tags || !category || !status) {
       req.flash("error_msg", "All fields are required");
       return res.redirect(`/dashboard/articles/update/${postId}`);
     }
-    const post = await Post.findById({_id:postId});
+    const post = await Post.findById({ _id: postId });
     if (!post) {
       req.flash("error_msg", "Post not found");
       return res.redirect("/dashboard/articles");
     }
     let slug = post.slug;
     if (title !== post.title) {
-        slug = slugify(title, {
-          lower: true,
-          strict: true,
-          replacement: "-",
-        });
-        const existingPost = await Post.findOne({ slug: slug, _id: { $ne: postId } });
-        if(!existingPost){
-          slug = `${slug}-${Date.now()}`;
-        }
-    }   
+      slug = slugify(title, {
+        lower: true,
+        strict: true,
+        replacement: "-",
+      });
+      const existingPost = await Post.findOne({
+        slug: slug,
+        _id: { $ne: postId },
+      });
+      if (!existingPost) {
+        slug = `${slug}-${Date.now()}`;
+      }
+    }
     let image = post.image.secure_url;
     let public_id = post.image.public_id;
     if (req.file) {
@@ -337,9 +408,9 @@ const updatePost=async (req,res,next) => {
     post.title = title;
     post.content = postBody;
     post.category = category;
-    post.tags = tags.split(',').map(tag => tag.trim());
-    post.status = status === "true"; 
-    post.slug = slug; 
+    post.tags = tags.split(",").map((tag) => tag.trim());
+    post.status = status === "true";
+    post.slug = slug;
     post.image = { public_id, secure_url: image };
 
     await post.save();
@@ -351,22 +422,22 @@ const updatePost=async (req,res,next) => {
       message: "An unexpected error occurred. Please try again later.",
     });
   }
-}
+};
 
 /*
   Delete Post method
-*/ 
+*/
 
-const deletePost=async(req,res,next)=>{
+const deletePost = async (req, res, next) => {
   try {
-    const postID=req.params.id;
-    if(!postID){
-      req.flash("error_msg","Invalid post ID");
+    const postID = req.params.id;
+    if (!postID) {
+      req.flash("error_msg", "Invalid post ID");
       return res.redirect("/dashboard/articles");
     }
-    const deletedPost=await Post.findByIdAndDelete({_id:postID});
-    if(!deletedPost){
-      req.flash("error_msg","Failed to delete post");
+    const deletedPost = await Post.findByIdAndDelete({ _id: postID });
+    if (!deletedPost) {
+      req.flash("error_msg", "Failed to delete post");
       return res.redirect("/dashboard/articles");
     }
     req.flash("success_msg", "Post deleted successfully!");
@@ -375,7 +446,7 @@ const deletePost=async(req,res,next)=>{
     console.log(`Delete post error : ${error}`);
     res.redirect("/error");
   }
-}
+};
 /*
   Update User Method
 */
@@ -440,5 +511,7 @@ export {
   doReplay,
   changePostStatus,
   deletePost,
-  updatePost
+  updatePost,
+  deleteReply,
+  deleteComment
 };
