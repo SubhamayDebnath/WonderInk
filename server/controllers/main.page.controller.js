@@ -1,7 +1,5 @@
-import User from "../models/user.model.js";
 import Post from "../models/post.model.js";
 import Category from "../models/category.model.js"
-import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 config();
 
@@ -164,6 +162,21 @@ const errorPage=async (req,res,next) => {
     layout: utilsLayout,
   });
 }
+/*
+  Activation Page Render
+*/ 
+const activationPage=async(req,res,next)=>{
+  try {
+    const locals = {
+      title: "Activation",
+      description: "Welcome to our activation page",
+    };
+    res.render("utils/activation", { locals,user:req.user , layout: utilsLayout });
+  } catch (error) {
+    console.log(`Activation page error : ${error}`);
+    res.redirect("/error");
+  }
+}
 
 
-export { homePage, articlesPage,articlePage, contactPage, categoriesPage,categoryPage,errorPage};
+export { homePage, articlesPage,articlePage, contactPage, categoriesPage,categoryPage,errorPage,activationPage};
