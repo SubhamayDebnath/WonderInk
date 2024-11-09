@@ -1,1 +1,67 @@
-contact
+<div class="container px-0">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <h5 class="mb-0"><span><span><i class="bi bi-table me-2"></i></span>Categories</h5>
+            </div>
+            <% if (error_msg.length> 0) { %>
+                <div class="custom-alert-error alert alert-dismissible  rounded mt-2" role="alert">
+                  <%= error_msg %>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% } %>
+                <% if (success_msg.length> 0) { %>
+                <div class="custom-alert-success alert alert-dismissible rounded mt-3" role="alert">
+                  <%= success_msg %>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% } %>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="example" class="table table-striped ">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Submitted At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if(contact.length) {%>
+                    <% contact.forEach((contact,index) => {%>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td class="text-capitalize"><%= contact.name %></td>
+                            <td><%= contact.email %></td>
+                            <td><%= contact.message %></td>
+                            <td><%= new Date(contact.createdAt).toLocaleDateString() %></td>
+                            <td>
+                              <form action="/api/v1/delete-contact?_method=DELETE" method="POST" onsubmit="return confirmDelete()">
+                                <input type="hidden" name="contactID" id="contactID" value="<%-contact._id  %>">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                              </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                  <% }else{ %>
+                  <td colspan="6" class="text-center text-white h5">No Contact Message Found!</td>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function confirmDelete() {
+      return confirm("Are you sure you want to delete?");
+    }
+  </script>

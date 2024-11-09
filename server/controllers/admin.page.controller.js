@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import Category from "../models/category.model.js";
 import Post from "../models/post.model.js";
+import Contact from "../models/contact.model.js";
 
 const adminLayout = "../views/layouts/admin";
 
@@ -136,10 +137,14 @@ const contactPage = async (req, res, next) => {
       title: "Contact Form",
       description: "Welcome to Contact Form",
     };
+    const contact = await Contact.find().sort({
+      createdAt: -1
+    })
     res.render("admin/contact", {
       locals,
       layout: adminLayout,
       user: req.user,
+      contact
     });
   } catch (error) {
     console.log(`Contact Form error : ${error}`);

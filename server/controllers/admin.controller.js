@@ -8,6 +8,7 @@ config();
 import cloudinary from "../utils/cloudinary.js";
 import Category from "../models/category.model.js";
 import Post from "../models/post.model.js";
+import Contact from "../models/contact.model.js";
 import User from "../models/user.model.js";
 import sendEmail from "../utils/sendMail.js";
 
@@ -501,6 +502,46 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+const addContact=async (req,res,next) => {
+  try {
+    const {name,email,message}=req.body;
+    if(!name || !email || !message){
+      req.flash("error_msg","Please fill all fields");
+      return res.redirect("/contact");
+    }
+    const contact=new Contact({name,email,message});
+    if(!contact){
+      req.flash("error_msg","Something went wrong");
+      return res.redirect("/contact");
+    }
+    await contact.save();
+    const subject = `Send successfully`;
+    const body = `Hi, ${name} \n\n.Your Form has been submitted successfully.\n\n Please wait from ADMIN Reply.\n\nThank you`;
+    await sendEmail(email, subject, body);
+    req.flash("success_msg","Contact send successfully");
+    return res.redirect("/contact");
+  } catch (error) {
+    console.log(`Contact error : ${error}`);
+    res.redirect("/error");
+  }
+}
+
+const deleteContact=async (req,res,next) => {
+  try {
+    const {contactID}=req.body;
+    const deletedContact=await Contact.findByIdAndDelete({_id:contactID})
+    if(!deletedContact){
+      req.flash("error_msg","Something went wrong");
+      return res.redirect("/dashboard/contact");
+    }
+    req.flash("success_msg","Contact deleted successfully");
+    return res.redirect("/dashboard/contact");
+  } catch (error) {
+    console.log(`Delete contact error : ${error}`);
+    res.redirect("/error");
+  }
+}
+
 export {
   addCategory,
   deleteCategory,
@@ -513,5 +554,7 @@ export {
   deletePost,
   updatePost,
   deleteReply,
-  deleteComment
+  deleteComment,
+  addContact,
+  deleteContact
 };

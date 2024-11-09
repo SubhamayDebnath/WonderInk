@@ -11,7 +11,9 @@ import {
   deletePost,
   updatePost,
   deleteReply,
-  deleteComment
+  deleteComment,
+  addContact,
+  deleteContact
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/multer.middleware.js";
@@ -38,5 +40,7 @@ router.put(
   upload.single("avatar"),
   updateUser
 );
+router.post('/contact',isAuthorized,addContact);
+router.delete('/delete-contact',isAuthorized,deleteContact)
 
 export default router;
