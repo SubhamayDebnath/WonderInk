@@ -171,12 +171,60 @@ const activationPage=async(req,res,next)=>{
       title: "Activation",
       description: "Welcome to our activation page",
     };
+
     res.render("utils/activation", { locals,user:req.user , layout: utilsLayout });
   } catch (error) {
     console.log(`Activation page error : ${error}`);
     res.redirect("/error");
   }
 }
+/*
+  Search Page Render
+*/ 
+const searchPage = async (req, res, next) => {
+  try {
+    const locals = {
+      title: "Home Page",
+      description: "Welcome to our home page",
+    };
+    let perPage = 6;
+    let page = req.query.page || 1;
+    const search = req.body.search || '';
+    const searchNoSpecialChar = search.replace(/[^a-zA-Z0-9 ]/g, "")
+    const data = await Post.find({
+      $or: [
+        { title: { $regex: new RegExp(searchNoSpecialChar, 'i') }},
+        { body: { $regex: new RegExp(searchNoSpecialChar, 'i') }}
+      ]
+    }).populate("category", "name")
+    .sort({ createdAt: -1 })
+    .skip(perPage * (page - 1))
+    .limit(perPage)
+    .exec();;
+    const count = await Post.countDocuments(data);
+    const totalPages = Math.ceil(count / perPage);
+    const nextPage = parseInt(page) + 1;
+    const hasNextPage = nextPage <= totalPages;
+    const prevPage = page > 1 ? page - 1 : null;
+
+    res.render("search", {
+      locals,
+      user: req.user,
+      data,
+      current: page,
+      nextPage: hasNextPage ? nextPage : null,
+      prevPage,
+      totalPages,
+      search
+    });
+  } catch (error) {
+    console.log(`Search Page error : ${error}`);
+    res.redirect("/");
+  }
+};
 
 
-export { homePage, articlesPage,articlePage, contactPage, categoriesPage,categoryPage,errorPage,activationPage};
+
+
+
+export { homePage, articlesPage,articlePage, contactPage, categoriesPage,categoryPage,errorPage,activationPage,searchPage};
