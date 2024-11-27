@@ -1,7 +1,7 @@
 const homePage = async (req,res) => {
     try {
         const locals = {
-            title: "Home Page",
+            title: "Wonderink",
             description: "Welcome to our home page",
         };
         res.render('home/index',{locals})
