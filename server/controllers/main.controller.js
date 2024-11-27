@@ -21,7 +21,20 @@ const blogsPage=async (req,res) => {
     }
 }
 
+const categoriesPage = async (req,res) => {
+    try {
+        const locals = {
+            title: "Wonderink - Categories",
+            description: "Welcome to our Blogs page",
+        };
+        res.render('home/categories',{locals})
+    } catch (error) {
+        console.log(`Categories page error : ${error}`);
+    }
+}
+
 export{
     homePage,
-    blogsPage
+    blogsPage,
+    categoriesPage
 }
