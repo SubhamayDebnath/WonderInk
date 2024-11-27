@@ -9,8 +9,9 @@ import flush from "connect-flash";
 import MongoStore from "connect-mongo";
 config();
 
-import DBConnection from './server/config/DBConnection.js'
-import homePageRoutes from './server/routes/home.routes.js'
+import DBConnection from "./server/config/DBConnection.js";
+import homePageRoutes from "./server/routes/home.routes.js";
+import authRoutes from "./server/routes/auth.routes.js";
 const app = express();
 const PORT = process.env.PORT;
 
@@ -41,7 +42,8 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash("error_msg");
   next();
 });
-app.use('',homePageRoutes)
+app.use("", homePageRoutes);
+app.use("/auth", authRoutes);
 app.use("*", (req, res) => {
   res.status(404).send("Page Not Found");
 });
