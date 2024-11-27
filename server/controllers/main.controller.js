@@ -43,11 +43,23 @@ const aboutPage = async (req,res) => {
         console.log(`About page error : ${error}`);
     }
 }
+const blogPage=async (req,res) => {
+    try {
+        const locals = {
+            title: "Wonderink - Blog",
+            description: "Welcome to our Blogs page",
+        };
+        res.render('home/blog',{locals})
+    } catch (error) {
+        console.log(`Blog page error : ${error}`);
+    }
+}
 
 
 export{
     homePage,
     blogsPage,
     categoriesPage,
-    aboutPage
+    aboutPage,
+    blogPage
 }
