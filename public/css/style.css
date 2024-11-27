@@ -810,6 +810,14 @@ video {
   height: fit-content;
 }
 
+.h-8{
+  height: 2rem;
+}
+
+.h-12{
+  height: 3rem;
+}
+
 .min-h-fit{
   min-height: -moz-fit-content;
   min-height: fit-content;
@@ -854,6 +862,10 @@ video {
 .w-fit{
   width: -moz-fit-content;
   width: fit-content;
+}
+
+.w-8{
+  width: 2rem;
 }
 
 .max-w-4xl{
@@ -1158,6 +1170,10 @@ video {
   padding-left: 9rem;
 }
 
+.pl-2{
+  padding-left: 0.5rem;
+}
+
 .text-center{
   text-align: center;
 }
@@ -1259,6 +1275,11 @@ video {
 
 .mix-blend-plus-lighter{
   mix-blend-mode: plus-lighter;
+}
+
+.outline-none{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .backdrop-blur-sm{
@@ -1413,6 +1434,10 @@ video {
   .md\:h-fit{
     height: -moz-fit-content;
     height: fit-content;
+  }
+
+  .md\:h-10{
+    height: 2.5rem;
   }
 
   .md\:min-h-\[calc\(100dvh-4rem\)\]{
