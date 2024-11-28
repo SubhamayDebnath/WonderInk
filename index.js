@@ -12,6 +12,7 @@ config();
 import DBConnection from "./server/config/DBConnection.js";
 import homePageRoutes from "./server/routes/home.routes.js";
 import authRoutes from "./server/routes/auth.routes.js";
+import adminRoutes from "./server/routes/admin.routes.js"
 const app = express();
 const PORT = process.env.PORT;
 
@@ -44,6 +45,7 @@ app.use((req, res, next) => {
 });
 app.use("", homePageRoutes);
 app.use("/auth", authRoutes);
+app.use('/admin',adminRoutes);
 app.use("*", (req, res) => {
   res.status(404).send("Page Not Found");
 });
