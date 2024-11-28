@@ -47,7 +47,7 @@ app.use("", homePageRoutes);
 app.use("/auth", authRoutes);
 app.use('/admin',adminRoutes);
 app.use("*", (req, res) => {
-  res.status(404).render("404",{locals:{ title: "Wonderink - Dashboard",
+  res.status(404).render("error/404",{locals:{ title: "Wonderink - Dashboard",
     description: "Welcome to our dashboard page",}}); 
 });
 
