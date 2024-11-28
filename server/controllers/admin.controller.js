@@ -8,6 +8,7 @@ const dashboard = async (req,res) => {
         res.render('admin/index',{layout:adminLayout,locals})
     } catch (error) {
         console.log(`Dashboard page error : ${error}`);
+        res.redirect('/error')
     }
 }
 const adminBlogsPage = async (req,res) => {
@@ -19,6 +20,7 @@ const adminBlogsPage = async (req,res) => {
         res.render('admin/blog',{layout:adminLayout,locals})
     } catch (error) {
         console.log(`Admin Blog page error : ${error}`);
+        res.redirect('/error')
     }
 }
 const adminCategoryPage = async (req,res) => {
@@ -30,6 +32,7 @@ const adminCategoryPage = async (req,res) => {
         res.render('admin/category',{layout:adminLayout,locals})
     } catch (error) {
         console.log(`Admin Category page error : ${error}`);
+        res.redirect('/error')
     }
 }
 const adminUsersPage = async (req,res) => {
@@ -41,11 +44,39 @@ const adminUsersPage = async (req,res) => {
         res.render('admin/user',{layout:adminLayout,locals})
     } catch (error) {
         console.log(`Admin User page error : ${error}`);
+        res.redirect('/error')
     }
 }
+const adminUpdateWebsitePage = async (req,res) => {
+    try {
+        const locals = {
+            title: "Wonderink - Dashboard - Update Website",
+            description: "Welcome to our dashboard About page",
+        };
+        res.render('admin/website',{layout:adminLayout,locals})
+    } catch (error) {
+        console.log(`Admin Update Website page error : ${error}`);
+        res.redirect('/error')
+    }
+}
+const adminProfilePage = async (req,res) => {
+    try {
+        const locals = {
+            title: "Wonderink - Dashboard - Profile",
+            description: "Welcome to our dashboard Profile page",
+        };
+        res.render('admin/profile',{layout:adminLayout,locals})
+    } catch (error) {
+        console.log(`Admin Update Website page error : ${error}`);
+        res.redirect('/error')
+    }
+}
+
 export{
     dashboard,
     adminBlogsPage,
     adminCategoryPage,
-    adminUsersPage
+    adminUsersPage,
+    adminUpdateWebsitePage,
+    adminProfilePage
 }

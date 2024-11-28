@@ -7,6 +7,7 @@ const registerPage = async (req, res) => {
     res.render("auth/register", { locals });
   } catch (error) {
     console.log(`Register page error : ${error}`);
+    res.redirect('/error')
   }
 }
 const loginPage = async (req, res) => {
@@ -18,6 +19,7 @@ const loginPage = async (req, res) => {
       res.render("auth/login", { locals });
     } catch (error) {
       console.log(`Register page error : ${error}`);
+      res.redirect('/error')
     }
   }
 export { registerPage, loginPage };

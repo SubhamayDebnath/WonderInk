@@ -7,6 +7,7 @@ const homePage = async (req,res) => {
         res.render('home/index',{locals})
     } catch (error) {
         console.log(`Home page error : ${error}`);
+        res.redirect('/error')
     }
 }
 const blogsPage=async (req,res) => {
@@ -18,6 +19,7 @@ const blogsPage=async (req,res) => {
         res.render('home/blogs',{locals})
     } catch (error) {
         console.log(`Blogs page error : ${error}`);
+        res.redirect('/error')
     }
 }
 
@@ -30,6 +32,7 @@ const categoriesPage = async (req,res) => {
         res.render('home/categories',{locals})
     } catch (error) {
         console.log(`Categories page error : ${error}`);
+        res.redirect('/error')
     }
 }
 const aboutPage = async (req,res) => {
@@ -41,6 +44,7 @@ const aboutPage = async (req,res) => {
         res.render('home/about',{locals})
     } catch (error) {
         console.log(`About page error : ${error}`);
+        res.redirect('/error')
     }
 }
 const blogPage=async (req,res) => {
@@ -52,6 +56,19 @@ const blogPage=async (req,res) => {
         res.render('home/blog',{locals})
     } catch (error) {
         console.log(`Blog page error : ${error}`);
+        res.redirect('/error')
+    }
+}
+const errorPage=async (req,res) => {
+    try {
+        const locals = {
+            title: "Wonderink - Error",
+            description: "Welcome to our Error page",
+        };
+        res.status(500).render('error/500',{locals})
+    } catch (error) {
+        console.log(`Blog page error : ${error}`);
+        res.redirect('/error')
     }
 }
 
@@ -61,5 +78,6 @@ export{
     blogsPage,
     categoriesPage,
     aboutPage,
-    blogPage
+    blogPage,
+    errorPage
 }
