@@ -1,6 +1,7 @@
 *{
-    scroll-behavior: smooth;
+    scroll-behavior: smooth ;
 }
+
 @media (max-width: 768px) {
     .menu{
         opacity: 0;
