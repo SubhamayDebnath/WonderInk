@@ -47,7 +47,8 @@ app.use("", homePageRoutes);
 app.use("/auth", authRoutes);
 app.use('/admin',adminRoutes);
 app.use("*", (req, res) => {
-  res.status(404).send("Page Not Found");
+  res.status(404).render("404",{locals:{ title: "Wonderink - Dashboard",
+    description: "Welcome to our dashboard page",}}); 
 });
 
 app.listen(PORT, async () => {
