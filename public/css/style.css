@@ -830,6 +830,14 @@ video {
   width: 10rem;
 }
 
+.w-14{
+  width: 3.5rem;
+}
+
+.w-10{
+  width: 2.5rem;
+}
+
 .min-w-full{
   min-width: 100%;
 }
@@ -1324,6 +1332,10 @@ video {
   font-weight: 400;
 }
 
+.capitalize{
+  text-transform: capitalize;
+}
+
 .text-black{
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
@@ -1478,6 +1490,15 @@ video {
 
   .sm\:min-w-full{
     min-width: 100%;
+  }
+
+  .sm\:min-w-max{
+    min-width: -moz-max-content;
+    min-width: max-content;
+  }
+
+  .sm\:max-w-full{
+    max-width: 100%;
   }
 
   .sm\:grid-cols-2{
