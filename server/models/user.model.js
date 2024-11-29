@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 const userSchema = new Schema(
   {
-    username: {
+    name: {
       type: "String",
       required: [true, "Username is required"],
       minLength: [3, "Name must be greater than 3 character long"],
@@ -52,10 +52,9 @@ const userSchema = new Schema(
       facebook: { type: Boolean, default: false },
       linkedin: { type: Boolean, default: false },
     },
-    role: {
-      type: "String",
-      enum: ["USER", "ADMIN", "SUPERUSER"],
-      default: "USER",
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
     status: {
       type: Boolean,

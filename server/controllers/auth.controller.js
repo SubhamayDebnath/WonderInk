@@ -1,3 +1,12 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { config } from "dotenv";
+import fs from "fs/promises";
+import crypto from "crypto";
+config();
+
+import User from '../models/user.model.js';
+
 const registerPage = async (req, res) => {
   try {
     const locals = {
@@ -47,7 +56,29 @@ const register = async (req,res) => {
       req.flash("error_msg", "Password must be 6-26 characters long, contain at least one uppercase letter, one special character, and one number");
       return res.redirect("/auth/register");
     }
-    
+    const isExistingUser= await User.findOne({email});
+    if(isExistingUser) {
+      req.flash("error_msg", "Email already exists");
+      return res.redirect("/auth/register");
+    }
+    const hashPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      name,
+      email,
+      password: hashPassword,
+      avatar: {
+        public_id: new Date(),
+        secure_url:`https://res.cloudinary.com/ds7sd75xu/image/upload/v1732899092/2606572_5907_hmdhiz.jpg`,
+      },
+    });
+    if(!user){
+      req.flash("error_msg", "Failed to create user");
+      return res.redirect("/auth/register");
+    }
+    await user.save();
+    req.flash("success_msg", "You are now registered and can log in");
+    return res.redirect("/auth/login");
+
   } catch (error) {
     console.log(`Register error : ${error}`);
     res.redirect('/error')
