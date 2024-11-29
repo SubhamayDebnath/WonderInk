@@ -49,7 +49,7 @@ app.use("/auth", authRoutes);
 app.use('/admin',adminRoutes);
 app.use("*",isAuthenticated,(req, res) => {
   res.status(404).render("error/404",{locals:{ title: "Wonderink - Dashboard",
-    description: "Welcome to our dashboard page",}}); 
+    description: "Welcome to our dashboard page",},user:req.user}); 
 });
 
 app.listen(PORT, async () => {
