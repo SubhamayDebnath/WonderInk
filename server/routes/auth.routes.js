@@ -1,11 +1,18 @@
 import { Router } from "express";
-import { registerPage ,loginPage ,register} from "../controllers/auth.controller.js";
+import {
+  registerPage,
+  loginPage,
+  register,
+  login,
+} from "../controllers/auth.controller.js";
+import { isLoggedIn } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.get("/register", registerPage);
-router.get("/login",loginPage)
+router.get("/register",isLoggedIn, registerPage);
+router.get("/login",isLoggedIn, loginPage);
 
-router.post('/api/v1/register',register)
+router.post("/api/v1/register",isLoggedIn, register);
+router.post("/api/v1/login",isLoggedIn, login);
 
 export default router;

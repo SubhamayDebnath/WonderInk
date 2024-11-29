@@ -13,6 +13,7 @@ import DBConnection from "./server/config/DBConnection.js";
 import homePageRoutes from "./server/routes/home.routes.js";
 import authRoutes from "./server/routes/auth.routes.js";
 import adminRoutes from "./server/routes/admin.routes.js"
+import {isAuthenticated} from './server/middleware/auth.middleware.js'
 const app = express();
 const PORT = process.env.PORT;
 
@@ -46,7 +47,7 @@ app.use((req, res, next) => {
 app.use("", homePageRoutes);
 app.use("/auth", authRoutes);
 app.use('/admin',adminRoutes);
-app.use("*", (req, res) => {
+app.use("*",isAuthenticated,(req, res) => {
   res.status(404).render("error/404",{locals:{ title: "Wonderink - Dashboard",
     description: "Welcome to our dashboard page",}}); 
 });

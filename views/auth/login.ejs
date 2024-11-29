@@ -27,14 +27,14 @@
   </script>
   <% } %>
 
-  <form action="" class="mt-5">
+  <form action="/auth/api/v1/login" method="post" class="mt-5" id="loginForm">
     <div class="flex flex-col gap-1.5 mb-3">
       <label for="email" class="text-sm text-white">Email</label>
-      <input type="email" name="email" id="email" placeholder="Enter your email" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" required>
+      <input type="email" name="email" id="email" placeholder="Enter your email" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" required autocomplete="email">
     </div>
     <div class="flex flex-col gap-1.5 mb-5">
       <label for="password" class="text-sm text-white">Password</label>
-      <input type="password" name="password" id="password" placeholder="Enter your password" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" required>
+      <input type="password" name="password" id="password" placeholder="Enter your password" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" required autocomplete="current-password">
     </div>
     <div class="mb-5">
       <button type="submit" id="submitButton" class="h-10 w-full bg-blue-600 text-white transition-colors duration-200 ease-in-out hover:bg-blue-500 rounded flex items-center justify-center">
@@ -53,7 +53,7 @@
 </div>
 
 <script>
-  document.getElementById("registerForm").addEventListener("submit", function(e) {
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
     disableSubmitButton();
     setTimeout(() => {
       enableSubmitButton();

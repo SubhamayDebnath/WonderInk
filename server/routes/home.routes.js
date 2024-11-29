@@ -7,14 +7,15 @@ import {
   blogPage,
   errorPage
 } from "../controllers/main.controller.js";
+import {isAuthenticated} from '../middleware/auth.middleware.js'
 
 const router = Router();
 
-router.get("/", homePage);
-router.get("/blogs", blogsPage);
-router.get("/categories", categoriesPage);
-router.get("/about", aboutPage);
-router.get('/blog/:slug',blogPage);
-router.get('/error',errorPage)
+router.get("/", isAuthenticated,homePage);
+router.get("/blogs", isAuthenticated, blogsPage);
+router.get("/categories", isAuthenticated, categoriesPage);
+router.get("/about", isAuthenticated, aboutPage);
+router.get('/blog/:slug', isAuthenticated,blogPage);
+router.get('/error', isAuthenticated, errorPage)
 
 export default router;
