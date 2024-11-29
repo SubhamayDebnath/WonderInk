@@ -33,6 +33,10 @@ const register = async (req,res) => {
       req.flash("error_msg", "Please fill in all fields");
       return res.redirect("/auth/register");
     }
+    if(name.length < 3 || name.length > 20) {
+      req.flash("error_msg", "Name must be between 3 and 20 characters");
+      return res.redirect("/auth/register");
+    }
   } catch (error) {
     console.log(`Register error : ${error}`);
     res.redirect('/error')
