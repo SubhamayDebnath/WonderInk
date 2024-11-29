@@ -35,7 +35,7 @@ const isAuthorized = async (req, res, next) => {
       req.flash("error_msg", "Please log in to access this page.");
       return res.redirect("/auth/login");
     }
-    if (!currentUser.role) {
+    if (!currentUser.isActive) {
       req.flash(
         "error_msg",
         "Unauthorized!you do not have permission to access the route"

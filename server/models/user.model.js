@@ -46,6 +46,7 @@ const userSchema = new Schema(
     },
 
     isSocialLinksVisible: {
+      email: { type: Boolean, default: false },
       github: { type: Boolean, default: false },
       twitter: { type: Boolean, default: false },
       instagram: { type: Boolean, default: false },

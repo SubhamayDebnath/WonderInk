@@ -20,7 +20,7 @@ const registerPage = async (req, res) => {
       title: "Wonderink - Register",
       description: "Welcome to our home page",
     };
-    res.render("auth/register", { locals });
+    res.render("auth/register", { locals,user:undefined });
   } catch (error) {
     console.log(`Register page error : ${error}`);
     res.redirect("/error");
@@ -32,7 +32,7 @@ const loginPage = async (req, res) => {
       title: "Wonderink - Login",
       description: "Welcome to our home page",
     };
-    res.render("auth/login", { locals });
+    res.render("auth/login", { locals,user:undefined });
   } catch (error) {
     console.log(`Register page error : ${error}`);
     res.redirect("/error");
