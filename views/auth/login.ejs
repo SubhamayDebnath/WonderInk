@@ -1,25 +1,60 @@
 <div class="max-w-md w-full p-4 rounded border border-white/10 my-10 mx-auto">
-    <h1 class="text-2xl font-black text-center text-white">Sign in to your account</h1>
-    <div class="mt-3 p-2 rounded text-center border border-red-500 bg-red-500/5">
-        <p class="text-red-600">Failed to create account!</p>
+  <h1 class="text-2xl font-black text-center text-white">Sign in to your account</h1>
+  <div class="mt-3 p-2 rounded text-center border border-red-500 bg-red-500/5">
+    <p class="text-red-600">Failed to create account!</p>
+  </div>
+  <div class="mt-3 p-2 rounded text-center border border-emerald-500 bg-emerald-500/5">
+    <p class="text-emerald-600">Failed to create account!</p>
+  </div>
+  <form action="" class="mt-5">
+    <div class="flex flex-col gap-1.5 mb-3">
+      <label for="email" class="text-sm text-white">Email</label>
+      <input type="email" name="email" id="email" placeholder="Enter your email" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" required>
     </div>
-    <div class="mt-3 p-2 rounded text-center border border-emerald-500 bg-emerald-500/5">
-        <p class="text-emerald-600">Failed to create account!</p>
+    <div class="flex flex-col gap-1.5 mb-5">
+      <label for="password" class="text-sm text-white">Password</label>
+      <input type="password" name="password" id="password" placeholder="Enter your password" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" required>
     </div>
-    <form action="" class="mt-5">
-        <div class="flex flex-col gap-1.5 mb-3">
-            <label for="email" class="text-sm text-white">Email</label>
-            <input type="email" name="email" id="email" placeholder="Enter your email" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"  required>
-        </div>
-        <div class="flex flex-col gap-1.5 mb-5">
-            <label for="password" class="text-sm text-white">Password</label>
-            <input type="password" name="password" id="password" placeholder="Enter your password" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"  required>
-        </div>
-        <div class="mb-5">
-            <button type="submit" class="h-10 w-full bg-blue-600 text-white transition-colors duration-200 ease-in-out hover:bg-blue-500 rounded">Login</button>
-        </div>
-    </form>
-    <div>
-        <p>Not a member? <a href="/auth/register">Sign up now</a></p>
+    <div class="mb-5">
+      <button type="submit" id="submitButton" class="h-10 w-full bg-blue-600 text-white transition-colors duration-200 ease-in-out hover:bg-blue-500 rounded flex items-center justify-center">
+        <span id="buttonText">Login</span>
+        <svg id="loadingSpinner" class="hidden w-5 h-5 text-white animate-spin ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+          <path d="M4 12a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="4"></path>
+        </svg>
+      </button>
     </div>
+  </form>
+  <div>
+    <p class="text-sm">Not a member? <a href="/auth/register" class="hover:underline hover:text-white">Sign up now</a></p>
+  </div>
 </div>
+
+<script>
+  document.getElementById("registerForm").addEventListener("submit", function(e) {
+    disableSubmitButton();
+    setTimeout(() => {
+      enableSubmitButton();
+    }, 3000);
+  });
+
+  function disableSubmitButton() {
+    const submitButton = document.getElementById("submit-button");
+    const buttonText = document.getElementById("buttonText");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+
+    submitButton.disabled = true;
+    buttonText.textContent = "Submitting...";
+    loadingSpinner.classList.remove("hidden");
+  }
+
+  function enableSubmitButton() {
+    const submitButton = document.getElementById("submit-button");
+    const buttonText = document.getElementById("buttonText");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+
+    submitButton.disabled = false;
+    buttonText.textContent = "Register";
+    loadingSpinner.classList.add("hidden");
+  }
+</script>

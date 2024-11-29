@@ -21,5 +21,22 @@ const loginPage = async (req, res) => {
       console.log(`Register page error : ${error}`);
       res.redirect('/error')
     }
+}
+
+
+// register logic
+
+const register = async (req,res) => {
+  try {
+    const { name, email, password } = req.body;
+    if(!name || !email || !password) {
+      req.flash("error_msg", "Please fill in all fields");
+      return res.redirect("/auth/register");
+    }
+  } catch (error) {
+    console.log(`Register error : ${error}`);
+    res.redirect('/error')
   }
-export { registerPage, loginPage };
+}
+
+export { registerPage, loginPage,register };
