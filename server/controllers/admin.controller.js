@@ -89,6 +89,31 @@ const adminProfilePage = async (req,res) => {
     }
 }
 
+ const addCategoryPage = async (req,res) => {
+    try {
+        const locals = {
+            title: "Wonderink - Add - Category",
+            description: "Welcome to our dashboard Profile page",
+        };
+        res.render('form/addCategory',{layout:adminLayout,locals,isAdmin:req.user.isAdmin})
+        
+    } catch (error) {
+        console.log(`Add category page error : ${error}`);
+        res.redirect('/error')
+    }
+ }
+
+ const addCategory = async (req,res) => {
+    try {
+        const {name} = req.body;
+        console.log(name);
+        
+    } catch (error) {
+        console.log(`Add category error : ${error}`);
+        res.redirect('/error')
+    }
+ }
+
 export{
     dashboard,
     adminBlogsPage,
@@ -96,5 +121,7 @@ export{
     adminUsersPage,
     adminUpdateWebsitePage,
     adminProfilePage,
-    adminSettingPage
+    adminSettingPage,
+    addCategoryPage,
+    addCategory
 }
