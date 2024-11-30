@@ -8,6 +8,32 @@
       <span>Add a Category</span>
     </a>
   </div>
+  <% if (error_msg.length > 0) { %>
+  <div id="error-message" class="mt-4 p-2 w-fit mx-auto  rounded text-center border border-red-500 bg-red-500/5">
+    <p class="text-red-600 text-sm"><%- error_msg %></p>
+  </div>
+  <script>
+    setTimeout(function() {
+      const errorMessage = document.getElementById("error-message");
+      if (errorMessage) {
+        errorMessage.style.display = 'none';
+      }
+    }, 5000);
+  </script>
+  <% } %>
+  <% if (success_msg.length> 0) { %>
+  <div id="success_msg" class="mt-4 p-2 w-fit mx-auto rounded text-center border border-emerald-500 bg-emerald-500/5">
+    <p class="text-emerald-600 text-sm"><%- success_msg %></p>
+  </div>
+  <script>
+    setTimeout(function() {
+      const successMessage = document.getElementById("success_msg");
+      if (successMessage) {
+        successMessage.style.display = 'none';
+      }
+    }, 5000);
+  </script>
+  <% } %>
   <% if(categories.length){ %>
   <div class="p-4">
     <div class="overflow-x-auto ">
@@ -40,7 +66,8 @@
             </td>
             <td class="px-2 py-1.5 border border-white/10">
               <div class="flex items-center justify-center space-x-2">
-                <form action="">
+                <form action="/admin/api/v1/category/disable/<%-category._id %>?_method=PUT" method="post">
+                  <input type="hidden" name="status" id="status" value="<%- category.isPublish  %>">
                   <button type="submit" class="h-9 md:h-8 text-white aspect-square flex items-center justify-center rounded border border-white/10 bg-gray-800" title="Status Button">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636" />

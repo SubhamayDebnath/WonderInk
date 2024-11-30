@@ -166,6 +166,42 @@ const adminProfilePage = async (req,res) => {
         res.redirect('/error')
     }
  }
+ const disableCategory = async (req,res) => {
+    try {
+        const categoryID = req.params.id;
+        const {status}=req.body;
+        if(!categoryID){
+            req.flash("error_msg", "Invalid category ID");
+            return res.redirect('/admin/category')
+        }
+        const category = await Category.findById(categoryID);
+        if(!category){
+            req.flash("error_msg", "Category not found");
+            return res.redirect('/admin/category');
+        }
+        category.isPublish = status == 'false'
+        await category.save();
+        if(category.isPublish){
+            req.flash("success_msg", "Category enabled");
+            res.redirect('/admin/category');
+        }else{
+            req.flash("success_msg", "Category disabled");
+            res.redirect('/admin/category');
+        }
+        
+    } catch (error) {
+        console.log(`Disable category error : ${error}`);
+        res.redirect('/error')
+    }
+ }
+ const deleteCategory = async (req,res) => {
+    try {
+        
+    } catch (error) {
+        console.log(`Delete category error : ${error}`);
+        res.redirect('/error')
+    }
+ }
 
  const updateProfile = async (req,res) => {
     try {
@@ -190,5 +226,6 @@ export{
     editCategoryPage,
     updateCategory,
     addCategory,
+    disableCategory,
     updateProfile
 }
