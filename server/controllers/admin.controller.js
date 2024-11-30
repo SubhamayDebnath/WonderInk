@@ -12,9 +12,11 @@ const dashboard = async (req, res) => {
       title: "Wonderink - Dashboard",
       description: "Welcome to our dashboard page",
     };
-    const users = await User.find().sort({ createdAt: -1 });
+    const users = await User.find().sort({ createdAt: -1 }).limit(5);
+    const posts = await Post.find().sort({ createdAt: -1 }).limit(5);    
     const userCount = await User.countDocuments();
     const categoryCount = await Category.countDocuments();
+    const postCount = await Post.countDocuments();
     return res.render("admin/index", {
       layout: adminLayout,
       locals,
@@ -22,6 +24,7 @@ const dashboard = async (req, res) => {
       users,
       userCount,
       categoryCount,
+      postCount
     });
   } catch (error) {
     console.log(`Dashboard page error : ${error}`);
@@ -34,10 +37,14 @@ const adminBlogsPage = async (req, res) => {
       title: "Wonderink - Dashboard - Blog",
       description: "Welcome to our dashboard blog page",
     };
+    const post = await Post.find().sort({ createdAt: -1 });
+    const postCount = await Post.countDocuments();
     return res.render("admin/blog", {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
+      post,
+      postCount
     });
   } catch (error) {
     console.log(`Admin Blog page error : ${error}`);
@@ -51,12 +58,14 @@ const adminCategoryPage = async (req, res) => {
       description: "Welcome to our dashboard category page",
     };
     const categories = await Category.find().sort({ createdAt: -1 });
+    const categoryCount = await Category.countDocuments();
 
     return res.render("admin/category", {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
       categories,
+      categoryCount
     });
   } catch (error) {
     console.log(`Admin Category page error : ${error}`);
@@ -70,11 +79,13 @@ const adminUsersPage = async (req, res) => {
       description: "Welcome to our dashboard User page",
     };
     const users = await User.find().sort({ createdAt: -1 });
+    const userCount = await User.countDocuments();
     return res.render("admin/user", {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
       users,
+      userCount
     });
   } catch (error) {
     console.log(`Admin User page error : ${error}`);
