@@ -1,5 +1,7 @@
 import User from "../models/user.model.js";
 import Category from "../models/category.model.js";
+import cloudinary from "../utils/cloudinary.js"
+import fs from "fs/promises";
 const adminLayout = "../views/layouts/admin";
 const dashboard = async (req, res) => {
   try {
@@ -255,8 +257,55 @@ const deleteCategory = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    console.log(req.params.id);
-    console.log(req.body);
+    const userID = req.params.id;
+    const { name, description } = req.body;
+    if (!userID) {
+      req.flash("error_msg", "Invalid user ID");
+      return res.redirect("/admin/profile");
+    }
+    const user = await User.findById(userID);
+    if (!user) {
+      req.flash("error_msg", "User not found");
+      return res.redirect("/admin/profile");
+    }
+    if (!name || !description) {
+      req.flash("error_msg", "Name and description are required");
+      return res.redirect("/admin/profile");
+    }
+    let image = "";
+    let public_id = "";
+    if (!req.file) {
+      user.name = name;
+      user.description = description;
+      await user.save();
+      req.flash("success_msg", "Profile updated");
+      return res.redirect("/admin/profile");
+    } else {
+      const transformationOptions = {
+        transformation: [
+          {
+            quality: "auto:low",
+            fetch_format: "avif",
+          },
+        ],
+      };
+      const cloudinaryResult = await cloudinary.uploader.upload(
+        req.file.path,
+        transformationOptions
+      );
+      image = cloudinaryResult.secure_url;
+      public_id = cloudinaryResult.public_id;
+      fs.rm(req.file.path);
+      user.avatar = {
+        public_id: public_id,
+        secure_url: image,
+      };
+      user.name = name;
+      user.description = description;
+      await user.save();
+      req.flash("success_msg", "Profile updated");
+      return res.redirect("/admin/profile");
+    }
   } catch (error) {
     console.log(`Update Profile error : ${error}`);
     return res.redirect("/error");

@@ -88,6 +88,32 @@
     <div class="px-4 py-3 border-b border-b-white/10">
       <h1 class="text-xl font-semibold text-white ">Edit Profile</h1>
     </div>
+    <% if (error_msg.length> 0) { %>
+    <div id="error-message" class="mx-3 mt-4 p-2 rounded text-center border border-red-500 bg-red-500/5">
+      <p class="text-red-600 text-sm"><%- error_msg %></p>
+    </div>
+    <script>
+      setTimeout(function() {
+        const errorMessage = document.getElementById("error-message");
+        if (errorMessage) {
+          errorMessage.style.display = 'none';
+        }
+      }, 5000);
+    </script>
+    <% } %>
+    <% if (success_msg.length> 0) { %>
+    <div id="success_msg" class="mx-3 mt-4 p-2 rounded text-center border border-emerald-500 bg-emerald-500/5">
+      <p class="text-emerald-600 text-sm"><%- success_msg %></p>
+    </div>
+    <script>
+      setTimeout(function() {
+        const successMessage = document.getElementById("success_msg");
+        if (successMessage) {
+          successMessage.style.display = 'none';
+        }
+      }, 5000);
+    </script>
+    <% } %>
     <form action="/admin/api/v1/profile/update/<%- user._id %>?_method=PUT" method="post" id="updateProfileForm" enctype="multipart/form-data" class="px-4 py-3">
       <div class="mb-3">
         <div class="relative w-fit">
@@ -100,7 +126,7 @@
             </svg>
           </label>
         </div>
-        <input type="file" name="avatar" id="avatar" class="hidden" required>
+        <input type="file" name="avatar" id="avatar" class="hidden">
       </div>
       <div class="mb-3">
         <label for="name" class="text-sm">Name</label>
@@ -110,13 +136,8 @@
         <label for="description" class="text-sm">Description</label>
         <textarea name="description" id="description" rows="5" placeholder="Enter Your Description" required class="w-full p-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"><%- user.description  %></textarea>
       </div>
-      <button type="submit" id="submitButton" class="h-10 w-full bg-blue-600 text-white transition-colors duration-200 ease-in-out hover:bg-blue-500 rounded flex items-center justify-center">
-        <span id="buttonText">Save Change</span>
-        <svg width="20px" height="20px" id="loadingSpinner" class="hidden ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;">
-          <path ng-attr-d="{{config.pathCmd}}" ng-attr-fill="{{config.color}}" stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#ffffff" transform="rotate(354.062 50 51)">
-            <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
-          </path>
-        </svg>
+      <button type="submit" id="submit-button" class="h-10 w-full bg-blue-600 text-white transition-colors duration-200 ease-in-out hover:bg-blue-500 rounded flex items-center justify-center">
+        Save Changes
       </button>
     </form>
   </div>
@@ -131,22 +152,22 @@
         <div class="mb-3">
           <label for="email" class="text-sm">Email</label>
           <input type="text" name="email" id="email" placeholder="Enter Your Email" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.email %>">
-          <input type="checkbox" name="isEmail" id="isEmail" <% if(user.isSocialLinksVisible.linkedin){
-                        %>checked <% } %>>
+          <input type="checkbox" name="isEmail" id="isEmail" <% if(user.isSocialLinksVisible.linkedin){ %>checked <% }
+            %>>
           <label for="isEmail" class="text-sm">Show Email profile link</label>
         </div>
         <div class="mb-3">
           <label for="GitHub" class="text-sm">Github</label>
           <input type="url" name="GitHub" id="GitHub" placeholder="Enter Your GitHub profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.github %>">
-          <input type="checkbox" name="isGithub" id="isGithub" <% if(user.isSocialLinksVisible.github){
-                        %>checked <% } %>>
+          <input type="checkbox" name="isGithub" id="isGithub" <% if(user.isSocialLinksVisible.github){ %>checked <% }
+            %>>
           <label for="isGithub" class="text-sm">Show Github profile link</label>
         </div>
         <div class="mb-3">
           <label for="twitter" class="text-sm">Twitter</label>
           <input type="url" name="twitter" id="twitter" placeholder="Enter Your Twitter profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.twitter %>">
-          <input type="checkbox" name="isTwitter" id="isTwitter" <% if(user.isSocialLinksVisible.twitter){
-                        %>checked <% } %>>
+          <input type="checkbox" name="isTwitter" id="isTwitter" <% if(user.isSocialLinksVisible.twitter){ %>checked <%
+            } %>>
           <label for="isTwitter" class="text-sm">Show Twitter profile link</label>
         </div>
       </div>
@@ -154,22 +175,20 @@
         <div class="mb-3">
           <label for="instagram" class="text-sm">Instagram</label>
           <input type="url" name="instagram" id="instagram" placeholder="Enter Your Instagram profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.instagram %>">
-          <input type="checkbox" name="isInstagram" id="isInstagram" <%
-                        if(user.isSocialLinksVisible.instagram){ %>checked <% } %>>
+          <input type="checkbox" name="isInstagram" id="isInstagram" <% if(user.isSocialLinksVisible.instagram){
+            %>checked <% } %>>
           <label for="isInstagram" class="text-sm">Show Instagram profile link</label>
         </div>
         <div class="mb-3">
           <label for="facebook" class="text-sm">Facebook</label>
           <input type="url" name="facebook" id="facebook" placeholder="Enter Your Facebook profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.facebook %>">
-          <input type="checkbox" name="isFacebook" id="isFacebook" <% if(user.isSocialLinksVisible.facebook){
-                        %>checked <% } %>>
+          <input type="checkbox" name="isFacebook" id="isFacebook" <% if(user.isSocialLinksVisible.facebook){ %>checked <% } %>>
           <label for="isInstagram" class="text-sm">Show Facebook profile link</label>
         </div>
         <div class="mb-3">
           <label for="linkedIn" class="text-sm">LinkedIn</label>
           <input type="url" name="linkedIn" id="linkedIn" placeholder="Enter Your LinkedIn profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.linkedin %>">
-          <input type="checkbox" name="isLinkedIn" id="isLinkedIn" <% if(user.isSocialLinksVisible.linkedin){
-                        %>checked <% } %>>
+          <input type="checkbox" name="isLinkedIn" id="isLinkedIn" <% if(user.isSocialLinksVisible.linkedin){ %>checked <% } %>>
           <label for="isLinkedIn" class="text-sm">Show LinkedIn profile link</label>
         </div>
       </div>
@@ -218,28 +237,11 @@
 
   document.getElementById("updateProfileForm").addEventListener("submit", function(e) {
     disableSubmitButton();
-    setTimeout(() => {
-      enableSubmitButton();
-    }, 3000);
   });
 
   function disableSubmitButton() {
     const submitButton = document.getElementById("submit-button");
-    const buttonText = document.getElementById("buttonText");
-    const loadingSpinner = document.getElementById("loadingSpinner");
-
     submitButton.disabled = true;
-    buttonText.textContent = "Submitting...";
-    loadingSpinner.classList.remove("hidden");
-  }
-
-  function enableSubmitButton() {
-    const submitButton = document.getElementById("submit-button");
-    const buttonText = document.getElementById("buttonText");
-    const loadingSpinner = document.getElementById("loadingSpinner");
-
-    submitButton.disabled = false;
-    buttonText.textContent = "Save";
-    loadingSpinner.classList.add("hidden");
+    submitButton.textContent = "Submitting...";
   }
 </script>
