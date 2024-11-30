@@ -132,4 +132,14 @@ const login = async (req, res) => {
   }
 };
 
-export { registerPage, loginPage, register, login };
+const logout = async (req,res) => {
+  try {
+    res.clearCookie("accessToken");
+    return res.redirect("/auth/login");
+  } catch (error) {
+    console.log(`Logout error : ${error}`);
+    res.redirect("/error");
+  }
+}
+
+export { registerPage, loginPage, register, login ,logout };

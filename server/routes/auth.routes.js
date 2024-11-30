@@ -4,6 +4,7 @@ import {
   loginPage,
   register,
   login,
+  logout
 } from "../controllers/auth.controller.js";
 import { isLoggedIn } from "../middleware/auth.middleware.js";
 
@@ -11,7 +12,7 @@ const router = Router();
 
 router.get("/register",isLoggedIn, registerPage);
 router.get("/login",isLoggedIn, loginPage);
-
+router.get('/logout',logout)
 router.post("/api/v1/register",isLoggedIn, register);
 router.post("/api/v1/login",isLoggedIn, login);
 
