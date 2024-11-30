@@ -3,14 +3,14 @@
         <div class="px-4 py-3 border-b border-b-white/10">
             <h1 class="text-xl font-semibold text-white ">Post Number</h1>
         </div>
-        <form action="" class="p-4">
+        <form action="/admin/setting/post/update?_method=PUT" method="post" class="p-4">
             <div class="mb-3">
                 <label for="homePagePostCount" class="text-sm">No of post in latest Post section ( Homepage )</label>
-                <input type="text" name="homePagePostCount" id="homePagePostCount" placeholder="Home Page Post Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+                <input type="text" name="homePagePostCount" id="homePagePostCount" placeholder="Home Page Post Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" value="<%- setting.post.latestPostNumber  %>" required>
             </div>
             <div class="mb-3">
                 <label for="blogPagePostCount" class="text-sm">No of post in latest Post section ( Blog Section )</label>
-                <input type="text" name="blogPagePostCount" id="blogPagePostCount" placeholder="Blog Page Post Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+                <input type="text" name="blogPagePostCount" id="blogPagePostCount" placeholder="Blog Page Post Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" value="<%- setting.post.postNumber  %>" required>
             </div>
             <button type="submit" class="w-full py-2 rounded transition-colors duration-200 ease-in-out bg-blue-600 text-white hover:bg-blue-500">Save</button>
         </form>
@@ -22,11 +22,11 @@
         <form action="" class="p-4">
             <div class="mb-3">
                 <label for="categoryCount" class="text-sm">No of Category in sidebar</label>
-                <input type="text" name="categoryCount" id="categoryCount" placeholder="Category Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+                <input type="text" name="categoryCount" id="categoryCount" placeholder="Category Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" value="<%- setting.side.categoryNumber  %>" required >
             </div>
             <div class="mb-3">
                 <label for="tagsCount" class="text-sm">No of Tags in sidebar</label>
-                <input type="text" name="tagsCount" id="tagsCount" placeholder="Tags Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+                <input type="text" name="tagsCount" id="tagsCount" placeholder="Tags Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"  value="<%- setting.side.tagNumber  %>" required>
             </div>
             <button type="submit" class="w-full py-2 rounded transition-colors duration-200 ease-in-out bg-blue-600 text-white hover:bg-blue-500">Save</button>
         </form>
@@ -38,15 +38,15 @@
         <form action="" class="p-4">
             <div class="mb-3">
                 <label for="dashboardPagePostCount" class="text-sm">No of post ( Dashboard )</label>
-                <input type="text" name="dashboardPagePostCount" id="dashboardPagePostCount" placeholder="Post Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+                <input type="text" name="dashboardPagePostCount" id="dashboardPagePostCount" placeholder="Post Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" value="<%- setting.dashboard.postNumber  %>" required>
             </div>
             <div class="mb-3">
                 <label for="dashboardPageCategoryCount" class="text-sm">No of category ( Dashboard )</label>
-                <input type="text" name="dashboardPageCategoryCount" id="dashboardPageCategoryCount" placeholder="Category Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+                <input type="text" name="dashboardPageCategoryCount" id="dashboardPageCategoryCount" placeholder="Category Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" value="<%- setting.dashboard.categoryNumber  %>" required>
             </div>
             <div class="mb-3">
                 <label for="dashboardPageUserCount" class="text-sm">No of user ( Dashboard )</label>
-                <input type="text" name="dashboardPageUserCount" id="dashboardPageUserCount" placeholder="User Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+                <input type="text" name="dashboardPageUserCount" id="dashboardPageUserCount" placeholder="User Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" value="<%- setting.dashboard.userNumber  %>" required>
             </div>
             <button type="submit" class="w-full py-2 rounded transition-colors duration-200 ease-in-out bg-blue-600 text-white hover:bg-blue-500">Save</button>
         </form>

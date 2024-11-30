@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import Category from "../models/category.model.js";
+import Setting from "../models/setting.model.js";
 import cloudinary from "../utils/cloudinary.js"
 import fs from "fs/promises";
 const adminLayout = "../views/layouts/admin";
@@ -100,10 +101,12 @@ const adminSettingPage = async (req, res) => {
       title: "Wonderink - Dashboard - Setting",
       description: "Welcome to our dashboard About page",
     };
+    const setting = await Setting.findOne();
     return res.render("admin/settings", {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
+      setting
     });
   } catch (error) {
     console.log(`Admin Update Website page error : ${error}`);
@@ -340,8 +343,12 @@ const updateSocialLinks = async (req,res) => {
 
 const postSetting = async (req,res) => {
   try {
-    console.log(req.body);
-    
+    const { homePagePostCount,blogPagePostCount } = req.body;
+    const setting = await Setting.findOne();
+    setting.post.latestPostNumber = homePagePostCount;
+    setting.post.postNumber = blogPagePostCount;
+    await setting.save()
+    return res.redirect("/admin/settings")
   } catch (error) {
     console.log(`Post Setting error : ${error}`);
     return res.redirect("/error");
