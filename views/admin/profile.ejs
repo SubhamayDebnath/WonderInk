@@ -121,7 +121,7 @@
         <div class="px-4 py-3 border-b border-b-white/10">
             <h1 class="text-xl font-semibold text-white ">Edit Profile</h1>
         </div>
-        <form action="" class="px-4 py-3">
+        <form action="/auth/api/v1/profile/update/<%- user._id %>?_method=PUT" method="post" id="updateProfileForm" class="px-4 py-3">
             <div class="mb-3 flex items-center gap-5">
                 <div>
                     <div class="w-16 aspect-square rounded-full overflow-hidden mb-2">
@@ -249,3 +249,32 @@
         </form>
     </div>
 </div>
+
+<script>
+  document.getElementById("updateProfileForm").addEventListener("submit", function(e) {
+    disableSubmitButton();
+    setTimeout(() => {
+      enableSubmitButton();
+    }, 3000);
+  });
+
+  function disableSubmitButton() {
+    const submitButton = document.getElementById("submit-button");
+    const buttonText = document.getElementById("buttonText");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+
+    submitButton.disabled = true;
+    buttonText.textContent = "Submitting...";
+    loadingSpinner.classList.remove("hidden");
+  }
+
+  function enableSubmitButton() {
+    const submitButton = document.getElementById("submit-button");
+    const buttonText = document.getElementById("buttonText");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+
+    submitButton.disabled = false;
+    buttonText.textContent = "Save";
+    loadingSpinner.classList.add("hidden");
+  }
+</script>

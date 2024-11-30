@@ -128,6 +128,15 @@ const adminProfilePage = async (req,res) => {
     }
  }
 
+ const updateProfile = async (req,res) => {
+    try {
+        
+    } catch (error) {
+        console.log(`Update Profile error : ${error}`);
+        res.redirect('/error')
+    }
+ }
+
 export{
     dashboard,
     adminBlogsPage,
@@ -137,5 +146,6 @@ export{
     adminProfilePage,
     adminSettingPage,
     addCategoryPage,
-    addCategory
+    addCategory,
+    updateProfile
 }
