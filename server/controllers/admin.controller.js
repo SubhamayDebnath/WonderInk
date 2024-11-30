@@ -1,4 +1,5 @@
 import User from '../models/user.model.js'
+import Category from '../models/category.model.js'
 const adminLayout = "../views/layouts/admin";
 const dashboard = async (req,res) => {
     try {
@@ -8,7 +9,8 @@ const dashboard = async (req,res) => {
         };
         const users = await User.find().sort({ createdAt: -1 });
         const userCount = await User.countDocuments();
-        res.render('admin/index',{layout:adminLayout,locals,isAdmin:req.user.isAdmin,users,userCount})
+        const categoryCount = await Category.countDocuments();
+        res.render('admin/index',{layout:adminLayout,locals,isAdmin:req.user.isAdmin,users,userCount,categoryCount})
     } catch (error) {
         console.log(`Dashboard page error : ${error}`);
         res.redirect('/error')
@@ -32,7 +34,9 @@ const adminCategoryPage = async (req,res) => {
             title: "Wonderink - Dashboard - Category",
             description: "Welcome to our dashboard category page",
         };
-        res.render('admin/category',{layout:adminLayout,locals,isAdmin:req.user.isAdmin})
+        const categories = await Category.find().sort({ createdAt: -1 });
+
+        res.render('admin/category',{layout:adminLayout,locals,isAdmin:req.user.isAdmin,categories})
     } catch (error) {
         console.log(`Admin Category page error : ${error}`);
         res.redirect('/error')
@@ -106,7 +110,17 @@ const adminProfilePage = async (req,res) => {
  const addCategory = async (req,res) => {
     try {
         const {name} = req.body;
-        console.log(name);
+        if(!name){
+            req.flash("error_msg", "Please enter category name");
+            return res.redirect('/admin/category/add');
+        }
+        const category = await Category.create({name});
+        if(!category){
+            req.flash("error_msg", "Category not created");
+            return res.redirect('/admin/category/add');
+        }
+        req.flash("success_msg", "Category created");
+        res.redirect('/admin/category/add');
         
     } catch (error) {
         console.log(`Add category error : ${error}`);
