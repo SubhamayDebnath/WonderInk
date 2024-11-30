@@ -151,43 +151,46 @@
       <div>
         <div class="mb-3">
           <label for="email" class="text-sm">Email</label>
-          <input type="text" name="email" id="email" placeholder="Enter Your Email" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.email %>">
+          <input type="text" name="email" id="email" placeholder="Enter Your Email" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.email){ %><%- user.socialLinks.email %> <% }else{ %><%- user.email  %> <% } %>">
           <input type="checkbox" name="isEmail" id="isEmail" <% if(user.isSocialLinksVisible.linkedin){ %>checked <% }
             %>>
           <label for="isEmail" class="text-sm">Show Email profile link</label>
         </div>
         <div class="mb-3">
           <label for="GitHub" class="text-sm">Github</label>
-          <input type="url" name="GitHub" id="GitHub" placeholder="Enter Your GitHub profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.github %>">
+          <input type="url" name="GitHub" id="GitHub" placeholder="Enter Your GitHub profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.github){ %><%- user.socialLinks.github %> <% }else{ %>https://github.com/<% } %>">
           <input type="checkbox" name="isGithub" id="isGithub" <% if(user.isSocialLinksVisible.github){ %>checked <% }
             %>>
           <label for="isGithub" class="text-sm">Show Github profile link</label>
         </div>
+        
         <div class="mb-3">
           <label for="twitter" class="text-sm">Twitter</label>
-          <input type="url" name="twitter" id="twitter" placeholder="Enter Your Twitter profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.twitter %>">
+          <input type="url" name="twitter" id="twitter" placeholder="Enter Your Twitter profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.twitter){ %><%- user.socialLinks.twitter %> <% }else{ %>https://x.com/<% } %>">
           <input type="checkbox" name="isTwitter" id="isTwitter" <% if(user.isSocialLinksVisible.twitter){ %>checked <%
             } %>>
           <label for="isTwitter" class="text-sm">Show Twitter profile link</label>
         </div>
       </div>
       <div>
+        
         <div class="mb-3">
           <label for="instagram" class="text-sm">Instagram</label>
-          <input type="url" name="instagram" id="instagram" placeholder="Enter Your Instagram profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.instagram %>">
-          <input type="checkbox" name="isInstagram" id="isInstagram" <% if(user.isSocialLinksVisible.instagram){
-            %>checked <% } %>>
+          <input type="url" name="instagram" id="instagram" placeholder="Enter Your Instagram profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.instagram){ %><%- user.socialLinks.instagram %> <% }else{ %>https://www.instagram.com/<% } %>">
+          <input type="checkbox" name="isInstagram" id="isInstagram" <% if(user.isSocialLinksVisible.instagram){%>checked <% } %> >
           <label for="isInstagram" class="text-sm">Show Instagram profile link</label>
         </div>
+        
         <div class="mb-3">
           <label for="facebook" class="text-sm">Facebook</label>
-          <input type="url" name="facebook" id="facebook" placeholder="Enter Your Facebook profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.facebook %>">
+          <input type="url" name="facebook" id="facebook" placeholder="Enter Your Facebook profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.facebook){ %><%- user.socialLinks.facebook %> <% }else{ %>https://www.facebook.com/<% } %>">
           <input type="checkbox" name="isFacebook" id="isFacebook" <% if(user.isSocialLinksVisible.facebook){ %>checked <% } %>>
           <label for="isInstagram" class="text-sm">Show Facebook profile link</label>
         </div>
+        
         <div class="mb-3">
           <label for="linkedIn" class="text-sm">LinkedIn</label>
-          <input type="url" name="linkedIn" id="linkedIn" placeholder="Enter Your LinkedIn profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<%- user.socialLinks.linkedin %>">
+          <input type="url" name="linkedIn" id="linkedIn" placeholder="Enter Your LinkedIn profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.linkedin){ %><%- user.socialLinks.linkedin %> <% }else{ %>https://in.linkedin.com/<% } %>">
           <input type="checkbox" name="isLinkedIn" id="isLinkedIn" <% if(user.isSocialLinksVisible.linkedin){ %>checked <% } %>>
           <label for="isLinkedIn" class="text-sm">Show LinkedIn profile link</label>
         </div>
