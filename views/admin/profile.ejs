@@ -104,11 +104,11 @@
       </div>
       <div class="mb-3">
         <label for="name" class="text-sm">Name</label>
-        <input type="text" name="name" id="name" placeholder="Enter Your Name" value="<%-user.name%>" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+        <input type="text" name="name" id="name" placeholder="Enter Your Name" value="<%-user.name%>" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" autocomplete="name">
       </div>
       <div class="mb-3">
         <label for="description" class="text-sm">Description</label>
-        <textarea name="description" id="description" rows="5" placeholder="Enter Your Description" required class="w-full p-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"><%- user.description  %></textarea>
+        <textarea name="description" id="description" rows="5" placeholder="Enter Your Description" required class="w-full p-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" autocomplete="on"><%- user.description  %></textarea>
       </div>
       <button type="submit" id="submit-button" class="h-10 w-full bg-blue-600 text-white transition-colors duration-200 ease-in-out hover:bg-blue-500 rounded flex items-center justify-center">
         Save Changes
@@ -120,19 +120,19 @@
   <div class="px-4 py-3 border-b border-b-white/10">
     <h1 class="text-xl font-semibold text-white ">Social</h1>
   </div>
-  <form action="/admin/api/v1/profile/social/update/<%- user._id %>?_method=PUT" method="post" class="p-4">
+  <form action="/admin/api/v1/profile/social/update/<%- user._id %>?_method=PUT" id="updateSocialForm" method="post" class="p-4">
     <div class="grid md:grid-cols-2 grid-cols-1 gap-5">
       <div>
         <div class="mb-3">
           <label for="email" class="text-sm">Email</label>
           <input type="text" name="email" id="email" placeholder="Enter Your Email" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.email){ %><%- user.socialLinks.email %> <% }else{ %><%- user.email  %> <% } %>">
-          <input type="checkbox" name="isEmail" id="isEmail" <% if(user.isSocialLinksVisible.linkedin){ %>checked <% }
+          <input type="checkbox" name="isEmail" id="isEmail" <% if(user.isSocialLinksVisible.email){ %> checked <% }
             %>>
           <label for="isEmail" class="text-sm">Show Email profile link</label>
         </div>
         <div class="mb-3">
-          <label for="GitHub" class="text-sm">Github</label>
-          <input type="url" name="GitHub" id="GitHub" placeholder="Enter Your GitHub profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.github){ %><%- user.socialLinks.github %> <% }else{ %>https://github.com/<% } %>">
+          <label for="gitHub" class="text-sm">Github</label>
+          <input type="url" name="gitHub" id="gitHub" placeholder="Enter Your GitHub profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.github){ %><%- user.socialLinks.github %> <% }else{ %>https://github.com/<% } %>">
           <input type="checkbox" name="isGithub" id="isGithub" <% if(user.isSocialLinksVisible.github){ %>checked <% }
             %>>
           <label for="isGithub" class="text-sm">Show Github profile link</label>
@@ -171,7 +171,7 @@
       </div>
     </div>
     <div>
-      <button type="submit" class="w-full py-2 rounded transition-colors duration-200 ease-in-out bg-blue-600 text-white hover:bg-blue-500">Save</button>
+      <button type="submit" id="submit-button-social" class="w-full py-2 rounded transition-colors duration-200 ease-in-out bg-blue-600 text-white hover:bg-blue-500">Save</button>
     </div>
   </form>
 </div>
@@ -218,6 +218,15 @@
 
   function disableSubmitButton() {
     const submitButton = document.getElementById("submit-button");
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+  }
+  document.getElementById("updateSocialForm").addEventListener("submit", function(e) {
+    disableSubmitButton2();
+  });
+
+  function disableSubmitButton2() {
+    const submitButton = document.getElementById("submit-button-social");
     submitButton.disabled = true;
     submitButton.textContent = "Submitting...";
   }

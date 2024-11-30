@@ -1,0 +1,14 @@
+{
+  email: 'subhamaydebnath7@gmail.com ',
+  isEmail: 'on',
+  GitHub: 'https://github.com/',
+  isGithub: 'on',
+  twitter: 'https://x.com/',
+  isTwitter: 'on',
+  instagram: 'https://www.instagram.com/',
+  isInstagram: 'on',
+  facebook: 'https://www.facebook.com/',
+  isFacebook: 'on',
+  linkedIn: 'https://in.linkedin.com/',
+  isLinkedIn: 'on'
+}

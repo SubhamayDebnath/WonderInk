@@ -308,8 +308,30 @@ const updateProfile = async (req, res) => {
 };
 const updateSocialLinks = async (req,res) => {
   try {
-    console.log(req.body);
-    
+    const userID = req.params.id;
+    const {email,isEmail,gitHub,isGithub, twitter,isTwitter, instagram,isInstagram,facebook,isFacebook,linkedIn,isLinkedIn } = req.body;
+    if(!userID){
+      return res.redirect("/admin/profile")
+    }
+    const user = await User.findById(userID);
+    if (!user) {
+      return res.redirect("/admin/profile")
+    }
+    user.socialLinks.email = email;
+    user.socialLinks.github = gitHub;
+    user.socialLinks.twitter = twitter;
+    user.socialLinks.instagram = instagram;
+    user.socialLinks.facebook = facebook;
+    user.socialLinks.linkedin = linkedIn;
+
+    user.isSocialLinksVisible.email = isEmail == 'on';
+    user.isSocialLinksVisible.github = isGithub == 'on';
+    user.isSocialLinksVisible.twitter = isTwitter == 'on';
+    user.isSocialLinksVisible.instagram = isInstagram == 'on';
+    user.isSocialLinksVisible.facebook = isFacebook == 'on';
+    user.isSocialLinksVisible.linkedin = isLinkedIn == 'on';
+    await user.save()
+    return res.redirect("/admin/profile")
   } catch (error) {
     console.log(`Update Social Link error : ${error}`);
     return res.redirect("/error");
