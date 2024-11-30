@@ -4,7 +4,6 @@ import {
   adminBlogsPage,
   adminCategoryPage,
   adminUsersPage,
-  adminUpdateWebsitePage,
   adminProfilePage,
   adminSettingPage,
   addCategoryPage,
@@ -29,7 +28,6 @@ router.get("/dashboard", isAuthorized, dashboard);
 router.get("/blog", isAuthorized, adminBlogsPage);
 router.get("/category", isAuthorized, adminCategoryPage);
 router.get("/users", isAuthorized, adminUsersPage);
-router.get("/update", isAuthorized, adminUpdateWebsitePage);
 router.get("/profile", isAuthorized, adminProfilePage);
 router.get("/settings", isAuthorized, adminSettingPage);
 router.get("/category/add", isAuthorized, addCategoryPage);

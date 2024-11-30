@@ -79,22 +79,7 @@ const adminUsersPage = async (req, res) => {
     return res.redirect("/error");
   }
 };
-const adminUpdateWebsitePage = async (req, res) => {
-  try {
-    const locals = {
-      title: "Wonderink - Dashboard - Update Website",
-      description: "Welcome to our dashboard About page",
-    };
-    return res.render("admin/website", {
-      layout: adminLayout,
-      locals,
-      isAdmin: req.user.isAdmin,
-    });
-  } catch (error) {
-    console.log(`Admin Update Website page error : ${error}`);
-    return res.redirect("/error");
-  }
-};
+
 const adminSettingPage = async (req, res) => {
   try {
     const locals = {
@@ -410,7 +395,6 @@ export {
   adminBlogsPage,
   adminCategoryPage,
   adminUsersPage,
-  adminUpdateWebsitePage,
   adminProfilePage,
   adminSettingPage,
   addCategoryPage,
