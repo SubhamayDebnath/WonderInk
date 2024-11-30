@@ -107,6 +107,45 @@ const adminProfilePage = async (req,res) => {
     }
  }
 
+ const editCategoryPage = async (req,res) => {
+    try {
+        const locals = {
+            title: "Wonderink - Edit - Category",
+            description: "Welcome to our dashboard Profile page",
+        };
+        const categoryID = req.params.id;
+        const category = await Category.findById(categoryID);
+        res.render('form/editCategory',{layout:adminLayout,locals,isAdmin:req.user.isAdmin,category})
+        
+    } catch (error) {
+        console.log(`Edit category page error : ${error}`);
+        res.redirect('/error')
+    }
+ }
+
+ const updateCategory = async (req,res) => {
+    try {
+        const categoryID = req.params.id;
+        const {name} = req.body;
+        if(!name){
+            req.flash("error_msg", "Please enter category name");
+            return res.redirect(`/admin/category/edit/${categoryID}`);
+        }
+        const category = await Category.findById(categoryID);
+        if(!category){
+            req.flash("error_msg", "Category not found");
+            return res.redirect(`/admin/category/edit/${categoryID}`);
+        }
+        category.name = name
+        await category.save()
+        req.flash("success_msg", "Category updated successfully");
+        res.redirect(`/admin/category/edit/${categoryID}`)
+    } catch (error) {
+        console.log(`Update category error : ${error}`);
+        res.redirect('/error')
+    }
+ }
+
  const addCategory = async (req,res) => {
     try {
         const {name} = req.body;
@@ -148,6 +187,8 @@ export{
     adminProfilePage,
     adminSettingPage,
     addCategoryPage,
+    editCategoryPage,
+    updateCategory,
     addCategory,
     updateProfile
 }
