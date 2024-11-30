@@ -338,6 +338,16 @@ const updateSocialLinks = async (req,res) => {
   }
 }
 
+const postSetting = async (req,res) => {
+  try {
+    console.log(req.body);
+    
+  } catch (error) {
+    console.log(`Post Setting error : ${error}`);
+    return res.redirect("/error");
+  }
+}
+
 export {
   dashboard,
   adminBlogsPage,
@@ -353,5 +363,6 @@ export {
   disableCategory,
   deleteCategory,
   updateProfile,
-  updateSocialLinks
+  updateSocialLinks,
+  postSetting
 };
