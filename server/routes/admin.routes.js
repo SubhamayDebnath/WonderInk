@@ -15,7 +15,9 @@ import {
   deleteCategory,
   updateProfile,
   updateSocialLinks,
-  postSetting
+  postSetting,
+  sidebarSetting,
+  dashboardSetting
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middleware/auth.middleware.js";
 import upload from '../middleware/multer.middleware.js'
@@ -41,5 +43,7 @@ router.put("/api/v1/profile/update/:id", isAuthorized,upload.single("avatar"), u
 router.put('/api/v1/profile/social/update/:id',isAuthorized,updateSocialLinks);
 
 router.put('/setting/post/update',isAuthorized,postSetting);
+router.put('/setting/sidebar/update',isAuthorized,sidebarSetting);
+router.put('/setting/dashboard/update',isAuthorized,dashboardSetting);
 
 export default router;

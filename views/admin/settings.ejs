@@ -19,7 +19,7 @@
         <div class="px-4 py-3 border-b border-b-white/10">
             <h1 class="text-xl font-semibold text-white ">Sidebar Content</h1>
         </div>
-        <form action="" class="p-4">
+        <form action="/admin/setting/sidebar/update?_method=PUT" method="post" class="p-4">
             <div class="mb-3">
                 <label for="categoryCount" class="text-sm">No of Category in sidebar</label>
                 <input type="text" name="categoryCount" id="categoryCount" placeholder="Category Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" value="<%- setting.side.categoryNumber  %>" required >
@@ -35,7 +35,7 @@
         <div class="px-4 py-3 border-b border-b-white/10">
             <h1 class="text-xl font-semibold text-white ">Content Per Page In Dashboard</h1>
         </div>
-        <form action="" class="p-4">
+        <form action="/admin/setting/dashboard/update?_method=PUT" method="post" class="p-4">
             <div class="mb-3">
                 <label for="dashboardPagePostCount" class="text-sm">No of post ( Dashboard )</label>
                 <input type="text" name="dashboardPagePostCount" id="dashboardPagePostCount" placeholder="Post Count" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" value="<%- setting.dashboard.postNumber  %>" required>

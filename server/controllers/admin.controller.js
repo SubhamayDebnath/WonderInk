@@ -354,6 +354,33 @@ const postSetting = async (req,res) => {
     return res.redirect("/error");
   }
 }
+const sidebarSetting = async (req,res) => {
+  try {
+    const { categoryCount,tagsCount } = req.body;
+    const setting = await Setting.findOne();
+    setting.side.categoryNumber = categoryCount;
+    setting.side.tagNumber= tagsCount;
+    await setting.save()
+    return res.redirect("/admin/settings")
+  } catch (error) {
+    console.log(`Sidebar Setting error : ${error}`);
+    return res.redirect("/error");
+  }
+}
+const dashboardSetting = async (req,res) => {
+  try {
+    const { dashboardPagePostCount,dashboardPageCategoryCount,dashboardPageUserCount } = req.body;
+    const setting = await Setting.findOne();
+    setting.dashboard.postNumber=dashboardPagePostCount;
+    setting.dashboard.categoryNumber=dashboardPageCategoryCount;
+    setting.dashboard.userNumber=dashboardPageUserCount
+    await setting.save()
+    return res.redirect("/admin/settings")
+  } catch (error) {
+    console.log(`Dashboard Setting error : ${error}`);
+    return res.redirect("/error");
+  }
+}
 
 export {
   dashboard,
@@ -371,5 +398,7 @@ export {
   deleteCategory,
   updateProfile,
   updateSocialLinks,
-  postSetting
+  postSetting,
+  sidebarSetting,
+  dashboardSetting
 };
