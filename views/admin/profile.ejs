@@ -88,32 +88,6 @@
     <div class="px-4 py-3 border-b border-b-white/10">
       <h1 class="text-xl font-semibold text-white ">Edit Profile</h1>
     </div>
-    <% if (error_msg.length> 0) { %>
-    <div id="error-message" class="mx-3 mt-4 p-2 rounded text-center border border-red-500 bg-red-500/5">
-      <p class="text-red-600 text-sm"><%- error_msg %></p>
-    </div>
-    <script>
-      setTimeout(function() {
-        const errorMessage = document.getElementById("error-message");
-        if (errorMessage) {
-          errorMessage.style.display = 'none';
-        }
-      }, 5000);
-    </script>
-    <% } %>
-    <% if (success_msg.length> 0) { %>
-    <div id="success_msg" class="mx-3 mt-4 p-2 rounded text-center border border-emerald-500 bg-emerald-500/5">
-      <p class="text-emerald-600 text-sm"><%- success_msg %></p>
-    </div>
-    <script>
-      setTimeout(function() {
-        const successMessage = document.getElementById("success_msg");
-        if (successMessage) {
-          successMessage.style.display = 'none';
-        }
-      }, 5000);
-    </script>
-    <% } %>
     <form action="/admin/api/v1/profile/update/<%- user._id %>?_method=PUT" method="post" id="updateProfileForm" enctype="multipart/form-data" class="px-4 py-3">
       <div class="mb-3">
         <div class="relative w-fit">
@@ -146,7 +120,7 @@
   <div class="px-4 py-3 border-b border-b-white/10">
     <h1 class="text-xl font-semibold text-white ">Social</h1>
   </div>
-  <form action="" class="p-4">
+  <form action="/admin/api/v1/profile/social/update/<%- user._id %>?_method=PUT" method="post" class="p-4">
     <div class="grid md:grid-cols-2 grid-cols-1 gap-5">
       <div>
         <div class="mb-3">

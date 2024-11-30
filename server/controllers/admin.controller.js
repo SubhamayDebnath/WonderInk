@@ -260,16 +260,13 @@ const updateProfile = async (req, res) => {
     const userID = req.params.id;
     const { name, description } = req.body;
     if (!userID) {
-      req.flash("error_msg", "Invalid user ID");
       return res.redirect("/admin/profile");
     }
     const user = await User.findById(userID);
     if (!user) {
-      req.flash("error_msg", "User not found");
       return res.redirect("/admin/profile");
     }
     if (!name || !description) {
-      req.flash("error_msg", "Name and description are required");
       return res.redirect("/admin/profile");
     }
     let image = "";
@@ -278,7 +275,6 @@ const updateProfile = async (req, res) => {
       user.name = name;
       user.description = description;
       await user.save();
-      req.flash("success_msg", "Profile updated");
       return res.redirect("/admin/profile");
     } else {
       const transformationOptions = {
@@ -303,7 +299,6 @@ const updateProfile = async (req, res) => {
       user.name = name;
       user.description = description;
       await user.save();
-      req.flash("success_msg", "Profile updated");
       return res.redirect("/admin/profile");
     }
   } catch (error) {
@@ -311,6 +306,15 @@ const updateProfile = async (req, res) => {
     return res.redirect("/error");
   }
 };
+const updateSocialLinks = async (req,res) => {
+  try {
+    console.log(req.body);
+    
+  } catch (error) {
+    console.log(`Update Social Link error : ${error}`);
+    return res.redirect("/error");
+  }
+}
 
 export {
   dashboard,
@@ -327,4 +331,5 @@ export {
   disableCategory,
   deleteCategory,
   updateProfile,
+  updateSocialLinks
 };
