@@ -1,0 +1,7 @@
+  title: 'test post',
+  category: '674b30aabe58255cd5295974',
+  tags: 'test',
+  isPublish: 'true',
+  description: 'this is test',
+  content: '<p>ddasdadsa</p>'
+}

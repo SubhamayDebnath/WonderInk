@@ -390,6 +390,31 @@ const dashboardSetting = async (req,res) => {
   }
 }
 
+//post
+
+const addPost = async(req,res)=>{
+  try {
+    const { title,category,tags,isPublish,description,content } = req.body;
+    const authorID=req.user._id;
+    if(!title || !category || !tags || !isPublish || !description || !content){
+      req.flash("error_msg", "Please fill all fields");
+      return res.redirect("/admin/post/add");
+    }
+    if(!authorID){
+      req.flash("error_msg", "Please login to add post");
+      return res.redirect("/admin/login");
+    }
+    if(!req.file){
+      req.flash("error_msg", "Please upload image")
+      return res.redirect("/admin/post/add");
+    }
+    
+  } catch (error) {
+    console.log(`Add Post error : ${error}`);
+    return res.redirect("/error");
+  }
+}
+
 export {
   dashboard,
   adminBlogsPage,
@@ -408,5 +433,6 @@ export {
   postSetting,
   sidebarSetting,
   dashboardSetting,
-  addPostPage
+  addPostPage,
+  addPost
 };

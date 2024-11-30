@@ -28,7 +28,7 @@
     }, 5000);
   </script>
   <% } %>
-  <form action="" id="addPostForm" class="p-4">
+  <form action="/admin/api/v1/post/add" method="post" enctype="multipart/form-data" id="addPostForm" class="p-4">
     <div class="mb-5">
         <label for="title" class="text-sm">Title</label>
         <input type="text" name="title" id="title" placeholder="Enter  your Title" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" required>

@@ -17,7 +17,8 @@ import {
   postSetting,
   sidebarSetting,
   dashboardSetting,
-  addPostPage
+  addPostPage,
+  addPost
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middleware/auth.middleware.js";
 import upload from '../middleware/multer.middleware.js'
@@ -45,5 +46,7 @@ router.put('/api/v1/profile/social/update/:id',isAuthorized,updateSocialLinks);
 router.put('/setting/post/update',isAuthorized,postSetting);
 router.put('/setting/sidebar/update',isAuthorized,sidebarSetting);
 router.put('/setting/dashboard/update',isAuthorized,dashboardSetting);
+
+router.post('/api/v1/post/add',isAuthorized,upload.single("avatar"),addPost);
 
 export default router;
