@@ -12,6 +12,7 @@ import {
   updateCategory,
   disableCategory,
   addCategory,
+  deleteCategory,
   updateProfile,
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middleware/auth.middleware.js";
@@ -31,6 +32,7 @@ router.get("/category/edit/:id", isAuthorized, editCategoryPage);
 router.post("/api/v1/category/add", isAuthorized, addCategory);
 router.put("/api/v1/profile/update/:id", isAuthorized, updateProfile);
 router.put('/api/v1/category/edit/:id',isAuthorized,updateCategory)
-router.put('/api/v1/category/disable/:id',isAuthorized,disableCategory)
+router.put('/api/v1/category/disable/:id',isAuthorized,disableCategory);
+router.delete('/api/v1/category/delete/:id',isAuthorized,deleteCategory);
 
 export default router;
