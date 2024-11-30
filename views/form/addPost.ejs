@@ -28,7 +28,7 @@
     }, 5000);
   </script>
   <% } %>
-  <form action="" class="p-4">
+  <form action="" id="addPostForm" class="p-4">
     <div class="mb-5">
         <label for="title" class="text-sm">Title</label>
         <input type="text" name="title" id="title" placeholder="Enter  your Title" class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" required>
@@ -77,3 +77,15 @@
       </button>
   </form>
 </div>
+
+<script>
+document.getElementById("addPostForm").addEventListener("submit", function(e) {
+    disableSubmitButton2();
+  });
+
+  function disableSubmitButton2() {
+    const submitButton = document.getElementById("submit-button");
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+  }
+</script>
