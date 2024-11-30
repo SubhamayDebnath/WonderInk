@@ -22,6 +22,7 @@ const dashboard = async (req, res) => {
       locals,
       isAdmin: req.user.isAdmin,
       users,
+      posts,
       userCount,
       categoryCount,
       postCount

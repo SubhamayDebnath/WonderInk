@@ -42,32 +42,34 @@
             <a href="" class="text-sm transition-colors duration-200 ease-in-out hover:text-white">View all</a>
         </div>
         <div>
-            <a href="">
-                <div class="p-4 flex items-center gap-3 border-b border-b-white/10 transition-colors duration-200 ease-in-out hover:bg-gray-900 overflow-hidden">
-                    <div>
-                        <div class="h-16 aspect-video overflow-hidden rounded">
-                            <img src="https://blogzine.webestica.com/assets/images/blog/1by1/01.jpg" alt="image">
+            <% if(posts.length) { %>
+            <% posts.forEach((post)=>{%>
+                <a href="/blog/<%- post.slug %>">
+                    <div class="p-4 flex items-center gap-3 border-b border-b-white/10 transition-colors duration-200 ease-in-out hover:bg-gray-900 overflow-hidden">
+                        <div>
+                            <div class="h-16 aspect-video overflow-hidden rounded">
+                                <img src="<%- post.image.secure_url  %>" alt="<%-post.title  %>">
+                            </div>
+                        </div>
+                        <div>
+                            <h1 class="text-sm text-white line-clamp-2"><%- post.title  %></h1>
+                            <span class="text-xs text-muted">
+                                <%= new Date(post.createdAt).toLocaleDateString('en-US', { 
+                                    month: 'long', 
+                                    day: 'numeric', 
+                                    year: 'numeric' 
+                                }) %>
+                            </span>
                         </div>
                     </div>
-                    <div>
-                        <h1 class="text-sm text-white line-clamp-2">Prop Drilling: The Horror Movie - A Tale of React Components</h1>
-                        <span class="text-xs text-muted">February 28, 2024</span>
-                    </div>
+                </a>
+            <% }) %>
+
+            <% }else{ %>
+                <div class="p-4 flex items-center justify-between flex-wrap gap-1 border-b border-b-white/10 transition-colors duration-200 ease-in-out hover:bg-gray-900">
+                    No post found!
                 </div>
-            </a>
-            <a href="">
-                <div class="p-4 flex items-center gap-3 border-b border-b-white/10 transition-colors duration-200 ease-in-out hover:bg-gray-900 overflow-hidden">
-                    <div>
-                        <div class="h-16 aspect-video overflow-hidden rounded">
-                            <img src="https://blogzine.webestica.com/assets/images/blog/1by1/01.jpg" alt="image">
-                        </div>
-                    </div>
-                    <div>
-                        <h1 class="text-sm text-white line-clamp-2">Prop Drilling: The Horror Movie - A Tale of React Components</h1>
-                        <span class="text-xs text-muted">February 28, 2024</span>
-                    </div>
-                </div>
-            </a>
+            <% } %>
         </div>
     </div>
     <div class="border border-white/10 rounded">
