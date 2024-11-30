@@ -1,7 +1,9 @@
 import User from "../models/user.model.js";
 import Category from "../models/category.model.js";
 import Setting from "../models/setting.model.js";
+import Post from '../models/post.model.js'
 import cloudinary from "../utils/cloudinary.js"
+import slugify from "slugify";
 import fs from "fs/promises";
 const adminLayout = "../views/layouts/admin";
 const dashboard = async (req, res) => {
@@ -408,7 +410,57 @@ const addPost = async(req,res)=>{
       req.flash("error_msg", "Please upload image")
       return res.redirect("/admin/post/add");
     }
-    
+    const slug = slugify(title, {
+      lower: true,
+      strict: true,
+      replacement: "-",
+    });
+    let existingPost = await Post.findOne({ slug: slug });
+    if (existingPost) {
+      slug = `${slug}-${Date.now()}`;
+    }
+    let image = "";
+    let public_id = "";
+    if (req.file) {
+      const transformationOptions = {
+        transformation: [
+          {
+            quality: "auto:low",
+            fetch_format: "avif",
+          },
+        ],
+      };
+
+      const cloudinaryResult = await cloudinary.uploader.upload(
+        req.file.path,
+        transformationOptions
+      );
+      image = cloudinaryResult.secure_url;
+      public_id = cloudinaryResult.public_id;
+      fs.rm(req.file.path);
+    }
+    const post = await Post.create({
+      image:{
+        public_id:public_id,
+        secure_url:image
+      },
+      title:title,
+      description:description,
+      content:content,
+      category:category,
+      tags:tags.split(","),
+      isPublish:isPublish == 'true',
+      author:authorID,
+      slug:slug
+    });
+    if(!post){
+      req.flash("error_msg", "Failed to create post")
+      return res.redirect("/admin/post/add");
+    }
+    await post.save();
+    req.flash("success_msg", "Post created successfully");
+    return res.redirect("/admin/post/add");
+
   } catch (error) {
     console.log(`Add Post error : ${error}`);
     return res.redirect("/error");
