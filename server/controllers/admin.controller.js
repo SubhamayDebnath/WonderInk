@@ -130,6 +130,8 @@ const adminProfilePage = async (req,res) => {
 
  const updateProfile = async (req,res) => {
     try {
+        console.log(req.params.id);
+        console.log(req.body);
         
     } catch (error) {
         console.log(`Update Profile error : ${error}`);
