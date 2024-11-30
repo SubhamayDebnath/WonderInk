@@ -1,5 +1,7 @@
 tinymce.init({
     selector: "#content",
+    skin: "oxide-dark",
+    content_css: "dark",
     height: 400,
     plugins: [
       "advlist",
