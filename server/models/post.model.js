@@ -21,6 +21,9 @@ const postSchema = new Schema(
       type: String,
       required: [true, "Post Description is required"],
     },
+    contextTable:{
+      type: String,
+    },
     content: {
       type: String, 
       required: [true, "Post Content is required"],

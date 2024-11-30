@@ -36,7 +36,7 @@
     <div class="mb-3 flex md:flex-row flex-col items-start gap-5">
         <div class="md:w-3/5 w-full">
             <div class="w-full aspect-video overflow-hidden rounded mb-3">
-                <img src="https://placehold.co/600x400" alt="Thumbnail" class="w-full h-full object-cover">
+                <img src="https://placehold.co/600x400" alt="Thumbnail" id="previewImage" class="w-full h-full object-cover">
             </div>
             <p class="text-sm mb-3"><strong>Note:</strong> Only JPG, JPEG and PNG. Our suggested dimensions are 600px * 450px. Larger image will be cropped to 4:3 to fit our thumbnails/previews.</p>
             <input type="file" name="avatar" id="avatar" required>
@@ -79,6 +79,17 @@
 </div>
 
 <script>
+      document.getElementById('avatar').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('previewImage');
+        img.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  });
 document.getElementById("addPostForm").addEventListener("submit", function(e) {
     disableSubmitButton2();
   });
