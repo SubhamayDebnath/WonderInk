@@ -131,6 +131,24 @@ const adminProfilePage = async (req, res) => {
     return res.redirect("/error");
   }
 };
+const addPostPage = async (req, res) => {
+  try {
+    const locals = {
+      title: "Wonderink - Add - Post",
+      description: "Welcome to our dashboard Profile page",
+    };
+    const categories = await Category.find();
+    return res.render("form/addPost", {
+      layout: adminLayout,
+      locals,
+      isAdmin: req.user.isAdmin,
+      categories
+    });
+  } catch (error) {
+    console.log(`Add Post page error : ${error}`);
+    return res.redirect("/error");
+  }
+};
 
 const addCategoryPage = async (req, res) => {
   try {
@@ -168,6 +186,8 @@ const editCategoryPage = async (req, res) => {
     return res.redirect("/error");
   }
 };
+
+// category
 
 const updateCategory = async (req, res) => {
   try {
@@ -258,6 +278,7 @@ const deleteCategory = async (req, res) => {
   }
 };
 
+// profile
 const updateProfile = async (req, res) => {
   try {
     const userID = req.params.id;
@@ -341,6 +362,8 @@ const updateSocialLinks = async (req,res) => {
   }
 }
 
+// setting
+
 const postSetting = async (req,res) => {
   try {
     const { homePagePostCount,blogPagePostCount } = req.body;
@@ -400,5 +423,6 @@ export {
   updateSocialLinks,
   postSetting,
   sidebarSetting,
-  dashboardSetting
+  dashboardSetting,
+  addPostPage
 };
