@@ -1,10 +1,19 @@
+import Setting from "../models/setting.model.js";
+import Post from '../models/post.model.js'
+import Category from '../models/category.model.js'
+
 const homePage = async (req,res) => {
     try {
         const locals = {
             title: "Wonderink",
             description: "Welcome to our home page",
         };
-        res.render('home/index',{locals,user:req.user})
+        const setting = await Setting.findOne();
+        const postLimit = setting.post.latestPostNumber || 6;
+        const categoryLimit = setting.side.categoryNumber || 6;
+        const posts = await Post.find().sort({ createdAt: -1 }).limit(postLimit).populate('category', 'name');
+        const categories = await Category.find().sort({ createdAt: -1 }).limit(categoryLimit);
+        res.render('home/index',{locals,user:req.user,posts,categories})
     } catch (error) {
         console.log(`Home page error : ${error}`);
         res.redirect('/error')
