@@ -6,7 +6,9 @@ const dashboard = async (req,res) => {
             title: "Wonderink - Dashboard",
             description: "Welcome to our dashboard page",
         };
-        res.render('admin/index',{layout:adminLayout,locals,isAdmin:req.user.isAdmin})
+        const users = await User.find().sort({ createdAt: -1 });
+        const userCount = await User.countDocuments();
+        res.render('admin/index',{layout:adminLayout,locals,isAdmin:req.user.isAdmin,users,userCount})
     } catch (error) {
         console.log(`Dashboard page error : ${error}`);
         res.redirect('/error')
@@ -42,7 +44,8 @@ const adminUsersPage = async (req,res) => {
             title: "Wonderink - Dashboard - User",
             description: "Welcome to our dashboard User page",
         };
-        res.render('admin/user',{layout:adminLayout,locals,isAdmin:req.user.isAdmin})
+        const users = await User.find().sort({ createdAt: -1 });
+        res.render('admin/user',{layout:adminLayout,locals,isAdmin:req.user.isAdmin,users})
     } catch (error) {
         console.log(`Admin User page error : ${error}`);
         res.redirect('/error')
