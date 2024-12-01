@@ -6,7 +6,8 @@ module.exports = {
       fontFamily:{
         'Logo': ['Kalam', 'cursive'],
         'Inter': ['Inter', 'sans-serif']
-      }
+      },
+      
     },
   },
   plugins: [
