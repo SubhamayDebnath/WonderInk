@@ -1,28 +1,28 @@
 <div class="min-h-fit md:min-h-[calc(100dvh-4rem)] h-full flex flex-col items-center justify-center  gap-4 text-center py-10">
-  <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-balance text-indigo-500">Hello, I'm Wonderink</h1>
+  <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-balance text-indigo-600">Hello, I'm Wonderink</h1>
   <p class="max-w-[42rem] mx-auto text-muted sm:text-xl text-balance">Welcome to my blog template. Built using tailwind,EJS and NodeJS.</p>
   <div class="flex sm:flex-row flex-col items-center justify-center gap-4 w-full px-4">
-    <a href="" class="w-full sm:w-36 sm:py-2.5 py-3 text-balance sm:text-sm font-medium text-black bg-white/80  border rounded transition-colors duration-200 ease-in-out hover:bg-white">View my blog</a>
-    <a href="" class="w-full sm:w-36 sm:py-2.5 py-3 text-balance sm:text-sm font-medium text-white  border rounded transition-colors duration-200 ease-in-out hover:text-black hover:bg-white">GitHub</a>
+    <a href="" class="w-full sm:w-36 sm:py-2.5 py-3 text-balance sm:text-sm font-medium border rounded transition-colors duration-200 ease-in-out bg-indigo-600 text-white hover:bg-indigo-500">View my blog</a>
+    <a href="" class="w-full sm:w-36 sm:py-2.5 py-3 text-balance sm:text-sm font-medium  border rounded transition-colors duration-200 ease-in-out border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white">GitHub</a>
   </div>
 </div>
 <div>
-  <h1 class="text-xl font-bold text-white py-2">Latest Posts</h1>
+  <h1 class="text-xl font-bold text-black py-2">Latest Posts</h1>
   <div class="flex md:flex-row flex-col items-start relative md:gap-5 gap-10">
     <div class="w-full md:w-4/6 border-t border-t-white/10">
       <% if(posts.length) {%>
       <% posts.forEach((post)=> { %>
       <div class="flex flex-col gap-3 py-5 border-b border-b-white/10">
-        <h2 class="text-2xl font-bold text-white group">
+        <h2 class="text-2xl font-bold group text-indigo-600">
           <a href="/blog/<%- post.slug  %>" class="line-clamp-2 group-hover:underline"><%- post.title  %></a>
         </h2>
         <div class="flex items-center gap-2 flex-wrap">
-          <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 bg-gray-800 text-white capitalize">
+          <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out hover:bg-indigo-500 bg-indigo-600 text-white capitalize">
             <%- post.category.name  %>
           </a> →
           <% if (Array.isArray(post.tags) && post.tags.length > 0) { %>
           <% post.tags.forEach(tag => { %>
-          <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">
+          <a href="" class="text-xs font-semibold rounded p-1.5 transition-colors duration-200 ease-in-out hover:bg-indigo-500 bg-indigo-600 text-white">
             <%- tag  %>
           </a>
           <% }) %>
@@ -30,22 +30,22 @@
         </div>
         <p class="text-muted break-words"><%-post.description  %></p>
         <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-2 text-sm text-white ">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+          <div class="flex items-center space-x-2 text-sm font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-indigo-600">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
             </svg>
             <span>
               <%= new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long',day: 'numeric',year: 'numeric' }) %>
             </span>
           </div>
-          <a href="/blog/<%- post.slug  %>" class="text-sm text-white hover:underline">
+          <a href="/blog/<%- post.slug  %>" class="text-sm font-medium hover:underline transition-colors duration-200 ease-in-out hover:text-indigo-600">
             Read more →
           </a>
         </div>
       </div>
       <% }) %>
       <div class="py-5 text-end">
-        <a href="/blogs" class="text-white font-medium hover:underline">View All Blog → </a>
+        <a href="/blogs" class="text-black font-medium hover:underline">View All Blog → </a>
       </div>
       <% }else{ %>
       <div class="py-10 text-center">
@@ -55,8 +55,8 @@
     </div>
     <div class="w-full md:w-2/6 sticky top-20 ">
       <div class="mb-5">
-        <form action="" class="w-full md:h-10 h-12 overflow-hidden flex items-center rounded border border-white/10">
-          <input type="text" name="search" id="search" placeholder="search" class="w-full h-full pl-2 bg-transparent outline-none text-white placeholder:text-sm">
+        <form action="" class="w-full md:h-10 h-12 overflow-hidden flex items-center rounded border bg-neutral-100 border-indigo-300">
+          <input type="text" name="search" id="search" placeholder="search" class="w-full h-full pl-2 bg-transparent outline-none text-black placeholder:text-sm">
           <button class="h-9 w-9 flex items-center justify-center bg-transparent" title="search">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -66,26 +66,19 @@
       </div>
       <% if(categories.length) { %>
       <div class="p-4 rounded border border-white/10 mb-5">
-        <h1 class="text-xl font-medium text-white mb-2">Categories</h1>
+        <h1 class="text-xl font-medium text-black mb-2">Categories</h1>
         <div class="flex items-center gap-2 flex-wrap mt-2">
           <% categories.forEach((cat)=>{ %>
-          <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 bg-gray-800 text-white"><%- cat.name  %></a>
+          <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out hover:bg-indigo-500 bg-indigo-600 text-white capitalize"><%- cat.name  %></a>
           <%  }) %>
         </div>
       </div>
       <% } %>
       <div class="p-4 rounded border border-white/10 mb-5">
-        <h1 class="text-xl font-medium text-white">Tags</h1>
+        <h1 class="text-xl font-medium text-black">Tags</h1>
         <div class="flex items-center gap-2 flex-wrap mt-2">
-          <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code (2)</a>
-          <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">react (3)</a>
-          <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">props (4)</a>
-          <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code (2)</a>
-          <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">react (3)</a>
-          <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">props (4)</a>
-          <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code (2)</a>
-          <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">react (3)</a>
-          <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">props (4)</a>
+          <a href="" class="text-xs font-semibold rounded p-1.5 bg-indigo-600 text-white">code (2)</a>
+         
         </div>
       </div>
     </div>
