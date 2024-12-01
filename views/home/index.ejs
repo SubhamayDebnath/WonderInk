@@ -35,11 +35,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
             </svg>
             <span>
-              <%= new Date(post.createdAt).toLocaleDateString('en-US', { 
-                                        month: 'long', 
-                                        day: 'numeric', 
-                                        year: 'numeric' 
-                                    }) %>
+              <%= new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long',day: 'numeric',year: 'numeric' }) %>
             </span>
           </div>
           <a href="/blog/<%- post.slug  %>" class="text-sm text-white hover:underline">
@@ -72,9 +68,9 @@
       <div class="p-4 rounded border border-white/10 mb-5">
         <h1 class="text-xl font-medium text-white mb-2">Categories</h1>
         <div class="flex items-center gap-2 flex-wrap mt-2">
-        <% categories.forEach((cat)=>{ %>
-            <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 bg-gray-800 text-white"><%- cat.name  %></a>
-        <%  }) %>
+          <% categories.forEach((cat)=>{ %>
+          <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 bg-gray-800 text-white"><%- cat.name  %></a>
+          <%  }) %>
         </div>
       </div>
       <% } %>

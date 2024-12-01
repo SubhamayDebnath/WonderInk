@@ -62,7 +62,19 @@ const blogPage=async (req,res) => {
             title: "Wonderink - Blog",
             description: "Welcome to our Blogs page",
         };
-        res.render('home/blog',{locals,user:req.user})
+        const slug =req.params.slug;
+        if(!slug){
+            return res.redirect('/')
+        }
+        const post =  await Post.findOne({slug:slug}).populate("category", "name").populate('author','name avatar description socialLinks isSocialLinksVisible');
+        const setting = await Setting.findOne();
+        const categoryLimit = setting.side.categoryNumber || 6;
+        const categories = await Category.find().sort({ createdAt: -1 }).limit(categoryLimit);
+        if(!post){
+            return res.redirect('/')
+        }
+
+        res.render('home/blog',{locals,user:req.user ,post,categories})
     } catch (error) {
         console.log(`Blog page error : ${error}`);
         res.redirect('/error')

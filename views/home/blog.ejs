@@ -1,35 +1,42 @@
 <div class="py-5">
     <nav class="flex items-center space-x-1 text-sm text-muted mb-3">
-        <a href="">Home</a>
+        <a href="" class="capitalize transition-colors ease-in-out duration-200 hover:text-white">Home</a>
         <span>/</span>
-        <a href="">Technology</a>
+        <a href="" class="capitalize transition-colors ease-in-out duration-200 hover:text-white"><%- post.category.name  %></a>
     </nav>
     <h2 class="text-2xl font-bold text-white mb-5">
-        Prop Drilling: The Horror Movie - A Tale of React Components
+        <%-post.title  %>
     </h2>
-    <!-- <div class="flex items-center gap-2 flex-wrap my-3">
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code</a>
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">react</a>
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">props</a>
-    </div> -->
+    <div class="flex items-center gap-2 flex-wrap mt-3 mb-5">
+        <% if (Array.isArray(post.tags) && post.tags.length > 0) { %>
+            <% post.tags.forEach(tag => { %>
+            <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">
+              <%- tag  %>
+            </a>
+        <% }) %>
+        <% } %>
+    </div>
     <div class="flex items-center gap-2 text-sm ">
-        <span>Subhamay</span>-<span>March 4, 2024</span>
+        <span class="capitalize"><%- post.author.name  %></span>-<span><%= new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long',day: 'numeric',year: 'numeric' }) %></span>
     </div>
 </div>
 <div class="flex md:flex-row flex-col items-start relative md:gap-5 gap-10">
     <div class="w-full md:w-4/6">
         <div class="w-full aspect-video rounded overflow-hidden mb-5">
-            <img src="https://blog.jetbrains.com/wp-content/uploads/2024/11/Featured_Blog_1280x720-2x-7.png" alt="" class="w-full h-full object-cover object-center">
+            <img src="<%- post.image.secure_url  %>" alt="<%-post.title  %>" class="w-full h-full object-cover object-center">
         </div>
-        <div class="text-white break-words">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, incidunt eligendi dolor, minima doloribus excepturi atque iure eum odit non distinctio, praesentium nostrum aspernatur magnam quis reprehenderit dolorem. Deserunt aliquid, sunt corrupti dolores harum accusantium aspernatur cumque obcaecati explicabo est sint, doloremque ipsa excepturi repellat eaque aliquam asperiores autem at, illum blanditiis minus consequuntur id? Deserunt reiciendis accusamus soluta fuga tempore. Odit quaerat cupiditate consequatur repellendus itaque sint eum, omnis eos accusamus iure odio nulla animi, tenetur enim ducimus rerum ratione! Enim, saepe! Earum reprehenderit tempore veritatis saepe fugiat quae tempora doloribus deleniti illo necessitatibus? Ratione optio esse quisquam saepe fuga porro accusamus facilis, vitae tempore ex explicabo quo minima, repellendus eum cum dolores, vero aut perspiciatis mollitia recusandae vel! Accusamus, laudantium maxime? Quas harum consectetur dolore eius doloremque fugit voluptate saepe aut corporis magni possimus optio quis unde ratione cupiditate cum porro omnis sunt, maiores nesciunt dicta, eveniet blanditiis. Molestiae, animi odit. Corrupti modi ab dignissimos inventore quia odit corporis? Molestias libero, praesentium omnis reiciendis minima nobis exercitationem reprehenderit quasi, officia nisi quam commodi fugit voluptatum perspiciatis dolorum cum nemo deleniti cupiditate nihil vel fugiat consectetur eius sapiente facere? Minima, adipisci. Quidem dolore, sunt ab mollitia corporis dolores. Inventore cupiditate dolorum labore amet, provident optio ab deleniti reprehenderit consectetur tenetur sunt totam incidunt suscipit nihil quisquam a itaque ipsum est molestiae dolor? Quas velit exercitationem, praesentium, repellat dolor nesciunt expedita iure ipsam laboriosam laudantium quia voluptas minima consequatur totam iusto excepturi adipisci quaerat numquam tenetur ipsum, voluptatibus officia. Officia explicabo amet mollitia tempora eveniet! Delectus, saepe totam vero porro rerum veniam nemo non dicta. Fugit, ipsa, laudantium repellendus aut ducimus quaerat vitae possimus consequuntur laboriosam distinctio perferendis numquam perspiciatis quisquam labore, reprehenderit unde! Dolore ex vel laudantium numquam perspiciatis ullam eveniet non cupiditate voluptate ducimus nostrum aut, reiciendis, eaque ipsum! Eaque dolorem quam praesentium voluptatum asperiores fugiat esse commodi, rem culpa animi tempora. Dicta sed nam soluta debitis qui minus ab blanditiis perspiciatis. Possimus porro molestias magni molestiae nostrum praesentium repellat mollitia quis dolore ratione fugit minus cum nemo id quos facilis esse aliquid recusandae exercitationem alias natus laboriosam expedita, libero voluptatem. Doloremque placeat veniam obcaecati, culpa optio soluta hic facere officiis nesciunt accusamus reprehenderit odio beatae inventore laboriosam, impedit cum ipsa dolor velit ipsum excepturi? Culpa quas saepe ratione hic enim, a doloribus accusamus inventore eum cumque quis totam itaque assumenda at incidunt quam deserunt qui neque aperiam cum odit nesciunt placeat reiciendis? Et praesentium similique dolores dolor nihil eligendi culpa voluptates, in dolore quo, sequi aliquam assumenda ab odit vitae amet rem? Explicabo distinctio in reprehenderit officia, vel voluptas laborum. Amet esse ullam impedit unde fugit optio praesentium architecto fuga sapiente delectus. Doloribus, minima sit est reprehenderit nulla non quas impedit ab ad dolorum maxime unde in magnam reiciendis ex suscipit sed mollitia dicta assumenda quasi saepe nemo sunt quaerat eligendi. Nobis commodi nisi nulla vel vero? Beatae, expedita. Numquam mollitia dolores hic esse, officia possimus, excepturi architecto perferendis veniam autem itaque reprehenderit magnam, nobis similique impedit.
-        </div>
+        <article class="text-white prose prose-h1:text-white prose-h2:text-white   prose-a:text-blue-500" id="content">
+            <%- post.content  %>
+        </article>
         <div class="flex items-center justify-between gap-5 my-5">
             <div class="flex items-center flex-wrap gap-2 py-5">
-                <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code (2)</a>
-                <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code (2)</a>
-                <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code (2)</a>
-                <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code (2)</a>
+                <% if (Array.isArray(post.tags) && post.tags.length > 0) { %>
+                    <% post.tags.forEach(tag => { %>
+                    <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">
+                      <%- tag  %>
+                    </a>
+                <% }) %>
+                <% } %>
             </div>
             <div class="flex items-center justify-center w-fit gap-1">
                 <button class="flex items-center justify-center">
@@ -37,41 +44,53 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                     </svg>
                 </button>
-                <span>(200)</span>  
+                <span>(<%- post.likes  %>)</span>  
             </div>
         </div>
         <div class="p-4 bg-gray-900 rounded border border-white/10">
             <div class="flex items-center flex-wrap gap-5 mb-5">
                 <div class="w-24 aspect-square rounded-full overflow-hidden">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-72i8cNdtd4jCjvrt-i6VVpWuJV_FbB3S1Q&s" alt="Avatar" class="w-full h-full object-cover">
+                    <img src="<%-post.author.avatar.secure_url  %>" alt="Avatar" class="w-full h-full object-cover">
                 </div>
                 <div>
-                    <h1 class="font-medium text-white mb-3">Subhamay Debnath</h1>
+                    <h1 class="font-medium text-white mb-3 capitalize"><%- post.author.name  %></h1>
                     <div class="flex items-center flex-wrap gap-2">
-                        <a href="" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
+                        <% if (post.author.isSocialLinksVisible.email) { %>
+                        <a href="mailto:<%-post.author.socialLinks.email  %>" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                         </a>
-                        <a href="" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
+                        <% } %>
+                        <% if (post.author.isSocialLinksVisible.facebook) { %>
+                        <a href="<%-post.author.socialLinks.facebook  %>" target="_blank" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                         </a>
-                        <a href="" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
+                        <% } %>
+                        <% if (post.author.isSocialLinksVisible.twitter) { %>
+                        <a href="<%-post.author.socialLinks.twitter  %>" target="_blank" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
                         </a>
-                        <a href="" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
+                        <% } %>
+                        <% if (post.author.isSocialLinksVisible.instagram) { %>
+                        <a href="<%-post.author.socialLinks.instagram  %>" target="_blank" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                         </a>
-                        <a href="" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
+                        <% } %>
+                        <% if (post.author.isSocialLinksVisible.github) { %>
+                        <a href="<%-post.author.socialLinks.github  %>" target="_blank" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                         </a>
-                        <a href="" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
+                        <% } %>
+                        <% if (post.author.isSocialLinksVisible.linkedin) { %>
+                        <a href="<%-post.author.socialLinks.linkedin  %>" target="_blank" class="flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                         </a>
+                        <% } %>
                     </div>
                 </div>
 
             </div>
             <div>
-                <p class="text-white text-sm text-pretty">As it so contrasted oh estimating instrument. Size like body someone had. Are conduct viewing boy minutes warrant the expense Tolerably behavior may admit daughters offending her ask own. Praise effect wishes change way and any wanted.</p>
+                <p class="text-white text-sm text-pretty"><%-post.author.description  %></p>
             </div>
 
         </div>
@@ -101,15 +120,16 @@
                 </li>
             </ul>
         </div>
-        <div class="p-4 rounded border border-white/10 mb-5">
-            <h1 class="text-xl font-medium text-white">Categories</h1>
-            <div class="flex items-center gap-2 flex-wrap mt-2">
-                <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 bg-gray-800 text-white"><span>🧑‍💻</span><span>Technology</span></a>
-                <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 bg-gray-800 text-white"><span>🧑‍💻</span><span>Technology</span></a>
-                <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 bg-gray-800 text-white"><span>🧑‍💻</span><span>Technology</span></a>
-                <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 bg-gray-800 text-white"><span>🧑‍💻</span><span>Technology</span></a>
+        <% if(categories.length) { %>
+            <div class="p-4 rounded border border-white/10 mb-5">
+              <h1 class="text-xl font-medium text-white mb-2">Categories</h1>
+              <div class="flex items-center gap-2 flex-wrap mt-2">
+              <% categories.forEach((cat)=>{ %>
+                  <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 bg-gray-800 text-white"><%- cat.name  %></a>
+              <%  }) %>
+              </div>
             </div>
-        </div>
+        <% } %>
         <div class="p-4 rounded border border-white/10 mb-5">
             <h1 class="text-xl font-medium text-white">Tags</h1>
             <div class="flex items-center gap-2 flex-wrap mt-2">

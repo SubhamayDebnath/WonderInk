@@ -1,42 +1,42 @@
 <header class="sticky top-0 w-full h-14 flex items-center justify-center backdrop-blur-sm border-b border-b-white/10 z-[999] transition-colors duration-200 ease-in-out">
     <nav class="max-w-4xl w-full flex items-center justify-between gap-5 px-5">
         <div class="w-full md:w-fit flex items-center justify-between">
-            <a href="/" class="flex items-center space-x-2 font-bold text-white">
+            <a href="/" class="flex items-center space-x-2 font-bold text-black">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-7 md:size-6 text-blue-500">
                     <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clip-rule="evenodd" />
                 </svg>                                                   
                 <span class="text-lg md:text-base">Wonderink</span>
             </a>
-            <button title="menu" class="h-9 w-9 md:hidden flex items-center justify-center bg-transparent rounded text-white" data-nav-toggler>
+            <button title="menu" class="h-9 w-9 md:hidden flex items-center justify-center bg-transparent rounded text-black" data-nav-toggler>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
                 </svg>                                              
             </button>
         </div>
         <div class="menu fixed flex md:flex-row flex-row-reverse md:relative top-0 right-0 left-0 md:h-fit h-dvh z-[9999] ">
-            <div class="md:w-fit sm:w-1/2 w-3/4 md:bg-transparent bg-gray-950 md:px-0 px-4 md:border-l-0 border-l md:border-l-transparent border-l-white/10">
+            <div class="md:w-fit sm:w-1/2 w-3/4 md:bg-transparent bg-white md:px-0 px-4 ">
                 <div class="md:hidden flex items-center justify-between h-14 ">
-                    <a href="" class="flex items-center space-x-2 font-bold text-white">
+                    <a href="" class="flex items-center space-x-2 font-bold text-black">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 md:size-5 text-blue-500">
                             <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clip-rule="evenodd" />
                         </svg>                                                   
                         <span class="text-lg md:text-base">Wonderink</span>
                     </a>
-                    <button title="Close" class="h-9 w-9 md:hidden flex items-center justify-center bg-transparent rounded text-white" data-nav-toggler>
+                    <button title="Close" class="h-9 w-9 md:hidden flex items-center justify-center bg-transparent rounded text-black" data-nav-toggler>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
                         </svg>                          
                     </button>
                 </div>
                 <div class="w-full flex md:flex-row flex-col md:items-center">
-                    <a href="/admin/dashboard" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out hover:text-white">Home</a>
-                    <a href="/admin/blog" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out hover:text-white">Blog</a>
+                    <a href="/admin/dashboard" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-black hover:text-blue-500">Home</a>
+                    <a href="/admin/blog" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-black hover:text-blue-500">Blog</a>
                     <% if(isAdmin) {%>
-                    <a href="/admin/category" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out hover:text-white">Category</a>
-                    <a href="/admin/users" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out hover:text-white">Users</a>
-                    <a href="/admin/settings" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out hover:text-white">Settings</a>
+                    <a href="/admin/category" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-black hover:text-blue-500">Category</a>
+                    <a href="/admin/users" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-black hover:text-blue-500">Users</a>
+                    <a href="/admin/settings" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-black hover:text-blue-500">Settings</a>
                     <% } %>
-                    <a href="/admin/profile" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out hover:text-white">Profile</a>
+                    <a href="/admin/profile" class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-black hover:text-blue-500">Profile</a>
                     <a href="/auth/logout" class="text-lg md:text-sm  w-fit font-medium px-2 py-1.5 rounded transition-colors duration-200 ease-in-out md:ml-4 md:mt-0 mt-10 bg-red-600 text-white hover:bg-red-500">Logout</a>
                 </div>
             </div>
