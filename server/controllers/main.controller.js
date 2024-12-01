@@ -67,6 +67,7 @@ const addLink = async (req,res) => {
         }
         post.likes += 1;
         await post.save();
+        res.json({ success: true, likes: post.likes });
     } catch (error) {
         console.log(`Add Link error : ${error}`);
         res.redirect('/error')

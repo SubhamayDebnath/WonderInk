@@ -38,14 +38,32 @@ const adminBlogsPage = async (req, res) => {
       title: "Wonderink - Dashboard - Blog",
       description: "Welcome to our dashboard blog page",
     };
-    const post = await Post.find().sort({ createdAt: -1 });
+    const setting = await Setting.findOne();
+    let perPage = setting.dashboard.postNumber || 6;
+    let page = req.query.page || 1;
     const postCount = await Post.countDocuments();
+    const posts = await Post.find({isPublish: true })
+    .populate("category", "name")
+    .populate("author", "name")
+    .sort({ createdAt: -1 })
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec();
+    const count = await Post.countDocuments({});
+    const totalPages = Math.ceil(count / perPage);
+    const nextPage = parseInt(page) + 1;
+    const hasNextPage = nextPage <= Math.ceil(count / perPage);
+    const prevPage = page > 1 ? page - 1 : null;
     return res.render("admin/blog", {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
-      post,
-      postCount
+      posts,
+      postCount,
+      current: page,
+      nextPage: hasNextPage ? nextPage : null,
+      prevPage,
+      totalPages,
     });
   } catch (error) {
     console.log(`Admin Blog page error : ${error}`);
