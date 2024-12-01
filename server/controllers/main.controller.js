@@ -11,6 +11,7 @@ const homePage = async (req, res) => {
     const setting = await Setting.findOne();
     const postLimit = setting.post.latestPostNumber || 6;
     const categoryLimit = setting.side.categoryNumber || 6;
+    const tagsLimit = setting.side.tagNumber || 6;
     const posts = await Post.find({ isPublish: true })
       .sort({ createdAt: -1 })
       .limit(postLimit)
@@ -18,7 +19,13 @@ const homePage = async (req, res) => {
     const categories = await Category.find({ isPublish: true })
       .sort({ createdAt: -1 })
       .limit(categoryLimit);
-    res.render("home/index", { locals, user: req.user, posts, categories });
+    const uniqueTags = await Post.aggregate([
+        { $unwind: "$tags" }, 
+        { $group: { _id: null, uniqueTags: { $addToSet: "$tags" } } }, 
+        { $project: { _id: 0, tags: { $slice: ["$uniqueTags", { $toInt: tagsLimit}] } } }, 
+        { $sort: { tags: 1 } } 
+    ]);
+    res.render("home/index", { locals, user: req.user, posts, categories,uniqueTags });
   } catch (error) {
     console.log(`Home page error : ${error}`);
     res.redirect("/error");

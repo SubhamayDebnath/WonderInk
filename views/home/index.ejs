@@ -2,8 +2,8 @@
   <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-balance text-white">Explore the Latest Trends in Tech</h1>
   <p class="max-w-[42rem] mx-auto text-muted sm:text-xl text-balance">Discover Cutting-Edge Technologies, Expert Opinions, and Future Predictions</p>
   <div class="flex sm:flex-row flex-col items-center justify-center gap-4 w-full px-4 mt-5">
-    <a href="" class="w-full sm:w-36 sm:py-2.5 py-3 text-balance sm:text-sm font-medium border rounded transition-colors duration-200 ease-in-out hover:bg-white hover:text-black">Start Reading</a>
-    <a href="" class="w-full sm:w-36 sm:py-2.5 py-3 text-balance sm:text-sm font-medium border rounded transition-colors duration-200 ease-in-out hover:bg-white hover:text-black">Subscribe Now</a>
+    <a href="/blogs" class="w-full sm:w-36 sm:py-2.5 py-3 text-balance sm:text-sm font-medium border rounded transition-colors duration-200 ease-in-out hover:bg-white hover:text-black">Start Reading</a>
+    <a href="/subscribe" class="w-full sm:w-36 sm:py-2.5 py-3 text-balance sm:text-sm font-medium border rounded transition-colors duration-200 ease-in-out hover:bg-white hover:text-black">Subscribe Now</a>
   </div>
 </div>
 <div>
@@ -78,12 +78,20 @@
         </div>
       </div>
       <% } %>
+      <% if(uniqueTags.length){ %>
       <div class="p-4 rounded border border-white/10 mb-5">
         <h1 class="text-xl font-medium text-white mb-2">Tags</h1>
         <div class="flex items-center gap-2 flex-wrap mt-2">
-          <a href="" class="text-xs rounded p-1.5 hover:underline bg-gray-800 text-white">code (2)</a>
+          <% uniqueTags.forEach(item => {%>
+            <%  item.tags.forEach(tag => {  %>
+              <a href="/tag/<%- tag %>" class="text-xs rounded p-1.5 hover:underline bg-gray-800 text-white">
+                #<%- tag.trim() %> 
+              </a>
+            <%  }) %>
+          <% }) %>
         </div>
       </div>
+      <% } %>
     </div>
   </div>
 
