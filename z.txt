@@ -1,7 +1,0 @@
-
-
-            <% uniqueTags.forEach(item => { 
-            item.tags.forEach(tag => { %>
-              console.log(tag.trim());
-           <% })
-                 }) %>
