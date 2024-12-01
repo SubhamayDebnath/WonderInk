@@ -14,7 +14,9 @@
       <% posts.forEach((post)=> { %>
       <div class="flex flex-col gap-3 py-5 border-b border-b-white/10">
         <h2 class="text-2xl font-bold group text-white ">
-          <a href="/blog/<%- post.slug  %>" class="line-clamp-2 group-hover:underline"><%- post.title  %></a>
+          <a href="/blog/<%- post.slug  %>" class="line-clamp-2 group-hover:underline">
+            <%- post.title.replace(/<[^>]+>/g, '').length > 90 ? post.title.replace(/<[^>]+>/g, '').slice(0, 90) + '...' : post.title.replace(/<[^>]+>/g, '') %>
+          </a>
         </h2>
         <div class="flex items-center gap-2 flex-wrap">
           <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize">
@@ -28,7 +30,9 @@
           <% }) %>
           <% } %>
         </div>
-        <p class="text-muted break-words"><%-post.description  %></p>
+        <p class="text-muted break-words">
+          <%- post.description.replace(/<[^>]+>/g, '').length > 220 ? post.description.replace(/<[^>]+>/g, '').slice(0, 220) + '...' : post.description.replace(/<[^>]+>/g, '') %>
+        </p>
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-1 text-white">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 ">

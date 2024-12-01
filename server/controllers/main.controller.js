@@ -11,8 +11,8 @@ const homePage = async (req,res) => {
         const setting = await Setting.findOne();
         const postLimit = setting.post.latestPostNumber || 6;
         const categoryLimit = setting.side.categoryNumber || 6;
-        const posts = await Post.find().sort({ createdAt: -1 }).limit(postLimit).populate('category', 'name');
-        const categories = await Category.find().sort({ createdAt: -1 }).limit(categoryLimit);
+        const posts = await Post.find({ isPublish: true }).sort({ createdAt: -1 }).limit(postLimit).populate('category', 'name');
+        const categories = await Category.find({ isPublish: true }).sort({ createdAt: -1 }).limit(categoryLimit);
         res.render('home/index',{locals,user:req.user,posts,categories})
     } catch (error) {
         console.log(`Home page error : ${error}`);
@@ -25,9 +25,50 @@ const blogsPage=async (req,res) => {
             title: "Wonderink - Blogs",
             description: "Welcome to our Blogs page",
         };
-        res.render('home/blogs',{locals,user:req.user})
+        const setting = await Setting.findOne();
+        let perPage = setting.post.postNumber || 6;
+        let page = req.query.page || 1;
+        const posts = await Post.find({isPublish: true })
+        .populate("category", "name")
+        .sort({ createdAt: -1 })
+        .skip(perPage * page - perPage)
+        .limit(perPage)
+        .exec();
+        const count = await Post.countDocuments({});
+        const totalPages = Math.ceil(count / perPage);
+        const nextPage = parseInt(page) + 1;
+        const hasNextPage = nextPage <= Math.ceil(count / perPage);
+        const prevPage = page > 1 ? page - 1 : null;
+
+        const categoryLimit = setting.side.categoryNumber || 6;
+        const categories = await Category.find({ isPublish: true }).sort({ createdAt: -1 }).limit(categoryLimit);
+        res.render('home/blogs',
+        {
+            locals,
+            user:req.user,
+            posts,
+            categories,
+            current: page,
+            nextPage: hasNextPage ? nextPage : null,
+            prevPage,
+            totalPages,
+        })
     } catch (error) {
         console.log(`Blogs page error : ${error}`);
+        res.redirect('/error')
+    }
+}
+const addLink = async (req,res) => {
+    try {
+        const postID=req.params.id;
+        const post = await Post.findById(postID);
+        if (!post) {
+            return res.redirect('/')
+        }
+        post.likes += 1;
+        await post.save();
+    } catch (error) {
+        console.log(`Add Link error : ${error}`);
         res.redirect('/error')
     }
 }
@@ -38,7 +79,8 @@ const categoriesPage = async (req,res) => {
             title: "Wonderink - Categories",
             description: "Welcome to our Blogs page",
         };
-        res.render('home/categories',{locals,user:req.user})
+        const categories = await Category.find({ isPublish: true }).sort({ createdAt: -1 });
+        res.render('home/categories',{locals,user:req.user,categories})
     } catch (error) {
         console.log(`Categories page error : ${error}`);
         res.redirect('/error')
@@ -100,5 +142,6 @@ export{
     categoriesPage,
     aboutPage,
     blogPage,
-    errorPage
+    errorPage,
+    addLink
 }
