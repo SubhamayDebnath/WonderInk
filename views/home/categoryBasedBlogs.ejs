@@ -1,9 +1,9 @@
 <div class="py-5">
-  <h1 class="inline-block font-bold text-2xl lg:text-4xl text-white">Blogs</h1>
+  <h1 class="inline-block font-bold text-2xl lg:text-4xl text-white capitalize"><%-categoryName  %></h1>
 </div>
-<div class="">
+<div>
   <% if(posts.length) {%>
-  <div class="w-full md:w-4/6 border-t border-t-white/10">
+  <div class="w-full border-t border-t-white/10">
     <% posts.forEach((post)=> { %>
     <div class="flex flex-col gap-3 py-5 border-b border-b-white/10">
       <h2 class="text-2xl font-bold group text-white ">

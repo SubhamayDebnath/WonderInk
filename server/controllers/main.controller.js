@@ -166,6 +166,51 @@ const blogPage = async (req, res) => {
     res.redirect("/error");
   }
 };
+const categoryBasedPost = async (req,res) => {
+  try {
+    const locals = {
+      title: "Wonderink - Blog",
+      description: "Welcome to our Blogs page",
+    };
+    const categoryName=req.params.slug;
+    if(!categoryName){
+      return res.redirect("/");
+    }
+    const category = await Category.findOne({ name: categoryName});
+    const categoryID=category._id;
+    if (!category) {
+      return res.redirect("/");
+    }
+    const setting = await Setting.findOne();
+    let perPage = setting.post.postNumber || 6;
+    let page = req.query.page || 1;
+    const posts = await Post.find({ isPublish: true, category: categoryID })
+    .populate("category", "name")
+    .sort({ createdAt: -1 })
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec();
+    console.log(posts);
+    const count = await Post.countDocuments({ isPublish: true, category: categoryID });
+    const totalPages = Math.ceil(count / perPage);
+    const nextPage = parseInt(page) + 1;
+    const hasNextPage = nextPage <= Math.ceil(count / perPage);
+    const prevPage = page > 1 ? page - 1 : null;
+    res.render('home/categoryBasedBlogs',{
+      locals,
+      user: req.user,
+      categoryName,
+      posts,
+      current: page,
+      nextPage: hasNextPage ? nextPage : null,
+      prevPage,
+      totalPages,
+    })
+  } catch (error) {
+    console.log(`Category Based Blogs page error : ${error}`);
+    res.redirect("/error");
+  }
+}
 const errorPage = async (req, res) => {
   try {
     const locals = {
@@ -187,4 +232,5 @@ export {
   blogPage,
   errorPage,
   addLink,
+  categoryBasedPost
 };

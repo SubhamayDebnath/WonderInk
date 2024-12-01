@@ -6,7 +6,8 @@ import {
   aboutPage,
   blogPage,
   errorPage,
-  addLink
+  addLink,
+  categoryBasedPost
 } from "../controllers/main.controller.js";
 import {isAuthenticated} from '../middleware/auth.middleware.js'
 
@@ -18,6 +19,8 @@ router.get("/categories", isAuthenticated, categoriesPage);
 router.get("/about", isAuthenticated, aboutPage);
 router.get('/blog/:slug', isAuthenticated,blogPage);
 router.get('/error', isAuthenticated, errorPage);
+router.get('/category/:slug',isAuthenticated,categoryBasedPost)
+
 router.post('/post/like/:id',isAuthenticated,addLink);
 
 export default router;

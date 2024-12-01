@@ -19,7 +19,7 @@
           </a>
         </h2>
         <div class="flex items-center gap-2 flex-wrap">
-          <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize">
+          <a href="/category/<%- post.category.name  %>" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize">
             <%- post.category.name  %>
           </a> -
           <% if (Array.isArray(post.tags) && post.tags.length > 0) { %>
@@ -73,7 +73,7 @@
         <h1 class="text-xl font-medium text-white mb-2">Categories</h1>
         <div class="flex items-center gap-2 flex-wrap mt-5">
           <% categories.forEach((cat)=>{ %>
-          <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize"><%- cat.name  %></a>
+          <a href="/category/<%- cat.name  %>" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize"><%- cat.name  %></a>
           <%  }) %>
         </div>
       </div>
