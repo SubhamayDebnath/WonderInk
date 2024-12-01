@@ -19,12 +19,19 @@ const homePage = async (req, res) => {
     const categories = await Category.find({ isPublish: true })
       .sort({ createdAt: -1 })
       .limit(categoryLimit);
-    const uniqueTags = await Post.aggregate([
+      const uniqueTagsData = await Post.aggregate([
         { $unwind: "$tags" }, 
         { $group: { _id: null, uniqueTags: { $addToSet: "$tags" } } }, 
         { $project: { _id: 0, tags: { $slice: ["$uniqueTags", { $toInt: tagsLimit}] } } }, 
         { $sort: { tags: 1 } } 
     ]);
+    let uniqueTags=[];
+    if(uniqueTagsData.length){
+      uniqueTags = [...new Set(uniqueTagsData[0].tags.map(tag => tag.trim()))];
+    }else{
+      uniqueTags=[];
+    }
+   
     res.render("home/index", { locals, user: req.user, posts, categories,uniqueTags });
   } catch (error) {
     console.log(`Home page error : ${error}`);
@@ -38,6 +45,7 @@ const blogsPage = async (req, res) => {
       description: "Welcome to our Blogs page",
     };
     const setting = await Setting.findOne();
+    const tagsLimit = setting.side.tagNumber || 6;
     let perPage = setting.post.postNumber || 6;
     let page = req.query.page || 1;
     const posts = await Post.find({ isPublish: true })
@@ -56,6 +64,18 @@ const blogsPage = async (req, res) => {
     const categories = await Category.find({ isPublish: true })
       .sort({ createdAt: -1 })
       .limit(categoryLimit);
+    const uniqueTagsData = await Post.aggregate([
+        { $unwind: "$tags" }, 
+        { $group: { _id: null, uniqueTags: { $addToSet: "$tags" } } }, 
+        { $project: { _id: 0, tags: { $slice: ["$uniqueTags", { $toInt: tagsLimit}] } } }, 
+        { $sort: { tags: 1 } } 
+    ]);
+    let uniqueTags=[];
+    if(uniqueTagsData.length){
+      uniqueTags = [...new Set(uniqueTagsData[0].tags.map(tag => tag.trim()))];
+    }else{
+      uniqueTags=[];
+    }
     res.render("home/blogs", {
       locals,
       user: req.user,
@@ -65,6 +85,7 @@ const blogsPage = async (req, res) => {
       nextPage: hasNextPage ? nextPage : null,
       prevPage,
       totalPages,
+      uniqueTags
     });
   } catch (error) {
     console.log(`Blogs page error : ${error}`);
@@ -124,7 +145,7 @@ const blogPage = async (req, res) => {
     if (!slug) {
       return res.redirect("/");
     }
-    const singlePost = await Post.findOne({ slug: slug })
+    const singlePost = await Post.findOne({ slug: slug,isPublish: true })
       .populate("category", "name")
       .populate(
         "author",
@@ -132,7 +153,7 @@ const blogPage = async (req, res) => {
       );
     const setting = await Setting.findOne();
     const categoryLimit = setting.side.categoryNumber || 6;
-    const categories = await Category.find()
+    const categories = await Category.find({isPublish: true})
       .sort({ createdAt: -1 })
       .limit(categoryLimit);
     if (!singlePost) {
@@ -159,6 +180,19 @@ const blogPage = async (req, res) => {
       previousPost = null;
       nextPost = null;
     }
+    const tagsLimit = setting.side.tagNumber || 6;
+    const uniqueTagsData = await Post.aggregate([
+      { $unwind: "$tags" }, 
+      { $group: { _id: null, uniqueTags: { $addToSet: "$tags" } } }, 
+      { $project: { _id: 0, tags: { $slice: ["$uniqueTags", { $toInt: tagsLimit}] } } }, 
+      { $sort: { tags: 1 } } 
+  ]);
+  let uniqueTags=[];
+  if(uniqueTagsData.length){
+    uniqueTags = [...new Set(uniqueTagsData[0].tags.map(tag => tag.trim()))];
+  }else{
+    uniqueTags=[];
+  }
 
     res.render("home/blog", {
       locals,
@@ -167,6 +201,7 @@ const blogPage = async (req, res) => {
       categories,
       previousPost,
       nextPost,
+      uniqueTags
     });
   } catch (error) {
     console.log(`Blog page error : ${error}`);
@@ -218,6 +253,48 @@ const categoryBasedPost = async (req,res) => {
     res.redirect("/error");
   }
 }
+const tagBasedPost = async (req,res) => {
+  try {
+    const locals = {
+      title: "Wonderink - Blog",
+      description: "Welcome to our Blogs page",
+    };
+    const tagName=req.params.slug;
+    if(!tagName){
+      return res.redirect("/");
+    }
+    const setting = await Setting.findOne();
+    let perPage = setting.post.postNumber || 6;
+    let page = req.query.page || 1;
+    const posts = await Post.find({
+      isPublish: true,
+      tags: { $in: tagName }
+    }).populate("category", "name")
+    .sort({ createdAt: -1 })
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec();
+    console.log(posts);
+    const count = await Post.countDocuments({ isPublish: true,tags: { $in: tagName } });
+    const totalPages = Math.ceil(count / perPage);
+    const nextPage = parseInt(page) + 1;
+    const hasNextPage = nextPage <= Math.ceil(count / perPage);
+    const prevPage = page > 1 ? page - 1 : null;
+    res.render('home/tagBasedBlogs',{
+      locals,
+      user: req.user,
+      tagName,
+      posts,
+      current: page,
+      nextPage: hasNextPage ? nextPage : null,
+      prevPage,
+      totalPages,
+    })
+  } catch (error) {
+    console.log(`Tag Based Blogs page error : ${error}`);
+    res.redirect("/error");
+  }
+}
 const errorPage = async (req, res) => {
   try {
     const locals = {
@@ -239,5 +316,6 @@ export {
   blogPage,
   errorPage,
   addLink,
-  categoryBasedPost
+  categoryBasedPost,
+  tagBasedPost
 };

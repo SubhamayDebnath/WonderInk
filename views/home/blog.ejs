@@ -162,19 +162,17 @@
       </div>
     </div>
     <% } %>
-    <div class="p-4 rounded border border-white/10 mb-5">
-      <h1 class="text-xl font-medium text-white">Tags</h1>
-      <div class="flex items-center gap-2 flex-wrap mt-2">
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code (2)</a>
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">react (3)</a>
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">props (4)</a>
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code (2)</a>
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">react (3)</a>
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">props (4)</a>
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">code (2)</a>
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">react (3)</a>
-        <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">props (4)</a>
+    <% if(uniqueTags.length){ %>
+      <div class="p-4 rounded border border-white/10 mb-5">
+        <h1 class="text-xl font-medium text-white mb-2">Tags</h1>
+        <div class="flex items-center gap-2 flex-wrap mt-2">
+          <% uniqueTags.forEach((tag)=>{%>
+            <a href="/tag/<%- tag %>" class="text-xs rounded p-1.5 hover:underline bg-gray-800 text-white">
+              #<%- tag %>
+            </a>
+          <% }) %>
+        </div>
       </div>
-    </div>
+    <% } %>
   </div>
 </div>

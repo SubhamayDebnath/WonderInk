@@ -478,7 +478,7 @@ const addPost = async(req,res)=>{
       description:description,
       content:content,
       category:category,
-      tags:tags.split(","),
+      tags:tags.split(",").map(tag => tag.trim()),
       isPublish:isPublish == 'true',
       author:authorID,
       slug:slug
