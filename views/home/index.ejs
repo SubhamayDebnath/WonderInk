@@ -45,7 +45,7 @@
       </div>
       <% }) %>
       <div class="py-5 mt-5 text-end">
-        <a href="/blogs" class="px-3.5 py-2.5 text-sm border rounded border-neutral-800 transition-colors duration-200 ease-in-out hover:bg-white hover:text-black">View All Blog → </a>
+        <a href="/blogs" class="px-3.5 py-2.5 text-sm border rounded border-white/10 text-white transition-colors duration-200 ease-in-out hover:bg-gray-800">View All Blog → </a>
       </div>
       <% }else{ %>
       <div class="py-10 text-center">
@@ -55,7 +55,7 @@
     </div>
     <div class="w-full md:w-2/6 sticky top-20 ">
       <div class="mb-5">
-        <form action="" class="w-full md:h-10 h-12 overflow-hidden flex items-center rounded border border-neutral-800 md:bg-neutral-950 bg-neutral-900">
+        <form action="" class="w-full md:h-10 h-12 overflow-hidden flex items-center rounded border border-white/10">
           <input type="text" name="search" id="search" placeholder="search" class="w-full h-full pl-2 bg-transparent outline-none text-white placeholder:text-sm">
           <button class="h-9 w-9 flex items-center justify-center bg-transparent" title="search">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
@@ -65,19 +65,19 @@
         </form>
       </div>
       <% if(categories.length) { %>
-      <div class="p-4 rounded border border-neutral-800 mb-5">
+      <div class="p-4 rounded border border-white/10 mb-5">
         <h1 class="text-xl font-medium text-white mb-2">Categories</h1>
         <div class="flex items-center gap-2 flex-wrap mt-5">
           <% categories.forEach((cat)=>{ %>
-          <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out text-white bg-white/20 hover:bg-white hover:text-black capitalize"><%- cat.name  %></a>
+          <a href="" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize"><%- cat.name  %></a>
           <%  }) %>
         </div>
       </div>
       <% } %>
       <div class="p-4 rounded border border-white/10 mb-5">
-        <h1 class="text-xl font-medium text-black">Tags</h1>
+        <h1 class="text-xl font-medium text-white mb-2">Tags</h1>
         <div class="flex items-center gap-2 flex-wrap mt-2">
-          <a href="" class="text-xs rounded p-1.5 hover:underline bg-white/10">code (2)</a>
+          <a href="" class="text-xs rounded p-1.5 hover:underline bg-gray-800 text-white">code (2)</a>
         </div>
       </div>
     </div>
