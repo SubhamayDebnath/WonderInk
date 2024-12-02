@@ -14,9 +14,15 @@ const dashboard = async (req, res) => {
     };
     const users = await User.find().sort({ createdAt: -1 }).limit(5);
     const posts = await Post.find().sort({ createdAt: -1 }).limit(5);    
+    const postLikes = await Post.find();
+    const totalLikes = postLikes.reduce((sum, post) => sum + post.likes, 0)
     const userCount = await User.countDocuments();
     const categoryCount = await Category.countDocuments();
     const postCount = await Post.countDocuments();
+    const userPostCount = (await Post.find({author:req.user._id})).length;
+    const userPost = await Post.find({author:req.user._id}).sort({ createdAt: -1 }).limit(5); 
+    const userPostLikes = await Post.find({ author: req.user._id }).sort({ createdAt: -1 });
+    const totalLikesUserPost=userPostLikes.reduce((sum, post) => sum + post.likes, 0);
     return res.render("admin/index", {
       layout: adminLayout,
       locals,
@@ -26,7 +32,10 @@ const dashboard = async (req, res) => {
       userCount,
       categoryCount,
       postCount,
-      
+      totalLikes,
+      userPostCount,
+      userPost,
+      totalLikesUserPost
     });
   } catch (error) {
     console.log(`Dashboard page error : ${error}`);

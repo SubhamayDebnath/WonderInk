@@ -1,10 +1,25 @@
-<div class="my-5 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+<div class="my-5 grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-5">
+    <div
+    class="flex items-center gap-3 border border-white/10 rounded p-4 transition-colors duration-200 ease-in-out hover:bg-gray-900">
+    <div
+        class="flex items-center justify-center w-16 aspect-square rounded-md bg-purple-500/15">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 text-purple-500">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
+          </svg>
+    </div>
+    <div class="w-1/2">
+        <h1 class="text-3xl font-bold text-white">
+            <%- totalLikes %>
+        </h1>
+        <span class="font-medium text-white text-sm">Total Likes</span>
+    </div>
+</div>
     <div
         class="flex items-center gap-3 border border-white/10 rounded p-4 transition-colors duration-200 ease-in-out hover:bg-gray-900">
         <div
-            class="flex items-center justify-center w-20 aspect-square rounded-md bg-blue-500/15">
+            class="flex items-center justify-center w-16 aspect-square rounded-md bg-blue-500/15">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                fill="currentColor" class="size-9 text-blue-500">
+                fill="currentColor" class="size-7 text-blue-500">
                 <path fill-rule="evenodd"
                     d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z"
                     clip-rule="evenodd" />
@@ -13,18 +28,18 @@
             </svg>
         </div>
         <div class="w-1/2">
-            <h1 class="text-4xl font-bold text-white">
+            <h1 class="text-3xl font-bold text-white">
                 <%- postCount %>
             </h1>
-            <span class="font-medium text-white">Posts</span>
+            <span class="font-medium text-white text-sm">Total Posts</span>
         </div>
     </div>
     <div
         class="flex items-center gap-3 border border-white/10 rounded p-4 transition-colors duration-200 ease-in-out hover:bg-gray-900">
         <div
-            class="flex items-center justify-center w-20 aspect-square rounded-md bg-emerald-500/15">
+            class="flex items-center justify-center w-16 aspect-square rounded-md bg-emerald-500/15">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                fill="currentColor" class="size-9 text-emerald-500">
+                fill="currentColor" class="size-7 text-emerald-500">
                 <path fill-rule="evenodd"
                     d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z"
                     clip-rule="evenodd" />
@@ -33,27 +48,27 @@
             </svg>
         </div>
         <div class="w-1/2">
-            <h1 class="text-4xl font-bold text-white">
+            <h1 class="text-3xl font-bold text-white">
                 <%- userCount %>
             </h1>
-            <span class="font-medium text-white">Users</span>
+            <span class="font-medium text-white text-sm">Total Users</span>
         </div>
     </div>
     <div
         class="flex items-center gap-3 border border-white/10 rounded p-4 transition-colors duration-200 ease-in-out hover:bg-gray-900">
         <div
-            class="flex items-center justify-center w-20 aspect-square rounded-md bg-red-500/15">
+            class="flex items-center justify-center w-16 aspect-square rounded-md bg-red-500/15">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                fill="currentColor" class="size-9 text-red-500">
+                fill="currentColor" class="size-7 text-red-500">
                 <path
                     d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75ZM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 0 1-1.875-1.875V8.625ZM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 0 1 3 19.875v-6.75Z" />
             </svg>
         </div>
         <div class="w-1/2">
-            <h1 class="text-4xl font-bold text-white">
+            <h1 class="text-3xl font-bold text-white">
                 <%- categoryCount %>
             </h1>
-            <span class="font-medium text-white">Categories</span>
+            <span class="font-medium text-white text-sm">Categories</span>
         </div>
     </div>
 </div>
