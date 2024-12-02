@@ -307,6 +307,19 @@ const errorPage = async (req, res) => {
   }
 };
 
+const subscribePage = async (req,res) => {
+  try {
+    const locals = {
+      title: "Wonderink - subscribe",
+      description: "Welcome to our Error page",
+    };
+    res.render("home/subscribe", { locals, user: req.user });
+  } catch (error) {
+    console.log(`Blog page error : ${error}`);
+    res.redirect("/error");
+  }
+}
+
 export {
   homePage,
   blogsPage,
@@ -316,5 +329,6 @@ export {
   errorPage,
   addLink,
   categoryBasedPost,
-  tagBasedPost
+  tagBasedPost,
+  subscribePage
 };
