@@ -9,7 +9,8 @@ import {
   addLink,
   categoryBasedPost,
   tagBasedPost,
-  subscribePage
+  subscribePage,
+  searchPage
 } from "../controllers/main.controller.js";
 import {isAuthenticated} from '../middleware/auth.middleware.js'
 
@@ -22,6 +23,7 @@ router.get("/contact", isAuthenticated, contactPage);
 router.get('/blog/:slug', isAuthenticated,blogPage);
 router.get('/error', isAuthenticated, errorPage);
 router.get('/subscribe', isAuthenticated, subscribePage);
+router.get('/search',isAuthenticated,searchPage)
 router.get('/category/:slug',isAuthenticated,categoryBasedPost)
 router.get('/tag/:slug',isAuthenticated,tagBasedPost)
 

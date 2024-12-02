@@ -1,6 +1,7 @@
 import Setting from "../models/setting.model.js";
 import Post from "../models/post.model.js";
 import Category from "../models/category.model.js";
+import User from "../models/user.model.js";
 
 const homePage = async (req, res) => {
   try {
@@ -273,7 +274,6 @@ const tagBasedPost = async (req,res) => {
     .skip(perPage * page - perPage)
     .limit(perPage)
     .exec();
-    console.log(posts);
     const count = await Post.countDocuments({ isPublish: true,tags: { $in: tagName } });
     const totalPages = Math.ceil(count / perPage);
     const nextPage = parseInt(page) + 1;
@@ -300,6 +300,7 @@ const errorPage = async (req, res) => {
       title: "Wonderink - Error",
       description: "Welcome to our Error page",
     };
+    
     res.status(500).render("error/500", { locals, user: req.user });
   } catch (error) {
     console.log(`Blog page error : ${error}`);
@@ -313,9 +314,67 @@ const subscribePage = async (req,res) => {
       title: "Wonderink - subscribe",
       description: "Welcome to our Error page",
     };
+
     res.render("home/subscribe", { locals, user: req.user });
   } catch (error) {
     console.log(`Blog page error : ${error}`);
+    res.redirect("/error");
+  }
+}
+
+const searchPage = async (req,res) => {
+  try {
+    const locals = {
+      title: "Wonderink - subscribe",
+      description: "Welcome to our Error page",
+    };
+    const query = req.query.q || '';
+    const setting = await Setting.findOne();
+    let perPage = setting.post.postNumber || 6;
+    let page = req.query.page || 1;
+    const regexQuery = new RegExp(`\\b${query}\\b`, 'i'); 
+    const matchingCategories = await Category.find({
+      name: regexQuery,
+    });
+    const categoryIds = matchingCategories.map(category => category._id);
+    const matchingAuthors = await User.find({
+      name: regexQuery,
+    });
+    const authorIds = matchingAuthors.map(author => author._id);
+    const queryFilter = {
+      $or: [
+        { title: regexQuery },
+        { description: regexQuery },
+        { content: regexQuery },
+        { tags: { $in: [regexQuery] } },
+        { category: { $in: categoryIds } },
+        { author: { $in: authorIds } },
+      ],
+      isPublish: true,
+    };
+    const posts = await Post.find(queryFilter)
+    .populate("category", "name")
+    .sort({ createdAt: -1 })
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec();
+    const count = await Post.countDocuments(queryFilter);
+    const totalPages = Math.ceil(count / perPage);
+    const nextPage = parseInt(page) + 1;
+    const hasNextPage = nextPage <= Math.ceil(count / perPage);
+    const prevPage = page > 1 ? page - 1 : null;
+    res.render("home/search", { 
+      locals, 
+      user: req.user ,
+      posts,
+      current: page,
+      nextPage: hasNextPage ? nextPage : null,
+      prevPage,
+      totalPages,
+      query
+    });
+  } catch (error) {
+    console.log(`Search page error : ${error}`);
     res.redirect("/error");
   }
 }
@@ -330,5 +389,6 @@ export {
   addLink,
   categoryBasedPost,
   tagBasedPost,
-  subscribePage
+  subscribePage,
+  searchPage
 };

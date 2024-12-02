@@ -1776,6 +1776,10 @@ video {
   padding-inline-start: 0.625rem;
 }
 
+.pb-5{
+  padding-bottom: 1.25rem;
+}
+
 .text-center{
   text-align: center;
 }
