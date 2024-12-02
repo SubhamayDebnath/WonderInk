@@ -515,10 +515,15 @@ const contactPage = async(req,res)=>{
       title: "Wonderink - Add - Contact",
       description: "Welcome to our dashboard Profile page",
     };
+    const contact = await Contact.find().sort({ createdAt: -1 });
+    const contactCount = await Contact.countDocuments();
+
     return res.render("admin/contact", {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
+      contact,
+      contactCount
     });
   } catch (error) {
     console.log(`Admin Contact Page error : ${error}`);
