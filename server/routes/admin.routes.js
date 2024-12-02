@@ -20,7 +20,9 @@ import {
   addPostPage,
   addPost,
   addContactMessage,
-  addNewsletter
+  addNewsletter,
+  contactPage,
+  newsletterPage
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middleware/auth.middleware.js";
 import upload from '../middleware/multer.middleware.js'
@@ -33,9 +35,12 @@ router.get("/category", isAuthorized, adminCategoryPage);
 router.get("/users", isAuthorized, adminUsersPage);
 router.get("/profile", isAuthorized, adminProfilePage);
 router.get("/settings", isAuthorized, adminSettingPage);
+router.get('/contact',isAuthorized,contactPage)
+router.get('/newsletter',isAuthorized,newsletterPage)
 router.get("/category/add", isAuthorized, addCategoryPage);
 router.get("/category/edit/:id", isAuthorized, editCategoryPage);
 router.get("/post/add",isAuthorized,addPostPage);
+
 
 router.post("/api/v1/category/add", isAuthorized, addCategory);
 router.put('/api/v1/category/edit/:id',isAuthorized,updateCategory)

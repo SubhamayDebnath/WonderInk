@@ -509,6 +509,22 @@ const addPost = async(req,res)=>{
     return res.redirect("/error");
   }
 }
+const contactPage = async(req,res)=>{
+  try {
+    const locals = {
+      title: "Wonderink - Add - Contact",
+      description: "Welcome to our dashboard Profile page",
+    };
+    return res.render("admin/contact", {
+      layout: adminLayout,
+      locals,
+      isAdmin: req.user.isAdmin,
+    });
+  } catch (error) {
+    console.log(`Admin Contact Page error : ${error}`);
+    return res.redirect("/error");
+  }
+}
 const addContactMessage = async (req, res) => {
   try {
     const {name,email,message}=req.body;
@@ -526,6 +542,22 @@ const addContactMessage = async (req, res) => {
     
   } catch (error) {
     console.log(`Add Contact Message error : ${error}`);
+    return res.redirect("/error");
+  }
+}
+const newsletterPage = async (req,res) => {
+  try {
+    const locals = {
+      title: "Wonderink - Add - Newsletter",
+      description: "Welcome to our dashboard Profile page",
+    };
+    return res.render("admin/newsletter", {
+      layout: adminLayout,
+      locals,
+      isAdmin: req.user.isAdmin,
+    });
+  } catch (error) {
+    console.log(`Admin Newsletter Page error : ${error}`);
     return res.redirect("/error");
   }
 }
@@ -569,5 +601,7 @@ export {
   addPostPage,
   addPost,
   addContactMessage,
-  addNewsletter
+  addNewsletter,
+  contactPage,
+  newsletterPage
 };
