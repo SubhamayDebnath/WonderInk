@@ -2,9 +2,11 @@ import User from "../models/user.model.js";
 import Category from "../models/category.model.js";
 import Setting from "../models/setting.model.js";
 import Post from '../models/post.model.js'
+import Contact from '../models/contact.model.js'
 import cloudinary from "../utils/cloudinary.js"
 import slugify from "slugify";
 import fs from "fs/promises";
+
 const adminLayout = "../views/layouts/admin";
 const dashboard = async (req, res) => {
   try {
@@ -506,7 +508,26 @@ const addPost = async(req,res)=>{
     return res.redirect("/error");
   }
 }
-
+const addContactMessage = async (req, res) => {
+  try {
+    const {name,email,message}=req.body;
+    if(!name || !email || !message){
+      req.flash("error_msg", "Please fill all fields");
+      return res.redirect("/contact");
+    }
+    const contact = await Contact.create({name,email,message});
+    if(!contact){
+      req.flash("error_msg", "Failed to send message")
+      return res.redirect("/contact");
+    }
+    req.flash("success_msg", "Message sent successfully");
+    return res.redirect("/contact");
+    
+  } catch (error) {
+    console.log(`Add Contact Message error : ${error}`);
+    return res.redirect("/error");
+  }
+}
 export {
   dashboard,
   adminBlogsPage,
@@ -526,5 +547,6 @@ export {
   sidebarSetting,
   dashboardSetting,
   addPostPage,
-  addPost
+  addPost,
+  addContactMessage
 };

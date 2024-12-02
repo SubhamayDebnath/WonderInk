@@ -18,7 +18,8 @@ import {
   sidebarSetting,
   dashboardSetting,
   addPostPage,
-  addPost
+  addPost,
+  addContactMessage
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middleware/auth.middleware.js";
 import upload from '../middleware/multer.middleware.js'
@@ -48,5 +49,7 @@ router.put('/setting/sidebar/update',isAuthorized,sidebarSetting);
 router.put('/setting/dashboard/update',isAuthorized,dashboardSetting);
 
 router.post('/api/v1/post/add',isAuthorized,upload.single("avatar"),addPost);
+
+router.post('/contact/add',isAuthorized,addContactMessage)
 
 export default router;
