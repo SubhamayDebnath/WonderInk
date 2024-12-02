@@ -157,7 +157,7 @@
       <h1 class="text-xl font-medium text-white mb-2">Categories</h1>
       <div class="flex items-center gap-2 flex-wrap mt-2">
         <% categories.forEach((cat)=>{ %>
-        <a href="/category/<%- cat.name  %>" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 bg-gray-800 text-white"><%- cat.name  %></a>
+        <a href="/category/<%- cat.name  %>" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize"><%- cat.name  %></a>
         <%  }) %>
       </div>
     </div>
