@@ -52,20 +52,20 @@
                     </button>
                 </div>
                 <div class="w-full flex md:flex-row flex-col md:items-center">
-                    <a href="/admin/dashboard "
-                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500 <%= isActiveRoute('/admin/dashboard', currentRoute) %>">Home</a>
-                    <a href="/admin/blog "
-                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500 <%= isActiveRoute('/admin/blog', currentRoute) %> <%= isActiveRoute('/admin/post/add', currentRoute) %>">Blog</a>
+                    <a href="/admin/dashboard"
+                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500">Home</a>
+                    <a href="/admin/blog"
+                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500">Blog</a>
                     <% if (isAdmin) { %><a href="/admin/category"
-                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500 <%= isActiveRoute('/admin/category', currentRoute) %> <%= isActiveRoute('/admin/category/edit/', currentRoute) %>">Category</a>
+                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500">Category</a>
                     <a href="/admin/users"
-                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500 <%= isActiveRoute('/admin/users', currentRoute) %>">Users</a>
+                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500">Users</a>
                     <a href="/admin/settings"
-                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500 <%= isActiveRoute('/admin/settings', currentRoute) %>">Settings</a>
+                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500">Settings</a>
 
                     
                     <% } %><a href="/admin/profile"
-                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500 <%= isActiveRoute('/admin/profile', currentRoute) %>">Profile</a>
+                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500">Profile</a>
                     <a href="/auth/logout"
                         class="text-lg md:text-sm  w-fit font-medium px-2 py-1.5 rounded transition-colors duration-200 ease-in-out md:ml-4 md:mt-0 mt-10 bg-red-600 text-white hover:bg-red-500">Logout</a>
                 </div>

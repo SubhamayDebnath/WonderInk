@@ -26,7 +26,7 @@ const dashboard = async (req, res) => {
       userCount,
       categoryCount,
       postCount,
-      currentRoute: '/admin/dashboard'
+      
     });
   } catch (error) {
     console.log(`Dashboard page error : ${error}`);
@@ -65,7 +65,6 @@ const adminBlogsPage = async (req, res) => {
       nextPage: hasNextPage ? nextPage : null,
       prevPage,
       totalPages,
-       currentRoute: '/admin/blog'
     });
   } catch (error) {
     console.log(`Admin Blog page error : ${error}`);
@@ -86,8 +85,7 @@ const adminCategoryPage = async (req, res) => {
       locals,
       isAdmin: req.user.isAdmin,
       categories,
-      categoryCount,
-      currentRoute: '/admin/category'
+      categoryCount
     });
   } catch (error) {
     console.log(`Admin Category page error : ${error}`);
@@ -107,8 +105,7 @@ const adminUsersPage = async (req, res) => {
       locals,
       isAdmin: req.user.isAdmin,
       users,
-      userCount,
-      currentRoute: '/admin/users'
+      userCount
     });
   } catch (error) {
     console.log(`Admin User page error : ${error}`);
@@ -127,8 +124,7 @@ const adminSettingPage = async (req, res) => {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
-      setting,
-      currentRoute: '/admin/settings'
+      setting
     });
   } catch (error) {
     console.log(`Admin Update Website page error : ${error}`);
@@ -147,7 +143,6 @@ const adminProfilePage = async (req, res) => {
       locals,
       isAdmin: req.user.isAdmin,
       user,
-      currentRoute: '/admin/profile'
     });
   } catch (error) {
     console.log(`Admin Update Website page error : ${error}`);
@@ -165,9 +160,7 @@ const addPostPage = async (req, res) => {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
-      categories,
-       currentRoute: '/admin/post/add'
-
+      categories
     });
   } catch (error) {
     console.log(`Add Post page error : ${error}`);
@@ -185,7 +178,6 @@ const addCategoryPage = async (req, res) => {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
-      currentRoute: '/admin/category/add'
     });
   } catch (error) {
     console.log(`Add category page error : ${error}`);
@@ -206,7 +198,6 @@ const editCategoryPage = async (req, res) => {
       locals,
       isAdmin: req.user.isAdmin,
       category,
-      currentRoute: `/admin/category/edit/${categoryID}`
     });
   } catch (error) {
     console.log(`Edit category page error : ${error}`);
