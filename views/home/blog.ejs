@@ -11,8 +11,8 @@
   <div class="flex items-center gap-2 flex-wrap mt-3 mb-5">
     <% if (Array.isArray(singlePost.tags) && singlePost.tags.length > 0) { %>
     <% singlePost.tags.forEach(tag => { %>
-    <a href="" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">
-      <%- tag  %>
+    <a href="/tag/<%- tag %>" class="text-xs font-semibold rounded p-1.5 bg-gray-800 text-white">
+      #<%- tag  %>
     </a>
     <% }) %>
     <% } %>

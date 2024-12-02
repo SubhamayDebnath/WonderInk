@@ -123,13 +123,13 @@ const categoriesPage = async (req, res) => {
     res.redirect("/error");
   }
 };
-const aboutPage = async (req, res) => {
+const contactPage = async (req, res) => {
   try {
     const locals = {
-      title: "Wonderink - About",
+      title: "Wonderink - Contact",
       description: "Welcome to our Blogs page",
     };
-    res.render("home/about", { locals, user: req.user });
+    res.render("home/contact", { locals, user: req.user });
   } catch (error) {
     console.log(`About page error : ${error}`);
     res.redirect("/error");
@@ -232,7 +232,6 @@ const categoryBasedPost = async (req,res) => {
     .skip(perPage * page - perPage)
     .limit(perPage)
     .exec();
-    console.log(posts);
     const count = await Post.countDocuments({ isPublish: true, category: categoryID });
     const totalPages = Math.ceil(count / perPage);
     const nextPage = parseInt(page) + 1;
@@ -312,7 +311,7 @@ export {
   homePage,
   blogsPage,
   categoriesPage,
-  aboutPage,
+  contactPage,
   blogPage,
   errorPage,
   addLink,

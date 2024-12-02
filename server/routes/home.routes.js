@@ -3,7 +3,7 @@ import {
   homePage,
   blogsPage,
   categoriesPage,
-  aboutPage,
+  contactPage,
   blogPage,
   errorPage,
   addLink,
@@ -17,7 +17,7 @@ const router = Router();
 router.get("/", isAuthenticated,homePage);
 router.get("/blogs", isAuthenticated, blogsPage);
 router.get("/categories", isAuthenticated, categoriesPage);
-router.get("/about", isAuthenticated, aboutPage);
+router.get("/contact", isAuthenticated, contactPage);
 router.get('/blog/:slug', isAuthenticated,blogPage);
 router.get('/error', isAuthenticated, errorPage);
 router.get('/category/:slug',isAuthenticated,categoryBasedPost)
