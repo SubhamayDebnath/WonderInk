@@ -3,6 +3,7 @@ import Category from "../models/category.model.js";
 import Setting from "../models/setting.model.js";
 import Post from '../models/post.model.js'
 import Contact from '../models/contact.model.js'
+import Newsletter from '../models/newsletter.model.js'
 import cloudinary from "../utils/cloudinary.js"
 import slugify from "slugify";
 import fs from "fs/promises";
@@ -528,6 +529,25 @@ const addContactMessage = async (req, res) => {
     return res.redirect("/error");
   }
 }
+const addNewsletter = async (req,res) => {
+  try {
+    const {email }= req.body;
+    if(!email){
+      req.flash("error_msg", "Please fill email");
+      return res.redirect("/subscribe");
+    }
+    const newsletter = await Newsletter.create({email});
+    if(!newsletter){
+      req.flash("error_msg", "Failed to subscribe")
+      return res.redirect("/subscribe")
+    }
+    req.flash("success_msg", "Email submitted successfully! Thank you");
+    return res.redirect("/subscribe")
+  } catch (error) {
+    console.log(`Add Newsletter Message error : ${error}`);
+    return res.redirect("/error");
+  }
+}
 export {
   dashboard,
   adminBlogsPage,
@@ -548,5 +568,6 @@ export {
   dashboardSetting,
   addPostPage,
   addPost,
-  addContactMessage
+  addContactMessage,
+  addNewsletter
 };
