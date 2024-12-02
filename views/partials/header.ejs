@@ -53,13 +53,13 @@
                 </div>
                 <div class="w-full flex md:flex-row flex-col md:items-center">
                     <a href="/"
-                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500 active-link">Home</a>
+                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500  <%= isActiveRoute('/', currentRoute) %>">Home</a>
                     <a href="/blogs"
-                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500">Blog</a>
+                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500 <%= isActiveRoute('/blogs', currentRoute) %>">Blog</a>
                     <a href="/categories"
-                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500">Category</a>
+                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500 <%= isActiveRoute('/categories', currentRoute) %>">Category</a>
                     <a href="/contact"
-                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500">Contact</a>
+                        class="text-lg md:text-sm font-medium p-2 transition-colors duration-200 ease-in-out text-white hover:text-blue-500 <%= isActiveRoute('/contact', currentRoute) %>">Contact</a>
                     <% if (user) { %>
                     <% if (user.isActive) { %><a
                         href="/admin/dashboard"
