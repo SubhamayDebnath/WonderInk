@@ -33,7 +33,7 @@ const homePage = async (req, res) => {
       uniqueTags=[];
     }
    
-    res.render("home/index", { locals, user: req.user, posts, categories,uniqueTags , currentRoute: '/'});
+    res.render("home/index", { locals, user: req.user, posts, categories,uniqueTags });
   } catch (error) {
     console.log(`Home page error : ${error}`);
     res.redirect("/error");
@@ -86,8 +86,7 @@ const blogsPage = async (req, res) => {
       nextPage: hasNextPage ? nextPage : null,
       prevPage,
       totalPages,
-      uniqueTags,
-      currentRoute: '/blogs'
+      uniqueTags
     });
   } catch (error) {
     console.log(`Blogs page error : ${error}`);
@@ -119,7 +118,7 @@ const categoriesPage = async (req, res) => {
     const categories = await Category.find({ isPublish: true }).sort({
       createdAt: -1,
     });
-    res.render("home/categories", { locals, user: req.user, categories, currentRoute: '/categories' });
+    res.render("home/categories", { locals, user: req.user, categories });
   } catch (error) {
     console.log(`Categories page error : ${error}`);
     res.redirect("/error");
@@ -131,7 +130,7 @@ const contactPage = async (req, res) => {
       title: "Wonderink - Contact",
       description: "Welcome to our Blogs page",
     };
-    res.render("home/contact", { locals, user: req.user , currentRoute: '/contact'});
+    res.render("home/contact", { locals, user: req.user });
   } catch (error) {
     console.log(`About page error : ${error}`);
     res.redirect("/error");
