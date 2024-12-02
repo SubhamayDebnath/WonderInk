@@ -1,14 +1,20 @@
 <div class="py-5 border-b border-b-white/10">
-    <h1 class="inline-block font-bold text-2xl lg:text-4xl text-white">Categories</h1>
+    <h1 class="inline-block font-bold text-2xl lg:text-4xl text-white">
+        Categories</h1>
 </div>
-<% if(categories.length) { %>
-    <div class="flex items-center flex-wrap gap-5 py-5">
-        <% categories.forEach((cat)=>{ %>
-            <a href="/category/<%- cat.name  %>" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize"><%- cat.name  %></a>
-        <%  }) %>
-    </div>
-<% } else{%>
-    <div class="py-10 text-center">
-        <P>No Category Found</P>
-    </div>
+<% if (categories.length) { %>
+<div class="flex items-center flex-wrap gap-5 py-5">
+    <% categories.forEach((cat) => { %><a
+        href="/category/<%- cat.name %>"
+        class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize">
+        <%- cat.name %>
+    </a>
+    <% }) %>
+</div>
+<% } else { %>
+<div class="py-10 text-center">
+    <P>No Category Found</P>
+</div>
+
+
 <% } %>

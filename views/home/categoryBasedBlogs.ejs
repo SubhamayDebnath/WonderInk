@@ -1,75 +1,103 @@
 <div class="py-5">
-  <h1 class="inline-block font-bold text-2xl lg:text-4xl text-white capitalize"><%-categoryName  %></h1>
+    <h1
+        class="inline-block font-bold text-2xl lg:text-4xl text-white capitalize">
+        <%- categoryName %>
+    </h1>
 </div>
 <div>
-  <% if(posts.length) {%>
-  <div class="w-full border-t border-t-white/10">
-    <% posts.forEach((post)=> { %>
-    <div class="flex flex-col gap-3 py-5 border-b border-b-white/10">
-      <h2 class="text-2xl font-bold group text-white ">
-        <a href="/blog/<%- post.slug  %>" class="line-clamp-2 group-hover:underline">
-          <%- post.title.replace(/<[^>]+>/g, '').length > 90 ? post.title.replace(/<[^>]+>/g,
-                                    '').slice(0, 90) + '...' : post.title.replace(/<[^>]+>/g, '') %>
-        </a>
-      </h2>
-      <div class="flex items-center gap-2 flex-wrap">
-        <a href="/category/<%- post.category.name  %>" class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize">
-          <%- post.category.name %>
-        </a> -
-        <% if (Array.isArray(post.tags) && post.tags.length> 0) { %>
-        <% post.tags.forEach(tag=> { %>
-        <a href="" class="text-xs rounded p-1.5 hover:underline bg-gray-800 text-white">
-          #<%- tag %>
-        </a>
-        <% }) %>
-        <% } %>
-      </div>
-      <p class="text-muted break-words">
-        <%- post.description.replace(/<[^>]+>/g, '').length > 220 ? post.description.replace(/<[^>]+>/g,
-                                '').slice(0, 220) + '...' : post.description.replace(/<[^>]+>/g, '') %>
-      </p>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-1 text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 ">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-          </svg>
-          <span class="text-sm">
-            <%= new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long' ,day: 'numeric'
-                                    ,year: 'numeric' }) %>
-          </span>
+    <% if (posts.length) { %>
+    <div class="w-full border-t border-t-white/10">
+        <% posts.forEach((post) => { %>
+        <div class="flex flex-col gap-3 py-5 border-b border-b-white/10">
+            <h2 class="text-2xl font-bold group text-white ">
+                <a href="/blog/<%- post.slug %>"
+                    class="line-clamp-2 group-hover:underline">
+                    <%- post.title.replace(/<[^>]+>/g, '').length > 90 ? post.title.replace(/<[^>]+>/g,
+'').slice(0, 90) + '...' : post.title.replace(/<[^>]+>/g, '') %>
+                </a>
+            </h2>
+            <div class="flex items-center gap-2 flex-wrap">
+                <a href="/category/<%- post.category.name %>"
+                    class="flex items-center space-x-1 text-xs font-semibold rounded p-2 transition-colors duration-200 ease-in-out bg-gray-700 text-white hover:bg-gray-800 capitalize">
+                    <%- post.category.name %>
+                </a> -
+                <% if (Array.isArray(post.tags) && post.tags.length > 0) { %>
+                <% post.tags.forEach(tag => { %><a href=""
+                    class="text-xs rounded p-1.5 hover:underline bg-gray-800 text-white">
+                    #
+                    <%- tag %>
+                </a>
+                <% }) %>
+                
+                <% } %>
+            </div>
+            <p class="text-muted break-words">
+                <%- post.description.replace(/<[^>]+>/g, '').length > 220 ? post.description.replace(/<[^>]+>/g,
+'').slice(0, 220) + '...' : post.description.replace(/<[^>]+>/g, '') %>
+            </p>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-1 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-4 ">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                    </svg>
+                    <span class="text-sm">
+                        <%= new Date(post.createdAt).toLocaleDateString('en-US', {
+month: 'long',
+day: 'numeric',
+year: 'numeric'
+}) %>
+                    </span>
+                </div>
+                <a href="/blog/<%- post.slug %>"
+                    class="text-sm font-medium hover:underline text-white">
+                    Read More →
+                </a>
+            </div>
         </div>
-        <a href="/blog/<%- post.slug  %>" class="text-sm font-medium hover:underline text-white">
-          Read More →
-        </a>
-      </div>
+        <% }) %>
+        <div class="py-5">
+            <div class="flex items-center justify-between">
+                <% if (prevPage) { %><a
+                    href="?page=<%= prevPage %>"
+                    class="flex items-center space-x-1 py-1.5 ps-2 pe-2.5 rounded transition-colors duration-200 ease-in-out hover:bg-gray-800 hover:text-white border border-white/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 19.5 8.25 12l7.5-7.5" />
+                    </svg>
+                    <span class="text-sm">Prev</span>
+                </a>
+
+                
+                <% } %>
+                <p class="text-muted text-sm">on page of
+                    <%= current %>/
+                    <%= totalPages %>
+                </p>
+                <% if (nextPage) { %><a
+                    href="?page=<%= nextPage %>"
+                    class="flex items-center space-x-1 py-1.5 ps-2.5 pe-2 rounded transition-colors duration-200 ease-in-out hover:bg-gray-800 hover:text-white border border-white/10">
+                    <span class="text-sm">Next</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                    </svg>
+                </a>
+
+                
+                <% } %>
+            </div>
+        </div>
     </div>
-    <% }) %>
-    <div class="py-5">
-      <div class="flex items-center justify-between">
-        <% if (prevPage) { %>
-        <a href="?page=<%= prevPage %>" class="flex items-center space-x-1 py-1.5 ps-2 pe-2.5 rounded transition-colors duration-200 ease-in-out hover:bg-gray-800 hover:text-white border border-white/10">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-          </svg>
-          <span class="text-sm">Prev</span>
-        </a>
-        <% } %>
-        <p class="text-muted text-sm">on page of <%= current %>/<%= totalPages %>
-        </p>
-        <% if (nextPage) { %>
-        <a href="?page=<%= nextPage %>" class="flex items-center space-x-1 py-1.5 ps-2.5 pe-2 rounded transition-colors duration-200 ease-in-out hover:bg-gray-800 hover:text-white border border-white/10">
-          <span class="text-sm">Next</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-          </svg>
-        </a>
-        <% } %>
-      </div>
-    </div>
-  </div>
-  <% }else{ %>
-  <div class="w-full py-10 text-center border-t border-t-white/10"">
+    <% } else { %>
+    <div class="w-full py-10 text-center border-t border-t-white/10"">
         <p>No Post Found</p>
     </div>
-<% } %>
-  </div>
+
+<% } %></div>

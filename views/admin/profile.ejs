@@ -1,233 +1,382 @@
 <div class="my-5 grid md:grid-cols-2 grid-cols-1 gap-5 ">
-  <div class="mb-5 border border-white/10 rounded">
-    <div class="px-4 py-3 border-b border-b-white/10">
-      <h1 class="text-xl font-semibold text-white ">Profile</h1>
-    </div>
-    <div class="px-4 py-3">
-      <div class="flex items-center flex-wrap gap-5 mb-5">
-        <div class="w-24 aspect-square rounded-full overflow-hidden">
-          <img src="<%-user.avatar.secure_url%>" alt="<%- user.name  %> images" class="w-full h-full object-cover">
+    <div class="mb-5 border border-white/10 rounded">
+        <div class="px-4 py-3 border-b border-b-white/10">
+            <h1 class="text-xl font-semibold text-white ">Profile</h1>
         </div>
-        <div>
-          <span class="text-sm ">Name:</span>
-          <h1 class="text-sm font-medium text-white mb-2 capitalize"><%-user.name%></h1>
-          <span class="text-sm">Email:</span>
-          <h1 class="text-sm font-medium text-white"><%- user.email %></h1>
-        </div>
-      </div>
-      <div>
-        <span class="text-sm ">Description:</span>
-        <% if(user.description){ %>
-        <p class="text-white text-pretty">As it so contrasted oh estimating instrument. Size like body
-          someone had. Are conduct viewing boy minutes warrant the expense Tolerably behavior may admit
-          daughters offending her ask own. Praise effect wishes change way and any wanted.</p>
-        <% }else { %>
-        <p class="text-white text-pretty">
-          Please add your bio
-        </p>
-        <% } %>
-      </div>
+        <div class="px-4 py-3">
+            <div class="flex items-center flex-wrap gap-5 mb-5">
+                <div class="w-24 aspect-square rounded-full overflow-hidden">
+                    <img src="<%- user.avatar.secure_url %>"
+                        alt="<%- user.name %>images"
+                        class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="text-sm ">Name:</span>
+                    <h1 class="text-sm font-medium text-white mb-2 capitalize">
+                        <%- user.name %>
+                    </h1>
+                    <span class="text-sm">Email:</span>
+                    <h1 class="text-sm font-medium text-white">
+                        <%- user.email %>
+                    </h1>
+                </div>
+            </div>
+            <div>
+                <span class="text-sm ">Description:</span>
+                <% if (user.description) { %>
+                <p class="text-white text-pretty">As it so contrasted oh
+                    estimating instrument. Size like body
+                    someone had. Are conduct viewing boy minutes warrant the
+                    expense Tolerably behavior may admit
+                    daughters offending her ask own. Praise effect wishes change
+                    way and any wanted.</p>
+                <% } else { %>
+                <p class="text-white text-pretty">
+                    Please add your bio
+                </p>
+
+                
+                <% } %>
+            </div>
 
 
-      <div class="flex items-center flex-wrap gap-1 mt-5">
-        <% if (user.isSocialLinksVisible.email){ %>
-        <a href="mailto:<%-user.socialLinks.email %>" target="_blank" class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-            </path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-        </a>
-        <% }%>
-        <% if (user.isSocialLinksVisible.facebook){ %>
-        <a href="<%- user.socialLinks.facebook %>" target="_blank" class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook">
-            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-          </svg>
-        </a>
-        <% }%>
-        <% if (user.isSocialLinksVisible.twitter){ %>
-        <a href="<%- user.socialLinks.twitter %>" target="_blank" class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter">
-            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-            </path>
-          </svg>
-        </a>
-        <% }%>
-        <% if (user.isSocialLinksVisible.instagram){ %>
-        <a href="<%- user.socialLinks.instagram %>" target="_blank" class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-          </svg>
-        </a>
-        <% }%>
-        <% if (user.isSocialLinksVisible.github){ %>
-        <a href="<%- user.socialLinks.github%>" target="_blank" class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-            </path>
-          </svg>
-        </a>
-        <% }%>
-        <% if (user.isSocialLinksVisible.linkedin){ %>
-        <a href="<%- user.socialLinks.linkedin %>" target="_blank" class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white" title="mail">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-            </path>
-            <rect x="2" y="9" width="4" height="12"></rect>
-            <circle cx="4" cy="4" r="2"></circle>
-          </svg>
-        </a>
-        <% }%>
-      </div>
-    </div>
-  </div>
-  <div class="border border-white/10 rounded">
-    <div class="px-4 py-3 border-b border-b-white/10">
-      <h1 class="text-xl font-semibold text-white ">Edit Profile</h1>
-    </div>
-    <form action="/admin/api/v1/profile/update/<%- user._id %>?_method=PUT" method="post" id="updateProfileForm" enctype="multipart/form-data" class="px-4 py-3">
-      <div class="mb-3">
-        <div class="relative w-fit">
-          <div class="w-16 aspect-square rounded-full overflow-hidden mb-2">
-            <img src="<%-user.avatar.secure_url%>" alt="Avatar" id="previewImage" class="w-full h-full object-cover">
-          </div>
-          <label for="avatar" class="absolute -bottom-2 -right-2 bg-blue-600 text-white h-8 aspect-square flex items-center justify-center rounded-full cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-            </svg>
-          </label>
+            <div class="flex items-center flex-wrap gap-1 mt-5">
+                <% if (user.isSocialLinksVisible.email) { %><a
+                    href="mailto:<%- user.socialLinks.email %>"
+                    target="_blank"
+                    class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white"
+                    title="mail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-mail">
+                        <path
+                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                        </path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </a>
+
+                
+                <% } %>
+                <% if (user.isSocialLinksVisible.facebook) { %><a
+                    href="<%- user.socialLinks.facebook %>"
+                    target="_blank"
+                    class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white"
+                    title="mail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-facebook">
+                        <path
+                            d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
+                        </path>
+                    </svg>
+                </a>
+
+                
+                <% } %>
+                <% if (user.isSocialLinksVisible.twitter) { %><a
+                    href="<%- user.socialLinks.twitter %>"
+                    target="_blank"
+                    class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white"
+                    title="mail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-twitter">
+                        <path
+                            d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                        </path>
+                    </svg>
+                </a>
+
+                
+                <% } %>
+                <% if (user.isSocialLinksVisible.instagram) { %>
+                <a href="<%- user.socialLinks.instagram %>"
+                    target="_blank"
+                    class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white"
+                    title="mail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-instagram">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5">
+                        </rect>
+                        <path
+                            d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z">
+                        </path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+
+                
+                <% } %>
+                <% if (user.isSocialLinksVisible.github) { %><a
+                    href="<%- user.socialLinks.github %>"
+                    target="_blank"
+                    class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white"
+                    title="mail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-github">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                        </path>
+                    </svg>
+                </a>
+
+                
+                <% } %>
+                <% if (user.isSocialLinksVisible.linkedin) { %><a
+                    href="<%- user.socialLinks.linkedin %>"
+                    target="_blank"
+                    class="w-9 aspect-square flex items-center justify-center overflow-hidden transition-all duration-200 ease-in-out hover:scale-110 hover:text-white"
+                    title="mail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-linkedin">
+                        <path
+                            d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                        </path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+
+                
+                <% } %>
+            </div>
         </div>
-        <input type="file" name="avatar" id="avatar" class="hidden">
-      </div>
-      <div class="mb-3">
-        <label for="name" class="text-sm">Name</label>
-        <input type="text" name="name" id="name" placeholder="Enter Your Name" value="<%-user.name%>" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" autocomplete="name">
-      </div>
-      <div class="mb-3">
-        <label for="description" class="text-sm">Description</label>
-        <textarea name="description" id="description" rows="5" placeholder="Enter Your Description" required class="w-full p-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900" autocomplete="on"><%- user.description  %></textarea>
-      </div>
-      <button type="submit" id="submit-button" class="h-10 w-full bg-blue-600 text-white transition-colors duration-200 ease-in-out hover:bg-blue-500 rounded flex items-center justify-center">
-        Save Changes
-      </button>
-    </form>
-  </div>
+    </div>
+    <div class="border border-white/10 rounded">
+        <div class="px-4 py-3 border-b border-b-white/10">
+            <h1 class="text-xl font-semibold text-white ">Edit Profile</h1>
+        </div>
+        <form
+            action="/admin/api/v1/profile/update/<%- user._id %>?_method=PUT"
+            method="post" id="updateProfileForm" enctype="multipart/form-data"
+            class="px-4 py-3">
+            <div class="mb-3">
+                <div class="relative w-fit">
+                    <div
+                        class="w-16 aspect-square rounded-full overflow-hidden mb-2">
+                        <img src="<%- user.avatar.secure_url %>"
+                            alt="Avatar" id="previewImage"
+                            class="w-full h-full object-cover">
+                    </div>
+                    <label for="avatar"
+                        class="absolute -bottom-2 -right-2 bg-blue-600 text-white h-8 aspect-square flex items-center justify-center rounded-full cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                        </svg>
+                    </label>
+                </div>
+                <input type="file" name="avatar" id="avatar" class="hidden">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="text-sm">Name</label>
+                <input type="text" name="name" id="name"
+                    placeholder="Enter Your Name"
+                    value="<%- user.name %>" required
+                    class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"
+                    autocomplete="name">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="text-sm">Description</label>
+                <textarea name="description" id="description" rows="5"
+                    placeholder="Enter Your Description" required
+                    class="w-full p-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"
+                    autocomplete="on">
+                    <%- user.description %>
+                </textarea>
+            </div>
+            <button type="submit" id="submit-button"
+                class="h-10 w-full bg-blue-600 text-white transition-colors duration-200 ease-in-out hover:bg-blue-500 rounded flex items-center justify-center">
+                Save Changes
+            </button>
+        </form>
+    </div>
 </div>
 <div class="border border-white/10 rounded">
-  <div class="px-4 py-3 border-b border-b-white/10">
-    <h1 class="text-xl font-semibold text-white ">Social</h1>
-  </div>
-  <form action="/admin/api/v1/profile/social/update/<%- user._id %>?_method=PUT" id="updateSocialForm" method="post" class="p-4">
-    <div class="grid md:grid-cols-2 grid-cols-1 gap-5">
-      <div>
-        <div class="mb-3">
-          <label for="email" class="text-sm">Email</label>
-          <input type="text" name="email" id="email" placeholder="Enter Your Email" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.email){ %><%- user.socialLinks.email %> <% }else{ %><%- user.email  %> <% } %>">
-          <input type="checkbox" name="isEmail" id="isEmail" <% if(user.isSocialLinksVisible.email){ %> checked <% }
-            %>>
-          <label for="isEmail" class="text-sm">Show Email profile link</label>
-        </div>
-        <div class="mb-3">
-          <label for="gitHub" class="text-sm">Github</label>
-          <input type="url" name="gitHub" id="gitHub" placeholder="Enter Your GitHub profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.github){ %><%- user.socialLinks.github %> <% }else{ %>https://github.com/<% } %>">
-          <input type="checkbox" name="isGithub" id="isGithub" <% if(user.isSocialLinksVisible.github){ %>checked <% }
-            %>>
-          <label for="isGithub" class="text-sm">Show Github profile link</label>
-        </div>
-        
-        <div class="mb-3">
-          <label for="twitter" class="text-sm">Twitter</label>
-          <input type="url" name="twitter" id="twitter" placeholder="Enter Your Twitter profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.twitter){ %><%- user.socialLinks.twitter %> <% }else{ %>https://x.com/<% } %>">
-          <input type="checkbox" name="isTwitter" id="isTwitter" <% if(user.isSocialLinksVisible.twitter){ %>checked <%
-            } %>>
-          <label for="isTwitter" class="text-sm">Show Twitter profile link</label>
-        </div>
-      </div>
-      <div>
-        
-        <div class="mb-3">
-          <label for="instagram" class="text-sm">Instagram</label>
-          <input type="url" name="instagram" id="instagram" placeholder="Enter Your Instagram profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.instagram){ %><%- user.socialLinks.instagram %> <% }else{ %>https://www.instagram.com/<% } %>">
-          <input type="checkbox" name="isInstagram" id="isInstagram" <% if(user.isSocialLinksVisible.instagram){%>checked <% } %> >
-          <label for="isInstagram" class="text-sm">Show Instagram profile link</label>
-        </div>
-        
-        <div class="mb-3">
-          <label for="facebook" class="text-sm">Facebook</label>
-          <input type="url" name="facebook" id="facebook" placeholder="Enter Your Facebook profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.facebook){ %><%- user.socialLinks.facebook %> <% }else{ %>https://www.facebook.com/<% } %>">
-          <input type="checkbox" name="isFacebook" id="isFacebook" <% if(user.isSocialLinksVisible.facebook){ %>checked <% } %>>
-          <label for="isInstagram" class="text-sm">Show Facebook profile link</label>
-        </div>
-        
-        <div class="mb-3">
-          <label for="linkedIn" class="text-sm">LinkedIn</label>
-          <input type="url" name="linkedIn" id="linkedIn" placeholder="Enter Your LinkedIn profile url" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2" value="<% if(user.socialLinks.linkedin){ %><%- user.socialLinks.linkedin %> <% }else{ %>https://in.linkedin.com/<% } %>">
-          <input type="checkbox" name="isLinkedIn" id="isLinkedIn" <% if(user.isSocialLinksVisible.linkedin){ %>checked <% } %>>
-          <label for="isLinkedIn" class="text-sm">Show LinkedIn profile link</label>
-        </div>
-      </div>
+    <div class="px-4 py-3 border-b border-b-white/10">
+        <h1 class="text-xl font-semibold text-white ">Social</h1>
     </div>
-    <div>
-      <button type="submit" id="submit-button-social" class="w-full py-2 rounded transition-colors duration-200 ease-in-out bg-blue-600 text-white hover:bg-blue-500">Save</button>
-    </div>
-  </form>
+    <form
+        action="/admin/api/v1/profile/social/update/<%- user._id %>?_method=PUT"
+        id="updateSocialForm" method="post" class="p-4">
+        <div class="grid md:grid-cols-2 grid-cols-1 gap-5">
+            <div>
+                <div class="mb-3">
+                    <label for="email" class="text-sm">Email</label>
+                    <input type="text" name="email" id="email"
+                        placeholder="Enter Your Email" required
+                        class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2"
+                        value="<% if (user.socialLinks.email) { %><%- user.socialLinks.email %><% } else { %><%- user.email %><% } %>">
+                    <input type="checkbox" name="isEmail" id="isEmail" <ejs>6037
+                    if (user.isSocialLinksVisible.email) { %>checked
+                    <% } %>>
+                    <label for="isEmail" class="text-sm">Show Email profile
+                        link</label>
+                </div>
+                <div class="mb-3">
+                    <label for="gitHub" class="text-sm">Github</label>
+                    <input type="url" name="gitHub" id="gitHub"
+                        placeholder="Enter Your GitHub profile url" required
+                        class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2"
+                        value="<% if (user.socialLinks.github) { %><%- user.socialLinks.github %><% } else { %>https://github.com/<% } %>">
+                    <input type="checkbox" name="isGithub" id="isGithub"
+                        <% if (user.isSocialLinksVisible.github) { 3762
+                    </ejs>checked
+                    <% } %>>
+                    <label for="isGithub" class="text-sm">Show Github profile
+                        link</label>
+                </div>
+
+                <div class="mb-3">
+                    <label for="twitter" class="text-sm">Twitter</label>
+                    <input type="url" name="twitter" id="twitter"
+                        placeholder="Enter Your Twitter profile url" required
+                        class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2"
+                        value="<% if (user.socialLinks.twitter) { %><%- user.socialLinks.twitter %><% } else { %>https://x.com/<% } %>">
+                    <input type="checkbox" name="isTwitter" id="isTwitter"
+                        <% if (user.isSocialLinksVisible.twitter) { 3762
+                    </ejs>checked 
+                    <% } %>>
+                    <label for="isTwitter" class="text-sm">Show Twitter profile
+                        link</label>
+                </div>
+            </div>
+            <div>
+
+                <div class="mb-3">
+                    <label for="instagram" class="text-sm">Instagram</label>
+                    <input type="url" name="instagram" id="instagram"
+                        placeholder="Enter Your Instagram profile url" required
+                        class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2"
+                        value="<% if (user.socialLinks.instagram) { %><%- user.socialLinks.instagram %><% } else { %>https://www.instagram.com/<% } %>">
+                    <input type="checkbox" name="isInstagram" id="isInstagram"
+                        <% if (user.isSocialLinksVisible.instagram) {
+                    %>checked 
+                    <% } %>>
+                    <label for="isInstagram" class="text-sm">Show Instagram
+                        profile link</label>
+                </div>
+
+                <div class="mb-3">
+                    <label for="facebook" class="text-sm">Facebook</label>
+                    <input type="url" name="facebook" id="facebook"
+                        placeholder="Enter Your Facebook profile url" required
+                        class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2"
+                        value="<% if (user.socialLinks.facebook) { %><%- user.socialLinks.facebook %><% } else { %>https://www.facebook.com/<% } %>">
+                    <input type="checkbox" name="isFacebook" id="isFacebook"
+                        <% if (user.isSocialLinksVisible.facebook) { 3762
+                    </ejs>checked 
+                    <% } %>>
+                    <label for="isInstagram" class="text-sm">Show Facebook
+                        profile link</label>
+                </div>
+
+                <div class="mb-3">
+                    <label for="linkedIn" class="text-sm">LinkedIn</label>
+                    <input type="url" name="linkedIn" id="linkedIn"
+                        placeholder="Enter Your LinkedIn profile url" required
+                        class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900 mb-2"
+                        value="<% if (user.socialLinks.linkedin) { %><%- user.socialLinks.linkedin %><% } else { %>https://in.linkedin.com/<% } %>">
+                    <input type="checkbox" name="isLinkedIn" id="isLinkedIn"
+                        <% if (user.isSocialLinksVisible.linkedin) { 3762
+                    </ejs>checked 
+                    <% } %>>
+                    <label for="isLinkedIn" class="text-sm">Show LinkedIn
+                        profile link</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" id="submit-button-social"
+                class="w-full py-2 rounded transition-colors duration-200 ease-in-out bg-blue-600 text-white hover:bg-blue-500">Save</button>
+        </div>
+    </form>
 </div>
 <div class="my-5 grid md:grid-cols-2 grid-cols-1 gap-5 ">
-  <div class="border border-white/10 rounded">
-    <div class="px-4 py-3 border-b border-b-white/10">
-      <h1 class="text-xl font-semibold text-white ">Update password</h1>
+    <div class="border border-white/10 rounded">
+        <div class="px-4 py-3 border-b border-b-white/10">
+            <h1 class="text-xl font-semibold text-white ">Update password</h1>
+        </div>
+        <form action="" class="p-4">
+            <div class="mb-3">
+                <label for="currentPassword" class="text-sm">Current
+                    password</label>
+                <input type="password" name="currentPassword"
+                    id="currentPassword"
+                    placeholder="Enter Your Current password" required
+                    class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+            </div>
+            <div class="mb-3">
+                <label for="newPassword" class="text-sm">New password</label>
+                <input type="password" name="newPassword" id="newPassword"
+                    placeholder="Enter Your new password" required
+                    class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+            </div>
+            <div class="mb-3">
+                <label for="confirmNewPassword" class="text-sm">Confirm new
+                    password</label>
+                <input type="password" name="confirmNewPassword"
+                    id="confirmNewPassword"
+                    placeholder="Enter Your Confirm new password" required
+                    class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+            </div>
+            <button type="submit"
+                class="w-full py-2 rounded transition-colors duration-200 ease-in-out bg-blue-600 text-white hover:bg-blue-500">Change
+                Password</button>
+        </form>
     </div>
-    <form action="" class="p-4">
-      <div class="mb-3">
-        <label for="currentPassword" class="text-sm">Current password</label>
-        <input type="password" name="currentPassword" id="currentPassword" placeholder="Enter Your Current password" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
-      </div>
-      <div class="mb-3">
-        <label for="newPassword" class="text-sm">New password</label>
-        <input type="password" name="newPassword" id="newPassword" placeholder="Enter Your new password" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
-      </div>
-      <div class="mb-3">
-        <label for="confirmNewPassword" class="text-sm">Confirm new password</label>
-        <input type="password" name="confirmNewPassword" id="confirmNewPassword" placeholder="Enter Your Confirm new password" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
-      </div>
-      <button type="submit" class="w-full py-2 rounded transition-colors duration-200 ease-in-out bg-blue-600 text-white hover:bg-blue-500">Change
-        Password</button>
-    </form>
-  </div>
 </div>
 
 <script>
-  document.getElementById('avatar').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = document.getElementById('previewImage');
-        img.src = e.target.result;
-      }
-      reader.readAsDataURL(file);
+    document.getElementById('avatar').addEventListener('change', function(
+    event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('previewImage');
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById("updateProfileForm").addEventListener("submit",
+        function(e) {
+            disableSubmitButton();
+        });
+
+    function disableSubmitButton() {
+        const submitButton = document.getElementById("submit-button");
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
     }
-  });
+    document.getElementById("updateSocialForm").addEventListener("submit",
+        function(e) {
+            disableSubmitButton2();
+        });
 
-  document.getElementById("updateProfileForm").addEventListener("submit", function(e) {
-    disableSubmitButton();
-  });
-
-  function disableSubmitButton() {
-    const submitButton = document.getElementById("submit-button");
-    submitButton.disabled = true;
-    submitButton.textContent = "Submitting...";
-  }
-  document.getElementById("updateSocialForm").addEventListener("submit", function(e) {
-    disableSubmitButton2();
-  });
-
-  function disableSubmitButton2() {
-    const submitButton = document.getElementById("submit-button-social");
-    submitButton.disabled = true;
-    submitButton.textContent = "Submitting...";
-  }
+    function disableSubmitButton2() {
+        const submitButton = document.getElementById("submit-button-social");
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+    }
 </script>
