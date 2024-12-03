@@ -1,0 +1,145 @@
+<div class="my-5 border border-white/10 rounded">
+    <div class="px-4 py-3 border-b border-b-white/10">
+        <h1 class="text-xl font-semibold text-white ">Edit Blog</h1>
+    </div>
+    <% if (error_msg.length > 0) { %>
+    <div id="error-message"
+        class="mx-3 mt-4 p-2 rounded text-center border border-red-500 bg-red-500/5">
+        <p class="text-red-600 text-sm">
+            <%- error_msg %>
+        </p>
+    </div>
+    <script>
+        setTimeout(function() {
+            const errorMessage = document.getElementById(
+                "error-message");
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+        }, 5000);
+    </script>
+
+    
+    <% } %>
+    <% if (success_msg.length > 0) { %>
+    <div id="success_msg"
+        class="mx-3 mt-4 p-2 rounded text-center border border-emerald-500 bg-emerald-500/5">
+        <p class="text-emerald-600 text-sm">
+            <%- success_msg %>
+        </p>
+    </div>
+    <script>
+        setTimeout(function() {
+            const successMessage = document.getElementById(
+                "success_msg");
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+        }, 5000);
+    </script>
+
+    
+    <% } %>
+    <form action="/admin/api/v1/post/update" method="post"
+        enctype="multipart/form-data" id="addPostForm" class="p-4">
+        <input type="hidden" name="postID" id="postID" value="<%-post._id %>">
+        <div class="mb-5">
+            <label for="title" class="text-sm">Title</label>
+            <input type="text" name="title" id="title" value="<%- post.title  %>"
+                placeholder="Enter  your Title"
+                class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"
+                required>
+        </div>
+        <div class="mb-3 flex md:flex-row flex-col items-start gap-5">
+            <div class="md:w-3/5 w-full">
+                <div class="w-full aspect-video overflow-hidden rounded mb-3">
+                    <img src="<%-post.image.secure_url  %>" alt="Thumbnail"
+                        id="previewImage" class="w-full h-full object-cover">
+                </div>
+                <p class="text-sm mb-3"><strong>Note:</strong> Only JPG, JPEG
+                    and PNG. Our suggested dimensions are 600px * 450px. Larger
+                    image will be cropped to 4:3 to fit our thumbnails/previews.
+                </p>
+                <input type="file" name="avatar" id="avatar">
+            </div>
+            <div class="md:w-2/5 w-full">
+                <div class="mb-3">
+                    <label for="category" class="text-sm">Category</label>
+                    <select name="category" id="category"
+                        class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
+                        <% categories.forEach((cat) => { %>
+                        <option value="<%- cat._id %>"
+                            class="capitalize" <% if (cat.name === post.category.name) { %>selected 
+                            <% } %>>
+                            <%- cat.name %>
+                        </option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="tags" class="text-sm">Tags</label>
+                    <input type="text" name="tags" id="tags"
+                        placeholder="business, sports ..."
+                        value="<%- post.tags  %>"
+                        class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"
+                        required>
+                    <p class="text-sm mt-1">Maximum of 14 keywords. Keywords
+                        should all be in lowercase and separated by commas. e.g.
+                        javascript, react, marketing.</p>
+                </div>
+                <div class="mb-3">
+                    <label for="isPublish" class="text-sm">Make this post
+                        publish?</label>
+                    <select name="isPublish" id="isPublish"
+                        placeholder="business, sports ..."
+                        class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"
+                        required>
+                        <option value="true" <% if(post.isPublish == true) { %>selected<% } %>>Publish</option>
+                        <option value="false" <% if(post.isPublish != true) { %>selected<% } %>>Draft</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="text-sm">Short description</label>
+            <textarea name="description" id="description" rows="3"
+                placeholder="Enter Your Description" required 
+                class="w-full p-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900"
+                autocomplete="on"><%- post.description  %></textarea>
+        </div>
+        <div class="mb-3">
+            <span class="text-sm">Content</span>
+            <div id="content" name="content"><%- post.content  %></div>
+        </div>
+        <button type="submit" id="submit-button"
+            class="h-10 w-full bg-blue-600 text-white transition-colors duration-200 ease-in-out hover:bg-blue-500 rounded flex items-center justify-center">
+            Save Changes
+        </button>
+    </form>
+</div>
+<script src="/tinymce/tinymce.min.js"></script>
+<script src="/js/editor.js"></script>
+<script>
+    document.getElementById('avatar').addEventListener('change', function(
+    event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('previewImage');
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    document.getElementById("addPostForm").addEventListener("submit", function(
+        e) {
+        disableSubmitButton2();
+    });
+
+    function disableSubmitButton2() {
+        const submitButton = document.getElementById("submit-button");
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+    }
+</script>

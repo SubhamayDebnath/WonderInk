@@ -218,6 +218,35 @@ const addPostPage = async (req, res) => {
     return res.redirect("/error");
   }
 };
+const editPostPage = async (req, res) => {
+  try {
+    const locals = {
+      title: "Wonderink - Edit - Post",
+      description: "Welcome to our dashboard Profile page",
+    };
+    const postID = req.params.id;
+    if(!postID){
+      return res.redirect("/admin/dashboard")
+    }
+    const post = await Post.findById(postID).populate("category", "name");
+    if(!post){
+      return res.redirect("/admin/dashboard")
+    }
+    const categories = await Category.find();
+    return res.render("form/editPost", {
+      layout: adminLayout,
+      locals,
+      isAdmin: req.user.isAdmin,
+      categories,
+      post
+    });
+  } catch (error) {
+    console.log(`Add Post page error : ${error}`);
+    return res.redirect("/error");
+  }
+};
+
+
 
 const addCategoryPage = async (req, res) => {
   try {
@@ -548,6 +577,74 @@ const addPost = async(req,res)=>{
     return res.redirect("/error");
   }
 }
+const updatePost = async (req,res) => {
+  try {
+    const {postID,title,category,tags,isPublish,description,content}=req.body;
+    if(!title || !category || !tags || !isPublish || !description || !content){
+      req.flash("error_msg", "Please fill all fields");
+      return res.redirect(`/admin/post/edit/${postID}`)
+    }
+    const post = await Post.findById({ _id: postID });
+    if(!post){
+      return res.redirect("/admin/dashboard");
+    }
+    let slug=post.slug;
+    if(title != post.title ){
+      slug = slugify(title, {
+        lower: true,
+        strict: true,
+        replacement: "-",
+      });
+      const existingPost = await Post.findOne({
+        slug: slug,
+        _id: { $ne: postID },
+      });
+      if (!existingPost) {
+        slug = `${slug}-${Date.now()}`;
+      }
+    }
+    let image = post.image.secure_url;
+    let public_id = post.image.public_id;
+    if (req.file) {
+      await cloudinary.uploader.destroy(public_id);
+      const transformationOptions = {
+        transformation: [
+          {
+            quality: "auto:low",
+            fetch_format: "avif",
+          },
+        ],
+      };
+
+      const cloudinaryResult = await cloudinary.uploader.upload(
+        req.file.path,
+        transformationOptions
+      );
+
+      image = cloudinaryResult.secure_url;
+      public_id = cloudinaryResult.public_id;
+      await fs.rm(req.file.path);
+    }
+    post.image = {
+      public_id:public_id,
+      secure_url: image,
+    };
+    post.title = title
+    post.category = category
+    post.tags=tags.split(",").map(tag => tag.trim());
+    post.isPublish=isPublish == 'true'
+    post.slug=slug
+    post.description = description
+    post.content=content
+    post.save();
+    req.flash("success_msg", "Post updated successfully");
+    return res.redirect(`/admin/post/edit/${postID}`);
+
+  } catch (error) {
+    console.log(`Update Post page error : ${error}`);
+    return res.redirect("/error");
+  }
+}
 const disablePost = async (req,res) => {
   try {
     const { postSlug, id } = req.params;
@@ -699,5 +796,7 @@ export {
   contactPage,
   newsletterPage,
   adminUserBlogsPage ,
-  disablePost
+  disablePost,
+  editPostPage,
+  updatePost
 };

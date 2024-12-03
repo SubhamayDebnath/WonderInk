@@ -23,7 +23,7 @@ import {
   addNewsletter,
   contactPage,
   newsletterPage,
-  adminUserBlogsPage ,disablePost
+  adminUserBlogsPage ,disablePost,editPostPage,updatePost
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middleware/auth.middleware.js";
 import upload from '../middleware/multer.middleware.js'
@@ -42,6 +42,7 @@ router.get('/newsletter',isAuthorized,newsletterPage)
 router.get("/category/add", isAuthorized, addCategoryPage);
 router.get("/category/edit/:id", isAuthorized, editCategoryPage);
 router.get("/post/add",isAuthorized,addPostPage);
+router.get('/post/edit/:id',isAuthorized,editPostPage)
 
 
 router.post("/api/v1/category/add", isAuthorized, addCategory);
@@ -57,6 +58,7 @@ router.put('/setting/sidebar/update',isAuthorized,sidebarSetting);
 router.put('/setting/dashboard/update',isAuthorized,dashboardSetting);
 
 router.post('/api/v1/post/add',isAuthorized,upload.single("avatar"),addPost);
+router.post('/api/v1/post/update',isAuthorized,upload.single("avatar"),updatePost);
 router.put('/api/v1/post/disable/:postSlug/:id',isAuthorized,disablePost)
 
 router.post('/contact/add',isAuthorized,addContactMessage);
