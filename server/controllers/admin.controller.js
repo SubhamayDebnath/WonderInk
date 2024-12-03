@@ -55,7 +55,7 @@ const adminBlogsPage = async (req, res) => {
     let perPage = setting.dashboard.postNumber || 6;
     let page = req.query.page || 1;
     const postCount = await Post.countDocuments();
-    const posts = await Post.find({isPublish: true })
+    const posts = await Post.find()
     .populate("category", "name")
     .populate("author", "name")
     .sort({ createdAt: -1 })
@@ -93,7 +93,7 @@ const adminUserBlogsPage = async (req, res) => {
     let perPage = setting.dashboard.postNumber || 6;
     let page = req.query.page || 1;
   
-    const posts = await Post.find({isPublish: true,author:req.user._id })
+    const posts = await Post.find({author:req.user._id })
     .populate("category", "name")
     .populate("author", "name")
     .sort({ createdAt: -1 })
@@ -548,6 +548,56 @@ const addPost = async(req,res)=>{
     return res.redirect("/error");
   }
 }
+const disablePost = async (req,res) => {
+  try {
+    const { postSlug, id } = req.params;
+    const {status} = req.body;
+    if(!id){
+      if(postSlug == 'all'){
+        req.flash("error_msg", "Invalid post ID");
+        return res.redirect("/admin/blogs");
+      }
+      if(postSlug == 'user'){
+        req.flash("error_msg", "Invalid post ID");
+        return res.redirect("/admin/blog");
+      }
+    }
+    const post = await Post.findById(id);
+    if(!post){
+      if(postSlug == 'all'){
+        req.flash("error_msg", "Invalid post ID");
+        return res.redirect("/admin/blog");
+      }
+      if(postSlug == 'user'){
+        req.flash("error_msg", "Invalid post ID");
+        return res.redirect("/admin/blogs");
+      }
+    }
+    post.isPublish = status == "false";
+    await post.save()
+    if(postSlug == 'all'){
+      if(post.isPublish){
+        req.flash("success_msg", "Category enabled");
+        return res.redirect("/admin/blog");
+      }else{
+        req.flash("success_msg", "Category disabled");
+        return res.redirect("/admin/blog");
+      }
+    }
+    if(postSlug == 'user'){
+      if(post.isPublish){
+        req.flash("success_msg", "Category enabled");
+        return res.redirect("/admin/blogs");
+      }else{
+        req.flash("success_msg", "Category disabled");
+        return res.redirect("/admin/blogs");
+      }
+    }
+  } catch (error) {
+    console.log(`Disable Post error : ${error}`);
+    return res.redirect("/error");
+  }
+}
 const contactPage = async(req,res)=>{
   try {
     const locals = {
@@ -648,5 +698,6 @@ export {
   addNewsletter,
   contactPage,
   newsletterPage,
-  adminUserBlogsPage 
+  adminUserBlogsPage ,
+  disablePost
 };

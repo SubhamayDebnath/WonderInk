@@ -17,6 +17,40 @@
             <span>Add a Blog</span>
         </a>
     </div>
+    <% if (error_msg.length > 0) { %>
+        <div id="error-message"
+            class="mt-4 p-2 mx-4 rounded text-center border border-red-500 bg-red-500/5">
+            <p class="text-red-600 text-sm">
+                <%- error_msg %>
+            </p>
+        </div>
+        <script>
+            setTimeout(function() {
+                const errorMessage = document.getElementById(
+                    "error-message");
+                if (errorMessage) {
+                    errorMessage.style.display = 'none';
+                }
+            }, 5000);
+        </script>
+        <% } %>
+        <% if (success_msg.length > 0) { %>
+        <div id="success_msg"
+            class="mt-4 p-2 mx-4 rounded text-center border border-emerald-500 bg-emerald-500/5">
+            <p class="text-emerald-600 text-sm">
+                <%- success_msg %>
+            </p>
+        </div>
+        <script>
+            setTimeout(function() {
+                const successMessage = document.getElementById(
+                    "success_msg");
+                if (successMessage) {
+                    successMessage.style.display = 'none';
+                }
+            }, 5000);
+        </script>
+        <% } %>
     <% if (posts.length) { %>
     <div class="p-4">
         <div class="overflow-x-auto ">
@@ -114,7 +148,8 @@ year: 'numeric'
                                     </svg>
 
                                 </a>
-                                <form action="">
+                                <form action="/admin/api/v1/post/disable/all/<%-post._id %>?_method=PUT" method="post"onsubmit="return confirmChangeStatus()"> 
+                                    <input type="hidden" name="status" id="status" value="<%- post.isPublish  %>">
                                     <button type="submit"
                                         class="h-9 md:h-8 text-white aspect-square flex items-center justify-center rounded border border-white/10 bg-gray-800"
                                         title="Status Button">
@@ -208,3 +243,9 @@ year: 'numeric'
     
     <% } %>
 </div>
+
+<script>
+        function confirmChangeStatus() {
+        return confirm(`Are you sure you want to change status?`);
+    }
+</script>
