@@ -645,6 +645,48 @@ const updatePost = async (req,res) => {
     return res.redirect("/error");
   }
 }
+const deletePost = async (req,res) => {
+  try {
+    const postID = req.params.id;
+    const {page} = req.body;
+    if(!postID){
+      if(page == 'all'){
+        req.flash("error_msg", "Post id not found");
+        return res.redirect('/admin/blogs');
+      }
+      if(page == 'user'){
+        req.flash("error_msg", "Post id not found");
+        return res.redirect('/admin/blog');
+      }
+    }
+    const post = await Post.findById(postID);
+    if(!post){
+      if(page == 'all'){
+        req.flash("error_msg", "Post not found");
+        return res.redirect('/admin/blogs');
+      }
+      if(page == 'user'){
+        req.flash("error_msg", "Post not found");
+        return res.redirect('/admin/blog');
+      }
+    }
+    let public_id = post.image.public_id;
+    console.log(public_id);
+    await cloudinary.uploader.destroy(public_id);
+    await Post.findByIdAndDelete(postID);
+    if(page == 'all'){
+      req.flash("success_msg", "Post delete successfully");
+      return res.redirect('/admin/blogs');
+    }
+    if(page == 'user'){
+      req.flash("success_msg", "Post delete successfully");
+      return res.redirect('/admin/blog');
+    }
+  } catch (error) {
+    console.log(`Delete Post page error : ${error}`);
+    return res.redirect("/error");
+  }
+}
 const disablePost = async (req,res) => {
   try {
     const { postSlug, id } = req.params;
@@ -798,5 +840,6 @@ export {
   adminUserBlogsPage ,
   disablePost,
   editPostPage,
-  updatePost
+  updatePost,
+  deletePost
 };

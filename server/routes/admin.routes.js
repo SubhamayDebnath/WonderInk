@@ -23,7 +23,7 @@ import {
   addNewsletter,
   contactPage,
   newsletterPage,
-  adminUserBlogsPage ,disablePost,editPostPage,updatePost
+  adminUserBlogsPage ,disablePost,editPostPage,updatePost,deletePost
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middleware/auth.middleware.js";
 import upload from '../middleware/multer.middleware.js'
@@ -60,6 +60,7 @@ router.put('/setting/dashboard/update',isAuthorized,dashboardSetting);
 router.post('/api/v1/post/add',isAuthorized,upload.single("avatar"),addPost);
 router.post('/api/v1/post/update',isAuthorized,upload.single("avatar"),updatePost);
 router.put('/api/v1/post/disable/:postSlug/:id',isAuthorized,disablePost)
+router.delete('/api/v1/post/delete/:id',isAuthorized,deletePost);
 
 router.post('/contact/add',isAuthorized,addContactMessage);
 router.post('/newsletter/add',isAuthorized,addNewsletter);
