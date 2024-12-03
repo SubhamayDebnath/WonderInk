@@ -368,6 +368,11 @@ const deleteCategory = async (req, res) => {
       req.flash("error_msg", "Category not found");
       return res.redirect("/admin/category");
     }
+    let uncategorizedCategory = await Category.findOne({ name: "uncategorized" });
+    if (!uncategorizedCategory) {
+      uncategorizedCategory = await Category.create({ name: "uncategorized" });
+    }
+    await Post.updateMany({ category: categoryID }, { category: uncategorizedCategory._id });
     req.flash("success_msg", "Category deleted");
     res.redirect("/admin/category");
   } catch (error) {
