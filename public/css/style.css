@@ -1368,6 +1368,10 @@ video {
   width: 100%;
 }
 
+.w-\[52rem\]{
+  width: 52rem;
+}
+
 .min-w-max{
   min-width: -moz-max-content;
   min-width: max-content;
@@ -1383,6 +1387,10 @@ video {
 
 .max-w-md{
   max-width: 28rem;
+}
+
+.max-w-\[52rem\]{
+  max-width: 52rem;
 }
 
 .table-auto{
@@ -1692,6 +1700,25 @@ video {
   background-color: rgb(255 255 255 / 0.5);
 }
 
+.bg-gradient-to-r{
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.from-blue-500{
+  --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.to-purple-500{
+  --tw-gradient-to: #a855f7 var(--tw-gradient-to-position);
+}
+
+.bg-clip-text{
+  -webkit-background-clip: text;
+          background-clip: text;
+}
+
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
@@ -1786,6 +1813,11 @@ video {
   padding-bottom: 1.25rem;
 }
 
+.py-32{
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
 .pb-5{
   padding-bottom: 1.25rem;
 }
@@ -1867,6 +1899,11 @@ video {
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-4xl{
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .font-black{
@@ -1958,6 +1995,10 @@ video {
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.text-transparent{
+  color: transparent;
 }
 
 .outline-none{
@@ -2110,6 +2151,16 @@ video {
     font-size: 2.25rem;
     line-height: 2.5rem;
   }
+
+  .sm\:text-5xl{
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .sm\:text-3xl{
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
 }
 
 @media (min-width: 768px){
@@ -2193,6 +2244,22 @@ video {
     width: fit-content;
   }
 
+  .md\:w-\[\]{
+    width: ;
+  }
+
+  .md\:w-\[52rem\]{
+    width: 52rem;
+  }
+
+  .md\:w-\[35rem\]{
+    width: 35rem;
+  }
+
+  .md\:w-\[25rem\]{
+    width: 25rem;
+  }
+
   .md\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2239,6 +2306,15 @@ video {
     padding-bottom: 2.5rem;
   }
 
+  .md\:py-20{
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .md\:text-center{
+    text-align: center;
+  }
+
   .md\:text-3xl{
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -2257,6 +2333,16 @@ video {
   .md\:text-5xl{
     font-size: 3rem;
     line-height: 1;
+  }
+
+  .md\:text-6xl{
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+
+  .md\:text-4xl{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 }
 
@@ -2317,6 +2403,11 @@ video {
 
   .lg\:text-6xl{
     font-size: 3.75rem;
+    line-height: 1;
+  }
+
+  .lg\:text-7xl{
+    font-size: 4.5rem;
     line-height: 1;
   }
 }
