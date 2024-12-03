@@ -83,6 +83,45 @@ const adminBlogsPage = async (req, res) => {
     return res.redirect("/error");
   }
 };
+const adminUserBlogsPage = async (req, res) => {
+  try {
+    const locals = {
+      title: "Wonderink - Dashboard - Blog",
+      description: "Welcome to our dashboard blog page",
+    };
+    const setting = await Setting.findOne();
+    let perPage = setting.dashboard.postNumber || 6;
+    let page = req.query.page || 1;
+  
+    const posts = await Post.find({isPublish: true,author:req.user._id })
+    .populate("category", "name")
+    .populate("author", "name")
+    .sort({ createdAt: -1 })
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec();
+    const postCount = (await await Post.find({isPublish: true,author:req.user._id })).length;
+    const count = postCount;
+    const totalPages = Math.ceil(count / perPage);
+    const nextPage = parseInt(page) + 1;
+    const hasNextPage = nextPage <= Math.ceil(count / perPage);
+    const prevPage = page > 1 ? page - 1 : null;
+    return res.render("admin/userBlogs", {
+      layout: adminLayout,
+      locals,
+      isAdmin: req.user.isAdmin,
+      posts,
+      postCount,
+      current: page,
+      nextPage: hasNextPage ? nextPage : null,
+      prevPage,
+      totalPages,
+    });
+  } catch (error) {
+    console.log(`Admin Blog page error : ${error}`);
+    return res.redirect("/error");
+  }
+};
 const adminCategoryPage = async (req, res) => {
   try {
     const locals = {
@@ -608,5 +647,6 @@ export {
   addContactMessage,
   addNewsletter,
   contactPage,
-  newsletterPage
+  newsletterPage,
+  adminUserBlogsPage 
 };

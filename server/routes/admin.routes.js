@@ -22,7 +22,8 @@ import {
   addContactMessage,
   addNewsletter,
   contactPage,
-  newsletterPage
+  newsletterPage,
+  adminUserBlogsPage 
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middleware/auth.middleware.js";
 import upload from '../middleware/multer.middleware.js'
@@ -30,7 +31,8 @@ import upload from '../middleware/multer.middleware.js'
 const router = Router();
 
 router.get("/dashboard", isAuthorized, dashboard);
-router.get("/blog", isAuthorized, adminBlogsPage);
+router.get("/blog", isAuthorized, adminUserBlogsPage );
+router.get("/blogs", isAuthorized, adminBlogsPage);
 router.get("/category", isAuthorized, adminCategoryPage);
 router.get("/users", isAuthorized, adminUsersPage);
 router.get("/profile", isAuthorized, adminProfilePage);

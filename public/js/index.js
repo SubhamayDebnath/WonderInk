@@ -12,3 +12,12 @@ const toggleNavbar = function () {
 };
 
 addEventOnElements(navTogglers, "click", toggleNavbar);
+
+const navHeaderTogglers = document.querySelectorAll("[data-nav-header-toggler]");
+const menuHeader = document.querySelector(".menu-header")
+
+const toggleNavbarHeader = function () {
+  menuHeader.classList.toggle("show");
+};
+
+addEventOnElements(navHeaderTogglers, "click", toggleNavbarHeader);
