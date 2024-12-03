@@ -20,9 +20,7 @@ import {
   addPostPage,
   addPost,
   addContactMessage,
-  addNewsletter,
   contactPage,
-  newsletterPage,
   adminUserBlogsPage ,disablePost,editPostPage,updatePost,deletePost
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middleware/auth.middleware.js";
@@ -38,7 +36,6 @@ router.get("/users", isAuthorized, adminUsersPage);
 router.get("/profile", isAuthorized, adminProfilePage);
 router.get("/settings", isAuthorized, adminSettingPage);
 router.get('/contact',isAuthorized,contactPage)
-router.get('/newsletter',isAuthorized,newsletterPage)
 router.get("/category/add", isAuthorized, addCategoryPage);
 router.get("/category/edit/:id", isAuthorized, editCategoryPage);
 router.get("/post/add",isAuthorized,addPostPage);
@@ -63,6 +60,5 @@ router.put('/api/v1/post/disable/:postSlug/:id',isAuthorized,disablePost)
 router.delete('/api/v1/post/delete/:id',isAuthorized,deletePost);
 
 router.post('/contact/add',isAuthorized,addContactMessage);
-router.post('/newsletter/add',isAuthorized,addNewsletter);
 
 export default router;
