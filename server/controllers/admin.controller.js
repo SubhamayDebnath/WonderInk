@@ -783,6 +783,30 @@ const addContactMessage = async (req, res) => {
   }
 }
 
+const changeUserRole = async (req,res) => {
+  try {
+    
+  } catch (error) {
+    console.log(`Change User role error : ${error}`);
+    return res.redirect("/error");
+  }
+}
+const changeUserStatus = async (req,res) => {
+  try {
+    
+  } catch (error) {
+    console.log(`Change Status role error : ${error}`);
+    return res.redirect("/error");
+  }
+}
+const deleteUser = async (req,res) => {
+  try {
+    
+  } catch (error) {
+    console.log(`Delete user error : ${error}`);
+    return res.redirect("/error");
+  }
+}
 
 export {
   dashboard,
@@ -810,5 +834,8 @@ export {
   disablePost,
   editPostPage,
   updatePost,
-  deletePost
+  deletePost,
+  changeUserRole,
+  deleteUser,
+  changeUserStatus
 };

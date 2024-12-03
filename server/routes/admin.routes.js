@@ -21,7 +21,7 @@ import {
   addPost,
   addContactMessage,
   contactPage,
-  adminUserBlogsPage ,disablePost,editPostPage,updatePost,deletePost
+  adminUserBlogsPage ,disablePost,editPostPage,updatePost,deletePost,changeUserRole,deleteUser,changeUserStatus
 } from "../controllers/admin.controller.js";
 import { isAuthorized } from "../middleware/auth.middleware.js";
 import upload from '../middleware/multer.middleware.js'
@@ -60,5 +60,9 @@ router.put('/api/v1/post/disable/:postSlug/:id',isAuthorized,disablePost)
 router.delete('/api/v1/post/delete/:id',isAuthorized,deletePost);
 
 router.post('/contact/add',isAuthorized,addContactMessage);
+
+router.put('/api/v1/user/role/:id',isAuthorized,changeUserRole)
+router.put('/api/v1/user/status/:id',isAuthorized,changeUserStatus);
+router.delete('/api/v1/user/delete/:id',isAuthorized,deleteUser)
 
 export default router;
