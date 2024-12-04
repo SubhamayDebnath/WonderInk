@@ -33,7 +33,7 @@ const homePage = async (req, res) => {
       uniqueTags=[];
     }
    
-    res.render("home/index", { locals, user: req.user, posts, categories,uniqueTags });
+    res.render("home/index", { locals, user: req.user, posts:posts, categories,uniqueTags });
   } catch (error) {
     console.log(`Home page error : ${error}`);
     res.redirect("/error");
@@ -80,7 +80,7 @@ const blogsPage = async (req, res) => {
     res.render("home/blogs", {
       locals,
       user: req.user,
-      posts,
+      posts:posts,
       categories,
       current: page,
       nextPage: hasNextPage ? nextPage : null,

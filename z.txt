@@ -1,7 +1,0 @@
-postID: '674d84323dbf056ee3828f11',
-  title: 'noobsubhamay',
-  category: '674b30aabe58255cd5295974',
-  tags: 'noob',
-  isPublish: 'true',
-  description: 'dddasdsa',
-  content: '<p>adadasdsa</p>'

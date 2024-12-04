@@ -27,7 +27,7 @@
     <h1 class="text-2xl font-bold text-white py-2 mb-2">Latest Posts</h1>
     <div class="flex md:flex-row flex-col items-start relative md:gap-5 gap-10">
         <div class="w-full md:w-4/6 border-t border-t-white/10">
-            <% if (posts.length) { %>
+        <% if (posts.length > 0) { %>
             <% posts.forEach((post) => { %>
             <div class="flex flex-col gap-3 py-5 border-b border-b-white/10">
                 <h2 class="text-2xl font-bold group text-white ">
