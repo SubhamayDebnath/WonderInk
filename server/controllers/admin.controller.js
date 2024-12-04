@@ -127,15 +127,30 @@ const adminCategoryPage = async (req, res) => {
       title: "Wonderink - Dashboard - Category",
       description: "Welcome to our dashboard category page",
     };
-    const categories = await Category.find().sort({ createdAt: -1 });
-    const categoryCount = await Category.countDocuments();
+    const setting = await Setting.findOne();
+    let perPage = setting.dashboard.categoryNumber || 6;
+    let page = req.query.page || 1;
+    const categories = await Category.find()
+    .sort({ createdAt: -1 })
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec();
+    const count = await Category.countDocuments();
+    const totalPages = Math.ceil(count / perPage);
+    const nextPage = parseInt(page) + 1;
+    const hasNextPage = nextPage <= Math.ceil(count / perPage);
+    const prevPage = page > 1 ? page - 1 : null;
 
     return res.render("admin/category", {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
       categories,
-      categoryCount
+      categoryCount:count,
+      current: page,
+      nextPage: hasNextPage ? nextPage : null,
+      prevPage,
+      totalPages,
     });
   } catch (error) {
     console.log(`Admin Category page error : ${error}`);
@@ -148,14 +163,29 @@ const adminUsersPage = async (req, res) => {
       title: "Wonderink - Dashboard - User",
       description: "Welcome to our dashboard User page",
     };
-    const users = await User.find().sort({ createdAt: -1 });
-    const userCount = await User.countDocuments();
+    const setting = await Setting.findOne();
+    let perPage = setting.dashboard.userNumber || 6;
+    let page = req.query.page || 1;
+    const users = await User.find()
+    .sort({ createdAt: -1 })
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec();
+    const count = await User.countDocuments();
+    const totalPages = Math.ceil(count / perPage);
+    const nextPage = parseInt(page) + 1;
+    const hasNextPage = nextPage <= Math.ceil(count / perPage);
+    const prevPage = page > 1 ? page - 1 : null;
     return res.render("admin/user", {
       layout: adminLayout,
       locals,
       isAdmin: req.user.isAdmin,
       users,
-      userCount
+      userCount:count,
+      current: page,
+      nextPage: hasNextPage ? nextPage : null,
+      prevPage,
+      totalPages,
     });
   } catch (error) {
     console.log(`Admin User page error : ${error}`);
@@ -785,7 +815,18 @@ const addContactMessage = async (req, res) => {
 
 const changeUserRole = async (req,res) => {
   try {
-    
+    const userID = req.params.id;
+    const {role} = req.body;
+    const user = await User.findById(userID);
+    if(!user){
+      req.flash("error_msg", "User not found");
+      return res.redirect("/admin/users");
+    }
+    user.isAdmin = role == "false";
+    await user.save();
+    req.flash("success_msg", "User role changed successfully");
+    return res.redirect("/admin/users");
+
   } catch (error) {
     console.log(`Change User role error : ${error}`);
     return res.redirect("/error");
@@ -793,6 +834,17 @@ const changeUserRole = async (req,res) => {
 }
 const changeUserStatus = async (req,res) => {
   try {
+    const userID = req.params.id;
+    const {status} = req.body;
+    const user = await User.findById(userID);
+    if(!user){
+      req.flash("error_msg", "User not found");
+      return res.redirect("/admin/users");
+    }
+    user.isActive = status == "false";
+    await user.save();
+    req.flash("success_msg", "User Status changed successfully");
+    return res.redirect("/admin/users");
     
   } catch (error) {
     console.log(`Change Status role error : ${error}`);
@@ -801,7 +853,14 @@ const changeUserStatus = async (req,res) => {
 }
 const deleteUser = async (req,res) => {
   try {
-    
+    const userID = req.params.id;
+    const user = await User.findByIdAndDelete(userID);
+    if(!user){
+      req.flash("error_msg", "User not found");
+      return res.redirect("/admin/users");
+    }
+    req.flash("success_msg", "User deleted successfully");
+    return res.redirect("/admin/users");
   } catch (error) {
     console.log(`Delete user error : ${error}`);
     return res.redirect("/error");

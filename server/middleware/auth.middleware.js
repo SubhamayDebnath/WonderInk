@@ -11,6 +11,7 @@ const isLoggedIn = async (req, res, next) => {
   try {
     const {accessToken } = req.cookies;
     if (accessToken) {
+      res.clearCookie("accessToken");
       return res.redirect("/");
     }
     next();

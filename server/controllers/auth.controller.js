@@ -132,6 +132,37 @@ const login = async (req, res) => {
   }
 };
 
+const updatePassword = async (req,res) => {
+  try {
+    const {currentPassword , newPassword ,confirmNewPassword} = req.body;
+    const userID = req.params.id;
+    if(!currentPassword || !newPassword || !confirmNewPassword){
+      req.flash("error_msg", "Please fill in all fields");
+      return res.redirect("/admin/profile");
+    }
+    if(newPassword != confirmNewPassword){
+      req.flash("error_msg", "Passwords do not match");
+      return res.redirect("/admin/profile")
+    }
+    if(currentPassword == newPassword){
+      req.flash("error_msg", "Current password and new password cannot be the same")
+      return res.redirect("/admin/profile")
+    }
+    const user = await User.findById(userID).select("+password");
+    if (!user) {
+      req.flash("error_msg", "Invalid email or password");
+      return res.redirect("/admin/profile")
+    }
+    const hashPassword=await bcrypt.hash(newPassword, 10);
+    user.password=hashPassword;
+    await user.save();
+    req.flash("success_msg","Password changed successfully");
+    return res.redirect("/admin/profile")
+  } catch (error) {
+    console.log(`Update Password error : ${error}`);
+    res.redirect("/error");
+  }
+}
 const logout = async (req,res) => {
   try {
     res.clearCookie("accessToken");
@@ -142,4 +173,4 @@ const logout = async (req,res) => {
   }
 }
 
-export { registerPage, loginPage, register, login ,logout };
+export { registerPage, loginPage, register, login ,logout,updatePassword };

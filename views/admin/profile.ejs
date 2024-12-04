@@ -1,3 +1,29 @@
+<% if (error_msg.length > 0) { %>
+  <div id="error-message" class="my-5 p-2 rounded text-center border border-red-500 bg-red-500/5">
+    <p class="text-red-600 text-sm"><%- error_msg %></p>
+  </div>
+  <script>
+    setTimeout(function() {
+      const errorMessage = document.getElementById("error-message");
+      if (errorMessage) {
+        errorMessage.style.display = 'none';
+      }
+    }, 5000);
+  </script>
+  <% } %>
+  <% if (success_msg.length> 0) { %>
+  <div id="success_msg" class="my-5 p-2 rounded text-center border border-emerald-500 bg-emerald-500/5">
+    <p class="text-emerald-600 text-sm"><%- success_msg %></p>
+  </div>
+  <script>
+    setTimeout(function() {
+      const successMessage = document.getElementById("success_msg");
+      if (successMessage) {
+        successMessage.style.display = 'none';
+      }
+    }, 5000);
+  </script>
+<% } %>
 <div class="my-5 grid md:grid-cols-2 grid-cols-1 gap-5 ">
   <div class="mb-5 border border-white/10 rounded">
     <div class="px-4 py-3 border-b border-b-white/10">
@@ -180,7 +206,8 @@
     <div class="px-4 py-3 border-b border-b-white/10">
       <h1 class="text-xl font-semibold text-white ">Update password</h1>
     </div>
-    <form action="" class="p-4">
+
+    <form action="/auth/api/v1/password/update/<%-user._id  %>?_method=PUT" method="post" class="p-4">
       <div class="mb-3">
         <label for="currentPassword" class="text-sm">Current password</label>
         <input type="password" name="currentPassword" id="currentPassword" placeholder="Enter Your Current password" required class="w-full h-10 px-2 rounded border text-white placeholder:text-sm  border-white/10 bg-gray-900">
